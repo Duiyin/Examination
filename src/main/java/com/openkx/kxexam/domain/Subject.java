@@ -185,4 +185,10 @@ public class Subject {
 	public void setClassify(Classify classify) {
 		this.classify = classify;
 	}
+
+	public boolean equals(Subject subject) {
+		return this.question_type.equals(subject.getQuestion_type());
+	}
+	
+	
 }

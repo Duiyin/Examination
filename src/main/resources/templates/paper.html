@@ -20,158 +20,65 @@
 						<font><input type="button" name="test_jiaojuan" value="交卷"></font>
 					</div>
 						<div th:each="exam,examStat : ${sublist}">
-							<div  class="test_content" th:if="(${examStat.index}>0)?${exam.question_type} == ${item} :true and ${exam.question_type}=='选择题'"  th:with="item=${exam.question_type}">
+							<div  class="test_content" th:if="(${examStat.index}>0)?(${sublist.get(examStat.index -1 ).question_type} != ${exam.question_type}) :true">
 								<div class="test_content_title" >
-									<span th:if="${exam.question_type}=='选择题'"><h2>选择题</h2></span>
+									<span th:if="${exam.question_type}=='选择题'"><h2>选择题</h2>
 									<p>
-										<span>共</span><i class="content_lit"><span th:text="${sublist.size()}">题，</span></i><span>合计</span><i class="content_fs">60</i><span>分</span>
+										<span>共</span><i class="content_lit"><span th:text="${countx}">题，</span></i><span>合计</span><i class="content_fs" th:text="${countx}"></i><span>分</span>
 									</p>
-								</div>
-							</div>
-							<div  class="test_content" th:unless="(${examStat.index}>0)?${exam.question_type} == ${item} :true" th:if="${exam.question_type}=='判断题'" th:with="item=${exam.question_type}">
-								<div class="test_content_title" >
-									<span th:if="${exam.question_type}=='判断题'"><h2>判断题</h2></span>
+									</span>
+									<span th:if="${exam.question_type}=='判断题'"><h2>判断题</h2>
 									<p>
-										<span>共</span><i class="content_lit"><span th:text="${sublist.size()}">题，</span></i><span>合计</span><i class="content_fs">60</i><span>分</span>
+										<span>共</span><i class="content_lit"><span th:text="${countp}">题，</span></i><span>合计</span><i class="content_fs" th:text="${countp}"></i><span>分</span>
 									</p>
+									</span>
+									
 								</div>
 							</div>
 							<div class="test_content_nr">
-							<ul th:if="${exam.question_type}=='选择题'" >
+								<ul th:if="${exam.question_type}=='选择题'" >
 									<li id="qu_0_0">
 										<div class="test_content_nr_tt">
 											<i th:text="${examStat.count}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
-
 										<div class="test_content_nr_main">
-											<ul>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_1"
-															/>
-														
-														
-														<label for="0_answer_1_option_1">
-															A.
-															<p class="ue" style="display: inline;">在工具栏中点击“workflow”标签</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_2"
-															/>
-														
-														
-														<label for="0_answer_1_option_2">
-															B.
-															<p class="ue" style="display: inline;">在缺陷单界面中点击“推进流程”按钮</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_3"
-															/>
-														
-														
-														<label for="0_answer_1_option_3">
-															C.
-															<p class="ue" style="display: inline;">在缺陷单界面中点击“提交”按钮</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_4"
-															/>
-														
-														
-														<label for="0_answer_1_option_4">
-															D.
-															<p class="ue" style="display: inline;">后台启动流程推进</p>
-														</label>
-													</li>
-												
+											<ul th:each="options : ${exam.options}">
+												<li class="option" >
+													<input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_1"/>
+													<label for="0_answer_1_option_1">
+														<p class="ue" style="display: inline;" th:text="${options}"></p>
+													</label>
+												</li>
 											</ul>
 										</div>
 									</li>
 								</ul>
-							</div>
-							
-							<div class="test_content_nr">
-							<ul th:if="${exam.question_type}=='判断题'" >
-									<li id="qu_0_0">
+								
+								<ul th:if="${exam.question_type}=='判断题'" >
+									<li id="qu_1_0">
 										<div class="test_content_nr_tt">
 											<i th:text="${examStat.count}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
-
 										<div class="test_content_nr_main">
 											<ul>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_1"
-															/>
-														
-														
-														<label for="0_answer_1_option_1">
-															A.
-															<p class="ue" style="display: inline;">在工具栏中点击“workflow”标签</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_2"
-															/>
-														
-														
-														<label for="0_answer_1_option_2">
-															B.
-															<p class="ue" style="display: inline;">在缺陷单界面中点击“推进流程”按钮</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_3"
-															/>
-														
-														
-														<label for="0_answer_1_option_3">
-															C.
-															<p class="ue" style="display: inline;">在缺陷单界面中点击“提交”按钮</p>
-														</label>
-													</li>
-												
-													<li class="option">
-														
-															<input type="radio" class="radioOrCheck" name="answer1"
-																id="0_answer_1_option_4"
-															/>
-														
-														
-														<label for="0_answer_1_option_4">
-															D.
-															<p class="ue" style="display: inline;">后台启动流程推进</p>
-														</label>
-													</li>
-												
+												<li class="option" >
+													<input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_1"/>
+													<label for="1_answer_1_option_1">
+														<p class="ue" style="display: inline;">√</p>
+													</label>
+												</li>
+												<li class="option" >
+													<input type="radio" class="radioOrCheck" name="answer1" id="0_answer_1_option_1"/>
+													<label for="1_answer_1_option_1">
+														<p class="ue" style="display: inline;">×</p>
+													</label>
+												</li>
 											</ul>
 										</div>
 									</li>
 								</ul>
+								
 							</div>
-							
 						</div>
 				</form>
 			</div>
