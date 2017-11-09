@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:each="searchList : ${searchList}">
+<ul><li th:text="${searchList?.topicDescription}">111</li></ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>onlineExam</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+	<div name="nav">
+		<nav class="navbar navbar-default"><!-- 导航 -->
+			<p class="navbar-text">ykexam</p>
+			<ul class="nav navbar-nav">
+				<li class="dropdown" th:each="classify : ${list}">
+				  <a href="#" th:unless="${classify?.parentid}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${classify.name}">Dropdown <span class="caret"></span></a>
+				  <ul class="dropdown-menu" name="menu-li">
+					<li th:each="son : ${classify?.classifys}"><a href="#" th:id="${son?.id}">[[${son?.name}]]</a></li>
+				  </ul>
+				</li>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="search.." name="Asearch">
+					</div>
+					<button type="submit" class="btn btn-default" name="searchButton">给力搜</button>
+				</form>
+			</ul>
+		</nav><!-- 导航end -->
+	</div>
+	
+	<div class="loadHTML"></div>
+	
+	<form th:action="@{/classify/create}" method="post">
+	 	<div>
+	 	<p>
+	 	创建分类：<input name="name" type="text"/>
+	 	</p>
+	 	<input name="" type="submit" value="提交">
+        <input name="" type="reset" value="取消">
+	 	</div>
+	 </form>
+	 
+	 <form th:action="@{/classify/create}" method="post">
+	 	<div>
+	 	<p>
+	 	创建子分类：<input name="name" type="text"/>
+	 	</p>
+	 	<select name="classify" id="classify">
+        	<option th:each="list : ${AllClassify}" th:unless="${list?.parentid}" th:value="${list.id}" th:text="${list.name}">选择分类</option>
+		</select>
+	 	<input name="" type="submit" value="提交">
+        <input name="" type="reset" value="取消">
+	 	</div>
+	 </form>
+	 
+	<div th:each="classify : ${AllClassify}">
+		<ul>
+			<li class="classify" th:unless="${classify?.parentid}"><a th:href="@{'/classify/' + ${classify.id} + '/findDetails/'}" th:text="${classify.name}"></a></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$("[name='menu-li']").on("click",function(){
+	event.preventDefault();
+	alert($(this).find("a").attr("id"));
+	//$(".loadHTML").load("/info/load/" + $(this).find("a").attr("id"), function(){});
+});
+</script>
+</html>

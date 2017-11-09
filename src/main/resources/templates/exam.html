@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:each="exam : ${exam?.items}">
+<a th:href="@{'/info/'+${classify?.id}+'/exam/'+${exam.id}}"><h2 th:text="${exam?.papername}"></h2></a>
+</div>
+<ul class="pagination">
+<li th:class="${exam?.getPage() le 1} ? disabled">
+<a th:href="|?page=${exam?.getPre()}|" href="?page=1" aria-label="上一页">
+<i class="material-icons">上一页</i>
+</a>
+</li>
+<li th:each="page:${exam?.getPages()}" th:class="${exam?.getPage() == page} ? active">
+<a th:href="|?page=${page}|" href="?page=1">[[${page}]]
+<span class="sr-only"></span>
+</a>
+</li>
+<li th:class="${exam?.getPage() ge exam?.getPagecount()} ? disabled">
+<a th:href="|?page=${exam?.getNext()}|" href="?page=2" aria-label="下一页">
+<i class="material-icons">下一页</i>
+</a>
+</li>
+</ul>
+</body>
+</html>

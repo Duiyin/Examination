@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>start</title>
+</head>
+<body>
+	<div>
+		<div>
+			<div th:each="list : ${subjects}">
+				<h1 th:text="${list.topicDescription}">题目题目题目题目题目题目题目题目题目</h1>
+				标签：<span th:each="li : ${list.subject_tag}"><a href="#" th:text="|${li} |"></a></span>
+				录入时间：<text class="div-inline" th:text="${list.releaseTime}">1112</text>
+				类型：<text class="div-inline" th:text="${list.questionTypes}">1112</text>
+				<div name="button_div">
+				<button name="deleteButton" type="button" th:href="@{'/onlineExam/subject/' + ${list.id} + '/detele'}">Detele Me!</button>
+				<button name="updateButton" type="button" th:id="${list.id}">update Me!</button><!-- th:href="@{'/onlineExam/subject/' + ${list.id} + '/update'}" -->
+				<button name="nextButton" type="button" th:id="${list.id}">next!</button>
+				</div>
+				<div th:each="op : ${list.options}"><div class="div-inline" th:text="${op}">AAAAAAAA</div></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.js}"></script>
+<script type="text/javascript">
+$("[name='deleteButton']").on("click",function(){
+		alert("成功删除!");
+	   	$.post($(this).attr("href") ,
+			  function(returndata){
+		  location.reload();
+	  }); 
+});
+$("[name='updateButton']").on("click",function(){
+	alert($(this).attr("id"));
+});
+$("[name='nextButton']").on("click",function(){
+	alert($(this).attr("id"));
+});
+$('span').on("click",function(){
+	event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL
+	var url = "/start/search/" + $(this).text();
+	$.ajax({url,async:false});
+		window.location.href = url;
+	});
+</script>
+</html>

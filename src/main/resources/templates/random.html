@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+选择你要出的题目类型<br/>
+<form action="#" th:action="@{'/info/'+ ${classify.id} +'/random/create'}">
+<div class="abc">
+试卷标题:<input name="papername" />
+</div>
+<div class="show">
+	<div class="box">
+		<div class="input">
+			<input class="check" name="question_type[]" type="checkbox" value="选择题" />选择题 
+		</div>
+		<div class="content" style="display:none;">填写此题型多少道<input type="number" name="number[]" /></div>
+	</div>
+	 <div class="box">
+		<div class="input">
+			<input class="check" name="question_type[]" type="checkbox" value="判断题" />判断题
+		</div>
+		<div class="content" style="display:none;">填写此题型多少道<input type="number" name="number[]" /></div>
+	</div>
+	<div class="box">
+		<div class="input">
+			<input class="check" name="question_type[]" type="checkbox" value="解答题" />解答题
+		</div>
+		<div class="content" style="display:none;">填写此题型多少道<input type="number" name="number[]" /></div>
+	</div>
+	<div class="button">
+		<button class="btn btn-primary radius" name="submit" type="button"> 提交</button>
+	</div>
+</div>
+</form>
+<!-- <div th:each="item,row: ${random}">
+	<h1 th:text="${item?.topicDescription}">题目题目题目题目题目题目题目题目题目</h1>
+</div> -->
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script>
+$(document).on("click", "[name='submit']", function() {
+    var form = $(this).parents("form");
+    console.log(form);
+    $.post(form.attr("action"), form.serialize(), function(json) {
+    	console.log( form.serialize());
+        if (json.result == "success") {
+        	console.log(json);
+        	setTimeout(function(){
+             	 window.location.href = "/";
+             },1000);
+        } else {
+            $.each(json, function(i, val) {
+            	if (i != "result") {
+                    if ($("[data-error='" + i + "']").length)
+                        $("[data-error='" + i + "']").html(val);
+                }
+            });
+        }
+    }, "json");
+});
+var indexs=0;
+$(document).on("click", ".check", function() {
+	if($(this).prop("checked")){    //如果当前的复选框是选中状态
+		indexs=$(".check").index($(this));    //复选框的当前索引值
+		$(".content").eq(indexs).show();    //与复选框索引值相同的content显示
+	}
+	else{    //如果当前的复选框没有被选中
+		indexs=$(".check").index($(this));
+		$(".content").eq(indexs).hide();    //与复选框索引值相同的content隐藏
+	}
+});
+</script>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:each="exam,row:${sublist}">
+<span th:text="${exam.question}"></span>
+<span th:text="${exam.options_json}"></span>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 悬停表格</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+<body>
+
+<table class="table table-hover table-bordered table-condensed" name="classTable" style='vertical-align: middle;text-align:center'>
+	<thead><caption style="text-align:center">ykexam考试</caption></thead>
+	<tbody style="text-align:center">
+		<tr th:each="classify : ${AllClassify}">
+			<th><a href="">[[${classify?.name}]]</a></th>
+			<td th:each="sonClassify : ${classify?.classifys}" th:name="yk" th:id="${sonClassify?.id}">[[${sonClassify?.name}]]</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="alertbox">
+	<a name="sItem" href="#" class="btn btn-primary">单题测验</a>
+	<a name="sButton" href="#" class="btn btn-primary">试卷测试</a>
+	<a name="pButton" href="#" class="btn btn-primary">随机抽取试题</a>
+	<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$(document).on("click", "[name='yk']" ,function(){
+	$(".alertbox").show(300);
+	$("[name='sItem']").attr("href", "/info/"+this.id+"/items/details/");
+	$("[name='sButton']").attr("href", "/info/"+this.id+"/exam");
+	$("[name='pButton']").attr("href", "/info/"+this.id+"/random");
+});
+$(document).on("click", ".alertbox .close", function(){
+	$(".alertbox").hide(300);
+});
+</script>
+</html>
