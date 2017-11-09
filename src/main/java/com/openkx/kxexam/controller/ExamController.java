@@ -1,8 +1,12 @@
 package com.openkx.kxexam.controller;
 
+import java.awt.print.Paper;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,12 +68,14 @@ public class ExamController {
 	@GetMapping("/info/{classifyid}/exam/{id}")
 	public String get(Model model, @PathVariable String id) {
 		Exam exam = examService.findExamById(id);
+		Subject subject = new Subject();
 		List<Subject> sublist = new ArrayList<>();
 		for(String paper : exam.getPapers()){
-			Subject subject = subjectService.findQuestionById(paper);
+			subject = subjectService.findQuestionById(paper);
 			System.err.println(subject.getQuestion());
 			sublist.add(subject);
 		}
+		//System.out.println("a : " + Collections.frequency(sublist, subject.equals(sublist.get(0))));
 		model.addAttribute("sublist", sublist);
 		return "paper";
 	}
