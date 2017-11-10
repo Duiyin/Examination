@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <meta name="description" content="此代码内容为超萌的猫头鹰登录界面" />
-<title>超萌的猫头鹰登录界面</title>
-<link rel="stylesheet" href="css/jq22.css">
+<title>login</title>
+<link rel="stylesheet" th:href="@{/css/jq22.css}">
 </head>
 <body>
 <!-- begin -->
@@ -21,11 +21,11 @@
                     </div>
                 </div>
                 <div class="pad">
-                    <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+                    <input type="hidden" name="_csrf" value="">
                     <div class="control-group">
                         <div class="controls">
-                            <label for="email" class="control-label fa fa-envelope"></label>
-                            <input id="email" type="email" name="email" placeholder="Email" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                            <label for="account" class="control-label fa fa-envelope"></label>
+                            <input id="account" type="account" name="account" placeholder="Account" tabindex="1" autofocus="autofocus" class="form-control input-medium">
                         </div>
                     </div>
                     <div class="control-group">
@@ -41,7 +41,7 @@
             </form>
         </div>
     </div>
-    <script src="js/jquery.min.js"></script>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
     <script>
     $(function() {
 

@@ -51,14 +51,27 @@ public class SubjectService {
 		}
 		subjectDto.setOptions(newGroup);
 		
+		if (subjectDto.getOptions().isEmpty() && !subjectDto.getDetermine().isEmpty()) {
+			
+			if(subjectDto.getDetermine().equals("answerNull")){
+				subjectDto.setRightKey("暂无此题答案...");
+			}else{
+				subjectDto.setRightKey(subjectDto.getDetermine());
+			}
+			newGroup.add("正确");
+			newGroup.add("错误");
+			subjectDto.setOptions(newGroup);
+			subjectDto.setDetermine(null);
+			
+		} else {
+			if(!subjectDto.getDetermine().isEmpty()){
+				subjectDto.setDetermine(null);
+			}
+		}
+		
 		BeanUtils.copyProperties(subjectDto, subject, Subject.class);
 		Classify Classify = subjectDao.findClassifyById(classify);
 		subject.setClassify(Classify);
-		if(subjectDto.getDetermine().equals("answerNull")){
-			subject.setDetermine(null);
-		}else{
-			subject.setDetermine(subjectDto.getDetermine());
-		}
 		subjectDao.save(subject);
 	}
 	
