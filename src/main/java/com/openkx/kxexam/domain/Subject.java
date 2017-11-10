@@ -189,10 +189,22 @@ public class Subject {
 		this.classify = classify;
 	}
 
+	//计算所有题型的数量
 	public int getListCount(List<Subject> list) {
 		int count = 0;
 		for (Subject subject : list) {
 			if (subject.getQuestion_type().equals(this.getQuestion_type())){
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	//计算某个题型的数量
+	public int getCount(List<Subject> list,String str) {
+		int count = 0;
+		for (Subject subject : list) {
+			if (subject.getQuestion_type().equals(str)){
 				count++;
 			}
 		}

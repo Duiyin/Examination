@@ -19,7 +19,7 @@
 						</p>
 						<font><input type="button" name="test_jiaojuan" value="交卷"></font>
 					</div>
-						<div th:each="exam,examStat : ${sublist}">
+						<div th:each="exam,examStat : ${sublist}" th:with="xzcount=${exam.getCount(sublist,'选择题')}">
 							<div  class="test_content" th:if="(${examStat.index}>0)?(${sublist.get(examStat.index -1 ).question_type} != ${exam.question_type}) :true">
 								<div class="test_content_title" >
 									<span th:if="${exam.question_type}=='选择题'"><h2>选择题</h2>
@@ -54,22 +54,22 @@
 									</li>
 								</ul>
 								
-								<ul th:if="${exam.question_type}=='判断题'" >
-									<li th:id="'qu_1_'+ ${examStat.index-exam.getListCount(sublist)-1}">
+								<ul th:if="${exam.question_type}=='判断题'">
+									<li th:id="'qu_1_'+ ${examStat.index - xzcount}">
 										<div class="test_content_nr_tt">
-											<i th:text="${exam.getListCount(sublist)}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
+											<i th:text="${examStat.index - xzcount + 1}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul>
 												<li class="option" >
-													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index-exam.getListCount(sublist)}" th:id="'1_answer_'+${examStat.index-exam.getListCount(sublist)}+_option_1"/>
-													<label th:for="'1_answer_'+${examStat.index-exam.getListCount(sublist)}+_option_1">
+													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index - xzcount + 1}" th:id="'1_answer_'+${examStat.index - xzcount + 1}+_option_1"/>
+													<label th:for="'1_answer_'+${examStat.index - xzcount + 1}+_option_1">
 														<p class="ue" style="display: inline;">√</p>
 													</label>
 												</li>
 												<li class="option" >
-													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index-exam.getListCount(sublist)}" th:id="'1_answer_'+${examStat.index-exam.getListCount(sublist)}+_option_2"/>
-													<label th:for="'1_answer_'+${examStat.index-exam.getListCount(sublist)}+_option_2">
+													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index - xzcount + 1}" th:id="'1_answer_'+${examStat.index - xzcount + 1}+_option_2"/>
+													<label th:for="'1_answer_'+${examStat.index - xzcount + 1}+_option_2">
 														<p class="ue" style="display: inline;">×</p>
 													</label>
 												</li>
