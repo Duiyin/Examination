@@ -11,6 +11,9 @@ import javax.persistence.Transient;
 import com.alibaba.fastjson.JSON;
 import com.openkx.kxexam.util.ID;
 import com.openkx.kxexam.util.Time;
+import com.sun.mail.imap.protocol.Item;
+
+import net.bytebuddy.asm.Advice.This;
 
 @Entity
 public class Subject {
@@ -186,9 +189,14 @@ public class Subject {
 		this.classify = classify;
 	}
 
-	public boolean equals(Subject subject) {
-		return this.question_type.equals(subject.getQuestion_type());
+	public int getListCount(List<Subject> list) {
+		int count = 0;
+		for (Subject subject : list) {
+			if (subject.getQuestion_type().equals(this.getQuestion_type())){
+				count++;
+			}
+		}
+		return count;
 	}
-	
 	
 }

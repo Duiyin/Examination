@@ -75,7 +75,6 @@ public class ExamController {
 			System.err.println(subject.getQuestion());
 			sublist.add(subject);
 		}
-		//System.out.println("a : " + Collections.frequency(sublist, subject.equals(sublist.get(0))));
 		model.addAttribute("sublist", sublist);
 		return "paper";
 	}
