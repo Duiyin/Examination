@@ -18,8 +18,6 @@ public class User {
 	
 	private String password;
 	
-	private String role;		//权限
-	
 	private Timestamp createtime;	//创建时间
 	
 	//以下为个人信息↓
@@ -44,6 +42,10 @@ public class User {
 	private String introduce;	//个人介绍
 	
 	private String identifier;	//标识符-编号
+	
+	public enum ROLE{
+		VISITOR, USER;
+	}
 	
 	public User(){
 		this.id = ID.uuid();
@@ -73,14 +75,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public Timestamp getCreatetime() {
