@@ -89,7 +89,6 @@ $(document).ready(function(){
 							"<option value='选择题'>选择题</option>"+
         					"<option value='判断题'>判断题</option>"+
         				  	"<option value='简答题'>简答题</option>"+
-        				  	"<option value='其他类型'>其他类型</option>"+
 					  	 "</select><br/></div>"+
 				"<div id='choose"+i+"' style='display:none;'>"+
 				"选项 A：<input name='subjectDto["+ i +"].options[0]' /><br/>"+
@@ -97,11 +96,11 @@ $(document).ready(function(){
 				"选项 C：<input name='subjectDto["+ i +"].options[2]' /><br/>"+
 				"选项 D：<input name='subjectDto["+ i +"].options[3]' /><br/>"+
 				"正确答案：<input name='subjectDto["+ i +"].rightKey' /><br/></div>"+
-				"<div id='judge"+i+"' style='display:none;'>"+
+				"<div id='determine"+i+"' style='display:none;'>"+
 				"判断：<select name='subjectDto["+ i +"].determine'>"+
 						"<option value='answerNull'>-请选择--</option>"+
-        				"<option value='√'>√</option>"+
-        				"<option value='×'>×</option>"+
+        				"<option value='true'>√</option>"+
+        				"<option value='false'>×</option>"+
 					  "</select><br/></div>"+
 				"<div id='analysis"+i+"' style='display:none;'>"+
 				"答案解析：<input name='subjectDto["+ i +"].analysis' /></div>");

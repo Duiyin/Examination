@@ -58,8 +58,8 @@ public class SubjectService {
 			}else{
 				subjectDto.setRightKey(subjectDto.getDetermine());
 			}
-			newGroup.add("正确");
-			newGroup.add("错误");
+			newGroup.add("√");
+			newGroup.add("×");
 			subjectDto.setOptions(newGroup);
 			subjectDto.setDetermine(null);
 			
