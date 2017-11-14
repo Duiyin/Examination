@@ -13,7 +13,7 @@ import com.openkx.kxexam.domain.Classify;
 
 @Component
 @Transactional
-public class ClassifyDao extends BaseDao {
+public class ClassifyDao extends BaseDao<Classify> {
 
 	/**
 	 * 查询最顶级分类，主分类*

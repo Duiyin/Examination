@@ -51,6 +51,7 @@ public class User {
 		this.id = ID.uuid();
 		this.identifier = ID.Intercept();
 		this.createtime = Time.timestamp();
+		this.nickname = identifier;
 	}
 
 	public String getId() {

@@ -1,4 +1,4 @@
-.alertbox{
+.alertbox {
 	width: 300px;
 	height: 100px;
 	background: #fff;
@@ -11,16 +11,26 @@
 	box-shadow: 0 1px 10px #878787;
 	display: none;
 }
-.alertbox .close{
+
+.alertbox .close {
 	position: absolute;
-    right: 0;
+	right: 0;
 }
-.tips{
+
+.tips {
 	width: 100%;
 	height: 100px;
 	background: #BFEFFF;
 }
-.login-button{
-	float:right;
-	margin:5px 20px 5px 10px;
+
+.login-button {
+	position: relative;
+	float: right;
+	margin: 5px 20px 5px 10px;
+}
+
+.register-button {
+	position: relative;
+	float: right;
+	margin: 5px 20px 5px 10px;
 }

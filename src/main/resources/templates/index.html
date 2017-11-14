@@ -9,7 +9,8 @@
 <body>
 
 <table class="table table-hover table-bordered table-condensed" name="classTable" style='vertical-align: middle;text-align:center'>
-	<div><a class="btn btn-primary btn-lg login-button" href="#" th:href="@{/register}">点我登陆</a></div>
+	<div><a class="btn btn-primary btn-lg login-button" href="#" th:href="@{/login}">点我登陆</a></div>
+	<div><a class="btn btn-primary btn-lg register-button" href="#" th:href="@{/register}">没有账号</a></div>
 	<tbody style="text-align:center">
 		<tr th:each="classify : ${AllClassify}">
 			<th><a href="">[[${classify?.name}]]</a></th>
