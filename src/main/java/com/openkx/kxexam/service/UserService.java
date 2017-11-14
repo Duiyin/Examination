@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.openkx.kxexam.dao.UserDao;
 import com.openkx.kxexam.domain.User;
 import com.openkx.kxexam.domain.UserDto;
+import com.openkx.kxexam.util.PasswordUtil;
 import com.openkx.kxexam.util.ServiceException;
 
 @Component
@@ -38,6 +39,23 @@ public class UserService {
 			return user;
 		} catch (Exception e) {
 			throw e;
+		}
+	}
+	
+	public User login(HttpSession session, String account, String password){
+
+		User user = userDao.findByAccount(account);
+		if (null != user) {
+			if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {
+				throw new ServiceException("register", "account_or_password_error");
+			}
+			String sessionid = session.getId().toLowerCase();
+			session.setAttribute("userid", user.getId());
+			System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
+			// user.setSessionid(sessionid);
+			return user;
+		} else {
+			throw new ServiceException("register", "account_or_password_error");
 		}
 	}
 }
