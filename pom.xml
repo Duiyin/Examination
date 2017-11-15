@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.openkx</groupId>
-	<artifactId>kxexam</artifactId>
+	<artifactId>Examination</artifactId>
 	<version>latest</version>
 	<packaging>jar</packaging>
 
