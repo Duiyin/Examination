@@ -12,12 +12,12 @@
 	<div class="test_main">
 		<div class="nr_left">
 			<div class="test">
-				<form action="" method="post">
+				<form action="#" th:action="@{'/info/'+ ${classify.id} +'/exam/'+${exam.id}+'/answer/'}">
 					<div class="test_title">
 						<p class="test_time">
 							<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
 						</p>
-						<font><input type="button" name="test_jiaojuan" value="交卷"></font>
+						<font><input type="button" name="test_jiaojuan" value="交卷"/></font>
 					</div>
 						<div th:each="exam,examStat : ${sublist}" th:with="xzcount=${exam.getCount(sublist,'选择题')}">
 							<div  class="test_content" th:if="(${examStat.index}>0)?(${sublist.get(examStat.index -1 ).question_type} != ${exam.question_type}) :true">
@@ -38,14 +38,14 @@
 							<div class="test_content_nr">
 								<ul th:if="${exam.question_type}=='选择题'" >
 									<li th:id="'qu_0_' + ${examStat.index}">
-										<div class="test_content_nr_tt">
+										<div class="test_content_nr_tt" >
 											<i th:text="${examStat.index+1}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul th:each="option : ${exam.options}">
 												<li class="option" >
-													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index+1}" th:id="'0_answer_'+${examStat.index+1}+'_option_'+${optionStat.index+1}"/>
-													<label th:for="'0_answer_'+${examStat.index+1}+'_option_'+${optionStat.index+1}">
+													<input type="radio" class="radioOrCheck" th:name="'answer['+${examStat.index}+']'"  th:value="${option}" th:id="${exam.id}+'_'+${optionStat.index+1}"/>
+													<label th:for="${exam.id}+'_'+${optionStat.index+1}">
 														<p class="ue" style="display: inline;" th:text="${option}"></p>
 													</label>
 												</li>
@@ -57,13 +57,14 @@
 								<ul th:if="${exam.question_type}=='判断题'">
 									<li th:id="'qu_1_'+ ${examStat.index - xzcount}">
 										<div class="test_content_nr_tt">
+											<input type="hidden" th:value="${exam.id}" name="id[]"/>
 											<i th:text="${examStat.index - xzcount + 1}">1</i><span>(1分)</span><font th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul th:each="option : ${exam.options}">
 												<li class="option" >
-													<input type="radio" class="radioOrCheck" th:name="'answer'+${examStat.index - xzcount + 1}" th:id="'1_answer_'+${examStat.index - xzcount + 1}+'_option_'+${optionStat.index+1}"/>
-													<label th:for="'1_answer_'+${examStat.index - xzcount + 1}+'_option_'+${optionStat.index+1}">
+													<input type="radio" class="radioOrCheck" th:name="'answer['+${examStat.index}+']'"  th:value="${option}" th:id="${exam.id}+'_'+${optionStat.index+1}"/>
+													<label th:for="${exam.id}+'_'+${optionStat.index+1}">
 														<p class="ue" style="display: inline;" th:text="${option}"></p>
 													</label>
 												</li>
@@ -136,6 +137,36 @@
 <!--时间js-->
 <script type="text/javascript" src="js/jquery.countdown.js" th:src="@{/js/jquery.countdown.js}"></script>
 <script>
+$(document).on("click", "[name='test_jiaojuan']",function(){
+	var url = $(this).parents("form").attr("action");
+	var radios = document.getElementsByClassName("radioOrCheck");
+	var formData = new FormData();
+    for (i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+        	//被选中的radio的id
+        	var ids = radios[i].id;
+            ipos = ids.indexOf("_");
+            id=ids.substring(0,ipos); 
+        	//被选中的radio的value
+        	var values = radios[i].value;
+            var value = values.substring(4);
+            formData.append("answer[]",value);
+            formData.append("id[]",id);
+        }
+    }
+    console.log(formData);
+    $.ajax({
+    	url:url,
+    	type:"post",
+    	data:formData,
+    	processData:false,
+        contentType:false,
+        success:function(JsonResult){
+            console.log("over..");
+        }
+    	
+    }); 
+}); 
 	window.jQuery(function($) {
 		"use strict";
 		

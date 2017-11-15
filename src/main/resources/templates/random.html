@@ -42,7 +42,6 @@
 <script>
 $(document).on("click", "[name='submit']", function() {
     var form = $(this).parents("form");
-    console.log(form);
     $.post(form.attr("action"), form.serialize(), function(json) {
     	console.log( form.serialize());
         if (json.result == "success") {

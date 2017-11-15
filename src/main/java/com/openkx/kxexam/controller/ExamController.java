@@ -62,8 +62,9 @@ public class ExamController {
 	 * @return
 	 */
 	@GetMapping("/info/{classifyid}/exam/{id}")
-	public String get(Model model, @PathVariable String id) {
+	public String get(Model model, @PathVariable String classifyid,@PathVariable String id) {
 		Exam exam = examService.findExamById(id);
+		Classify classify = classifyService.findClassifyById(classifyid);
 		Subject subject = new Subject();
 		List<Subject> sublist = new ArrayList<>();
 		for(String paper : exam.getPapers()){
@@ -72,7 +73,21 @@ public class ExamController {
 			sublist.add(subject);
 		}
 		model.addAttribute("sublist", sublist);
+		model.addAttribute("classify",classify);
+		model.addAttribute("exam",exam);
 		return "paper";
+	}
+	/**
+	 * 试卷答案判断
+	 * @param id
+	 * @param answer
+	 * @return
+	 */
+	@PostMapping("/info/{classifyid}/exam/{id}/answer")
+	@ResponseBody
+	public Map<String, Object> checkexam(@RequestParam("id[]") String[] id, @RequestParam("answer[]")String[] answer){
+		String JsonResult = examService.checkExam(id, answer);
+		return Result.success();
 	}
 	
 	/**
@@ -87,5 +102,7 @@ public class ExamController {
 		examService.delete(id);
 		return Result.success();
 	}
+	
+	
 
 }

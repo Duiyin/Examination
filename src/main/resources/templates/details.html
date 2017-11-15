@@ -38,8 +38,8 @@
 				<div id="determine0" style="display:none;">
 				判断：<select name="subjectDto[0].determine">
 						<option value="answerNull">-请选择--</option>
-        				<option value="true">√</option>
-        				<option value="false">×</option>
+        				<option value="正确">正确</option>
+        				<option value="错误">错误</option>
 					  </select><br/>
 				</div>
 				<div id="analysis0" style="display:none;">
@@ -99,8 +99,8 @@ $(document).ready(function(){
 				"<div id='determine"+i+"' style='display:none;'>"+
 				"判断：<select name='subjectDto["+ i +"].determine'>"+
 						"<option value='answerNull'>-请选择--</option>"+
-        				"<option value='true'>√</option>"+
-        				"<option value='false'>×</option>"+
+        				"<option value='正确'>正确</option>"+
+        				"<option value='错误'>错误</option>"+
 					  "</select><br/></div>"+
 				"<div id='analysis"+i+"' style='display:none;'>"+
 				"答案解析：<input name='subjectDto["+ i +"].analysis' /></div>");
