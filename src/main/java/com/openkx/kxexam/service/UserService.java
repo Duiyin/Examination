@@ -46,13 +46,12 @@ public class UserService {
 
 		User user = userDao.findByAccount(account);
 		if (null != user) {
-			if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {
-				//throw new ServiceException("register", "account_or_password_error");
-			}
-			String sessionid = session.getId().toLowerCase();
+			/*if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {
+				throw new ServiceException("register", "account_or_password_error");
+			}*/
+			//String sessionid = session.getId().toLowerCase();
 			session.setAttribute("userid", user);
-			System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
-			// user.setSessionid(sessionid);
+			//System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
 			return user;
 		} else {
 			throw new ServiceException("register", "account_or_password_error");

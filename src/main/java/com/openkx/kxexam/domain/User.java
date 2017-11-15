@@ -21,6 +21,8 @@ public class User {
 	private Timestamp createtime;	//创建时间
 	
 	//以下为个人信息↓
+	private String headimgs;	//头像
+	
 	private String nickname;	//昵称
 	
 	private String autograph;	//个性签名
@@ -51,6 +53,7 @@ public class User {
 		this.id = ID.uuid();
 		this.identifier = ID.Intercept();
 		this.createtime = Time.timestamp();
+		this.headimgs = "/images/default_head.png";
 		this.nickname = identifier;
 	}
 
@@ -84,6 +87,14 @@ public class User {
 
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getHeadimgs() {
+		return headimgs;
+	}
+
+	public void setHeadimgs(String headimgs) {
+		this.headimgs = headimgs;
 	}
 
 	public String getNickname() {

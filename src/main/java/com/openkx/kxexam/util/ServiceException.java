@@ -3,13 +3,6 @@ package com.openkx.kxexam.util;
 import java.util.Arrays;
 import java.util.Objects;
 
-/**
- * argument.required=The '{0}' argument is required.
- * "argument.required", new Object [] {"userDao"}
- * 
- * @author zhoubing
- *
- */
 public class ServiceException extends RuntimeException {
 	private static final long serialVersionUID = -4754310636975621327L;
 	private final String code;
