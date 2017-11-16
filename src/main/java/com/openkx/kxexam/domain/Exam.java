@@ -35,11 +35,6 @@ public class Exam {
 		this.ctime = Time.timestamp();
 	}
 	
-	public Exam(String papername){
-		this.id = ID.uuid();
-		this.papername = papername;
-	}
-	
 	public String getId() {
 		return id;
 	}

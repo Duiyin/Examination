@@ -48,6 +48,10 @@ public class ExamDao extends BaseDao<Exam> {
 		}
 	}
 	
+	/**
+	 * 保存exam
+	 * @param exam
+	 */
 	public void save(Exam exam) {
 		getSession().save(exam);
 	}
