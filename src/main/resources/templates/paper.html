@@ -15,7 +15,8 @@
 			<div class="nr_left">
 				<div class="test">
 					<form action="#"
-						th:action="@{'/info/'+ ${classify.id} +'/exam/'+${exam.id}+'/answer/'}">
+						th:action="@{'/info/'+ ${classify.id} +'/exam/'+${exam.id}+'/answer/'}"
+						th:id="${exam.id}">
 						<div class="test_title">
 							<p class="test_time">
 								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
@@ -52,7 +53,7 @@
 											<ul th:each="option : ${exam.options}">
 												<li class="option"><input type="radio"
 													class="radioOrCheck"
-													th:name="'answer['+${examStat.index}+']'"
+													th:name="'answer'+${examStat.index}"
 													th:value="${option}"
 													th:id="${exam.id}+'_'+${optionStat.index+1}" /> <label
 													th:for="${exam.id}+'_'+${optionStat.index+1}">
@@ -74,7 +75,7 @@
 											<ul th:each="option : ${exam.options}">
 												<li class="option"><input type="radio"
 													class="radioOrCheck"
-													th:name="'answer['+${examStat.index}+']'"
+													th:name="'answer'+${examStat.index}"
 													th:value="${option}"
 													th:id="${exam.id}+'_'+${optionStat.index+1}" /> <label
 													th:for="${exam.id}+'_'+${optionStat.index+1}">
@@ -152,38 +153,54 @@
 	th:src="@{/js/jquery.countdown.js}"></script>
 <script>
 	$(document).on("click", "[name='test_jiaojuan']", function() {
-		var url = $(this).parents("form").attr("action");
-		var radios = document.getElementsByClassName("radioOrCheck");
-		var formData = new FormData();
-		for (i = 0; i < radios.length; i++) {
-			if (radios[i].checked) {
-				//被选中的radio的id
-				var ids = radios[i].id;
-				var id = ids.split("_")[0];
-				//被选中的radio的value
-				var values = radios[i].value;
-				var value
-				if (values.indexOf(" : ") > 0) {
-					value = values.split(" : ")[1];
-				} else {
-					value = values;
-				}
-				formData.append("answer[]", value);
-				formData.append("id[]", id);
-				console.log(value);
-			}
-		}
-		$.ajax({
-			url : url,
-			type : "post",
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(JsonResult) {
-				console.log("over..");
-			}
+		var trs = document.getElementsByClassName('test_content_nr_main'),len = trs.length,count = 0;
+        for(var i = 0; i < len; i++){
+            var inputs = document.getElementsByName('answer'+(i)),ilen= inputs.length;
+            for(var j = 0; j < ilen; j++){
+                if(inputs[j].checked){
+                    count++;   
+                }   
+            }   
+        }
+        if(count == len){
+            var url = $(this).parents("form").attr("action");
+    		var examid = $(this).parents("form").attr("id");
+    		var radios = document.getElementsByClassName("radioOrCheck");
+    		var formData = new FormData();
+    		formData.append("examid", examid);
+    		for (i = 0; i < radios.length; i++) {
+    			if (radios[i].checked) {
+    				//被选中的radio的id
+    				var ids = radios[i].id;
+    				var id = ids.split("_")[0];
+    				//被选中的radio的value
+    				var values = radios[i].value;
+    				var value
+    				if (values.indexOf(" : ") > 0) {
+    					value = values.split(" : ")[1];
+    				} else {
+    					value = values;
+    				}
+    				formData.append("answer[]", value);
+    				formData.append("id[]", id);
+    				formData.append("answerlist[]", values);
+    				console.log(value);
+    			}
+    		}
+    		$.ajax({
+    			url : url,
+    			type : "post",
+    			data : formData,
+    			processData : false,
+    			contentType : false,
+    			success : function(JsonResult) {
+    				console.log("over..");
+    			}
 
-		});
+    		});
+        }else{
+            alert('请认真答完所有题目，在交卷！！！')   
+        }
 	});
 	window.jQuery(function($) {
 		"use strict";
