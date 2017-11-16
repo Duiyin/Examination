@@ -48,7 +48,7 @@
 		var questionId = $(this).parents(".card").attr("id");
 		var answer = answer_options.replace(/[^\u4e00-\u9fa5]/gi,"");
 		$.post("/info/" + questionId +"/"+ answer +"/check", function(JsonResult) {
-			//$(".tips").val(JsonResult);
+			$(".tips").val(JsonResult);
 		});
 	});
     </script>
