@@ -8,13 +8,31 @@
 </head>
 <body>
 
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" th:href="@{/}">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} ==null">未登录 <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} !=null"><img class="img_head" th:src="@{${session.userid.headimgs}}"><text name="username" th:if="${session.userid} != null" th:text="${session.userid.nickname}"></text></img></a>
+          <ul class="dropdown-menu" th:if="${session.userid} == null">
+            <li><a th:href="@{/login}">点我登陆</a></li>
+            <li><a th:href="@{/register}">没有账号</a></li>
+            <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
 <table class="table table-hover table-bordered table-condensed" name="classTable" style='vertical-align: middle;text-align:center'>
-	<div><a class="btn btn-primary btn-lg login-button" href="#" th:href="@{/login}">点我登陆</a></div>
-	<div><a class="btn btn-primary btn-lg register-button" href="#" th:href="@{/register}">没有账号</a></div>
-	<div><a class="btn btn-primary btn-lg logout-button" href="#" th:href="@{/logout}">登出</a></div>
-	<div name="headImages" th:if="${session.userid} != null"><img class="img_head" th:src="@{${session.userid.headimgs}}"/></div>
-	<div name="username" th:if="${session.userid} != null" th:text="${session.userid.nickname}">11</div>
-	
 	<tbody style="text-align:center">
 		<tr th:each="classify : ${AllClassify}">
 			<th><a href="">[[${classify?.name}]]</a></th>
