@@ -41,6 +41,18 @@
 	margin: 5px 20px 5px 10px;
 }
 
-.img_head{
-	width:20px;
+.img_head {
+	width: 20px;
+}
+
+.info-personal {
+	width: 855px;
+	margin-left: 285px;
+	margin-top: -345px;
+}
+
+.info-contacts {
+	width: 855px;
+	margin-left: 285px;
+	margin-top: 15px;
 }

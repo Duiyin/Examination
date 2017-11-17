@@ -56,9 +56,18 @@ public class User {
 		this.id = ID.uuid();
 		this.identifier = ID.Intercept();
 		this.createtime = Time.timestamp();
+		this.role = "STUDENTS";
 		this.headimgs = "/images/default_head.png";
 		this.nickname = identifier;
-		this.role = "STUDENTS";
+		this.autograph = "此人较懒，暂无信息";
+		this.sex = "保密";
+		this.birthday = "1990-01-01";
+		this.email = "保密";
+		this.mobile = "保密";
+		this.education = "保密";
+		this.location = "保密";
+		this.occupation = "保密";
+		this.introduce = "保密";
 	}
 
 	public String getId() {

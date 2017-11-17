@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"> 
+<title></title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+<body>
+<div class="container">
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <a class="navbar-brand" th:href="@{/}">Brand</a>
+	    </div>
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} ==null">未登录 <span class="caret"></span></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} !=null"><img class="img_head" th:src="@{${session.userid.headimgs}}"><text name="username" th:if="${session.userid} != null" th:text="${session.userid.nickname}"></text></img></a>
+	          <ul class="dropdown-menu">
+	            <li><a th:if="${session.userid} == null" th:href="@{/login}">点我登陆</a></li>
+	            <li><a th:if="${session.userid} == null" th:href="@{/register}">没有账号</a></li>
+	            <li th:if="${session.userid} != null"><a th:href="@{/personal}">个人资料</a></li>
+	            <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
+	          </ul>
+	        </li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div>
+      <div>
+        <div>
+          <img th:if="${session.userid} != null" th:src="@{${session.userid.headimgs}}" alt="Profile Photo" class="img-responsive">
+        </div>
+        <header>
+          <div></div>
+          <h1  th:if="${session.userid} != null" th:text="${session.userid.nickname}">江南</h1>
+        </header>
+        <nav>          
+          <ul>
+            <li ><a href="#" class="active"><i class="personal-font-color">编辑个人资料</i></a></li>
+          </ul>  
+        </nav>
+      </div>
+    </div>
+    <div class="panel panel-info info-personal">
+	  <div class="panel-heading">基本信息</div>
+		  <div class="panel-body" th:if="${session.userid} != null">
+		    <div><span>昵称:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.nickname}">江南</span></div>
+		    <div><span>个性签名:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.autograph}">今天天气挺好</span></div>
+		    <div><span>性别:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.sex}">男</span></div>
+		    <div><span>生日:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.birthday}">2001-01-01</span></div>
+		    <div><span>个人简介:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.introduce}">顺其自然</span></div>
+		    <div><span>职业:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.occupation}">学生</span></div>
+		    <div><span>教育:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.education}">高中</span></div>
+		  </div>
+	</div>
+	<div class="panel panel-info info-contacts">
+	  <div class="panel-heading">联系方式</div>
+		  <div class="panel-body" th:if="${session.userid} != null">
+		    <div><span>所在地:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.location}">江南</span></div>
+		    <div><span>邮箱:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.email}">l1278945971@163.com</span></div>
+		    <div><span>手机号:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.mobile}">1314****582</span></div>
+		  </div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</html>

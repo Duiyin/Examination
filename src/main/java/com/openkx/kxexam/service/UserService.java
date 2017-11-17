@@ -28,6 +28,9 @@ public class UserService {
 				throw new ServiceException("register", "account_exist");
 			} else {
 				BeanUtils.copyProperties(userDto, user, User.class);
+				if(userDto.getEmail().equals("") || userDto.getEmail().isEmpty()){
+					user.setEmail("保密");
+				}
 				userDao.save(user);
 			}
 			/*String sessionid = session.getId().toLowerCase();
