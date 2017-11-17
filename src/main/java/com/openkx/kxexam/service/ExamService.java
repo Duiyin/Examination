@@ -44,6 +44,22 @@ public class ExamService {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 答案列表 *
+	 * 
+	 * @param page
+	 * @param pagesize
+	 * @param keyword
+	 * @return
+	 */
+	public MyPage<Answer> findAllAnswer(int page, int pagesize, String keyword) {
+		try {
+			return answerDao.findAllAnswer(page, pagesize, keyword);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 	/**
 	 * 试卷答案比对 正确返回ture 错误返回正确答案 和 解析
@@ -52,28 +68,37 @@ public class ExamService {
 	 * @param answer
 	 * @return
 	 */
-	public String checkExam(String[] questionId, String[] answer, String[] answerlist, String examid) {
+	public String checkExam(String[] questionId, String[] answer, String examid,String examname) {
 		String JsonResult = null;
+		int score = 0;
 		Answer answerdto = new Answer();
 		List<String> answers = new ArrayList<String>();
 		List<String> results = new ArrayList<String>();
 		for (int i = 0; i < answer.length; i++) {
 			Subject subject = subjectDao.findQuestionById(questionId[i]);
-			answers.add(answerlist[i]);
+			answers.add(answer[i]);
 			if (answer[i].equals(subject.getRightKey())) {
 				JsonResult = JSON.toJSONString(true);
+				if(subject.getQuestion_type().equals("选择题")){
+					score ++;
+				}
+				if (subject.getQuestion_type().equals("判断题")) {
+					score += 2;
+				}
 			} else {
-				ArrayList<String> list = new ArrayList<String>();
+				/*ArrayList<String> list = new ArrayList<String>();
 				list.add(JSON.toJSONString(false));
 				list.add(subject.getRightKey());
-				list.add(subject.getAnalysis());
-				JsonResult = JSON.toJSONString(list);
+				list.add(subject.getAnalysis());*/
+				JsonResult = JSON.toJSONString(false);
 			}
 			results.add(JsonResult);
 		}
 		answerdto.setAnswers(answers);
 		answerdto.setExam_id(examid);
+		answerdto.setExam_name(examname);
 		answerdto.setResults(results);
+		answerdto.setScore(score);
 		answerDao.save(answerdto);
 		return JsonResult;
 	}
@@ -101,6 +126,21 @@ public class ExamService {
 		try {
 			Exam exam = examDao.findExamById(id);
 			return exam;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * 查询试卷id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Answer findAnswerById(String id) {
+		try {
+			Answer answer = answerDao.findAnswerById(id);
+			return answer;
 		} catch (Exception e) {
 			throw e;
 		}

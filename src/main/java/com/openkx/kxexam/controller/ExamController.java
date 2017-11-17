@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.openkx.kxexam.domain.Answer;
 import com.openkx.kxexam.domain.Classify;
 import com.openkx.kxexam.domain.Exam;
 import com.openkx.kxexam.domain.Subject;
@@ -55,6 +56,25 @@ public class ExamController {
 		model.addAttribute("exam", exam);
 		return "exam";
 	}
+	
+	/**
+	 * 答案列表 *
+	 * 
+	 * @param model
+	 * @param page
+	 * @param pagesize
+	 * @param keyword
+	 * @return
+	 */
+	@GetMapping("/info/answer")
+	public String findAllAnswer(Model model, 
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(value = "pagesize", defaultValue = "10", required = false) int pagesize,
+			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+		MyPage<Answer> answer = examService.findAllAnswer(page, pagesize, keyword);
+		model.addAttribute("answer", answer);
+		return "answer";
+	}
 
 	/**
 	 * 读取选中试卷的内容 *
@@ -79,6 +99,33 @@ public class ExamController {
 		model.addAttribute("exam", exam);
 		return "paper";
 	}
+	
+	/**
+	 * 读取选中答案的内容 *
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/info/{examid}/answer/{id}")
+	public String getanswer(Model model,  @PathVariable String examid, @PathVariable String id) {
+		Exam exam = examService.findExamById(examid);
+		Answer answer = examService.findAnswerById(id);
+		Answer answerall = examService.findAnswerById(id);
+		Answer answerresult = examService.findAnswerById(id);
+		Subject subject = new Subject();
+		List<Subject> sublist = new ArrayList<>();
+		for (String paper : exam.getPapers()) {
+			subject = subjectService.findQuestionById(paper);
+			sublist.add(subject);
+		}
+		model.addAttribute("sublist", sublist);
+		model.addAttribute("answerall", answerall);
+		model.addAttribute("answer", answer.getAnswers());
+		model.addAttribute("answerresult", answerresult.getResults());
+		return "answerdatail";
+	}
+	
+	
 
 	/**
 	 * 试卷答案判断
@@ -90,11 +137,13 @@ public class ExamController {
 	@PostMapping("/info/{classifyid}/exam/{id}/answer")
 	@ResponseBody
 	public Map<String, Object> checkexam(@RequestParam("id[]") String[] id, @RequestParam("answer[]") String[] answer,
-			@RequestParam("answerlist[]") String[] answerlist, String examid) {
-		String JsonResult = examService.checkExam(id, answer, answerlist, examid);
+			String examid, String examname) {
+		String JsonResult = examService.checkExam(id, answer, examid,examname);
 		return Result.success();
 	}
 
+	
+	
 	/**
 	 * 试卷删除 *
 	 * 

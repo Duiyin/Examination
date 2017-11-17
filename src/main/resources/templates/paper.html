@@ -16,7 +16,7 @@
 				<div class="test">
 					<form action="#"
 						th:action="@{'/info/'+ ${classify.id} +'/exam/'+${exam.id}+'/answer/'}"
-						th:id="${exam.id}">
+						th:id="${exam.id}" th:name="${exam.papername}">
 						<div class="test_title">
 							<p class="test_time">
 								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
@@ -37,7 +37,7 @@
 										<p>
 											<span>共</span><i class="content_lit"><span
 												th:text="${exam.getListCount(sublist)}">题，</span></i><span>合计</span><i
-												class="content_fs" th:text="${exam.getListCount(sublist)}"></i><span>分</span>
+												class="content_fs" th:text="${exam.getListCount(sublist)}*2"></i><span>分</span>
 										</p> </span>
 
 								</div>
@@ -68,7 +68,7 @@
 									<li th:id="'qu_1_'+ ${examStat.index - xzcount}">
 										<div class="test_content_nr_tt">
 											<input type="hidden" th:value="${exam.id}" name="id[]" /> <i
-												th:text="${examStat.index - xzcount + 1}">1</i><span>(1分)</span><font
+												th:text="${examStat.index - xzcount + 1}">1</i><span>(2分)</span><font
 												th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">
@@ -165,9 +165,11 @@
         if(count == len){
             var url = $(this).parents("form").attr("action");
     		var examid = $(this).parents("form").attr("id");
+    		var examname = $(this).parents("form").attr("name");
     		var radios = document.getElementsByClassName("radioOrCheck");
     		var formData = new FormData();
     		formData.append("examid", examid);
+    		formData.append("examname", examname);
     		for (i = 0; i < radios.length; i++) {
     			if (radios[i].checked) {
     				//被选中的radio的id
@@ -177,13 +179,12 @@
     				var values = radios[i].value;
     				var value
     				if (values.indexOf(" : ") > 0) {
-    					value = values.split(" : ")[1];
+    					value = values.split(" : ")[0];
     				} else {
     					value = values;
     				}
     				formData.append("answer[]", value);
     				formData.append("id[]", id);
-    				formData.append("answerlist[]", values);
     				console.log(value);
     			}
     		}
@@ -193,10 +194,11 @@
     			data : formData,
     			processData : false,
     			contentType : false,
-    			success : function(JsonResult) {
-    				console.log("over..");
+    			success : function(json) {
+    				setTimeout(function(){
+    	             	 window.location.href = "/info/answer";
+    	             },1000);
     			}
-
     		});
         }else{
             alert('请认真答完所有题目，在交卷！！！')   

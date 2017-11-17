@@ -12,6 +12,7 @@ import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.openkx.kxexam.domain.Answer;
 import com.openkx.kxexam.domain.Classify;
 import com.openkx.kxexam.domain.Exam;
 import com.openkx.kxexam.domain.Subject;
@@ -133,6 +134,19 @@ public class BaseDao<T> {
 		try {
 			Exam exam = (Exam) getSession().get("com.openkx.kxexam.domain.Exam", id);
 			return exam;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	/**
+	 * 查询一条答案记录 对象 *
+	 * @param id
+	 * @return
+	 */
+	public Answer findAnswerById(String id){
+		try {
+			Answer answer = (Answer) getSession().get("com.openkx.kxexam.domain.Answer", id);
+			return answer;
 		} catch (Exception e) {
 			throw e;
 		}

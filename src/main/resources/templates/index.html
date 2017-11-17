@@ -25,6 +25,7 @@
             <li><a th:if="${session.userid} == null" th:href="@{/register}">没有账号</a></li>
             <li th:if="${session.userid} != null"><a th:href="@{/personal}">个人资料</a></li>
             <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
+            <li><a th:href="@{/info/answer}">已做試卷</a></li>
           </ul>
         </li>
       </ul>
