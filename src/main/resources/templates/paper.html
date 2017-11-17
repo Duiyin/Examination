@@ -37,7 +37,7 @@
 										<p>
 											<span>共</span><i class="content_lit"><span
 												th:text="${exam.getListCount(sublist)}">题，</span></i><span>合计</span><i
-												class="content_fs" th:text="${exam.getListCount(sublist)}"></i><span>分</span>
+												class="content_fs" th:text="${exam.getListCount(sublist)}*2"></i><span>分</span>
 										</p> </span>
 
 								</div>
@@ -68,7 +68,7 @@
 									<li th:id="'qu_1_'+ ${examStat.index - xzcount}">
 										<div class="test_content_nr_tt">
 											<input type="hidden" th:value="${exam.id}" name="id[]" /> <i
-												th:text="${examStat.index - xzcount + 1}">1</i><span>(1分)</span><font
+												th:text="${examStat.index - xzcount + 1}">1</i><span>(2分)</span><font
 												th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">

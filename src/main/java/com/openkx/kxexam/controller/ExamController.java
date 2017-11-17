@@ -110,6 +110,8 @@ public class ExamController {
 	public String getanswer(Model model,  @PathVariable String examid, @PathVariable String id) {
 		Exam exam = examService.findExamById(examid);
 		Answer answer = examService.findAnswerById(id);
+		Answer answerall = examService.findAnswerById(id);
+		Answer answerresult = examService.findAnswerById(id);
 		Subject subject = new Subject();
 		List<Subject> sublist = new ArrayList<>();
 		for (String paper : exam.getPapers()) {
@@ -117,7 +119,9 @@ public class ExamController {
 			sublist.add(subject);
 		}
 		model.addAttribute("sublist", sublist);
+		model.addAttribute("answerall", answerall);
 		model.addAttribute("answer", answer.getAnswers());
+		model.addAttribute("answerresult", answerresult.getResults());
 		return "answerdatail";
 	}
 	

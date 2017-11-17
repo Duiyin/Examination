@@ -21,6 +21,8 @@ public class Answer {
 	
 	private String exam_name;
 	
+	private int score;
+	
 	private String answer_json;
 	
 	@Transient
@@ -60,6 +62,14 @@ public class Answer {
 
 	public void setExam_name(String exam_name) {
 		this.exam_name = exam_name;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public String getAnswer_json() {

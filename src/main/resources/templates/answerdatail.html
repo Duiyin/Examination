@@ -15,6 +15,11 @@
 			<div class="nr_left">
 				<div class="test">
 					<form action="#">
+					<div class="test_content_title">
+					<h2 th:text="${answerall.exam_name}"></h2>
+					<p>得分：<span th:text="${answerall.score}"></span>分</p>
+					</div>
+					
 						<div th:each="exam,examStat : ${sublist}"
 							th:with="xzcount=${exam.getCount(sublist,'选择题')}">
 							<div class="test_content"
@@ -29,7 +34,7 @@
 										<p>
 											<span>共</span><i class="content_lit"><span
 												th:text="${exam.getListCount(sublist)}">题，</span></i><span>合计</span><i
-												class="content_fs" th:text="${exam.getListCount(sublist)}"></i><span>分</span>
+												class="content_fs" th:text="${exam.getListCount(sublist)*2}"></i><span>分</span>
 										</p> </span>
 
 								</div>
@@ -43,16 +48,17 @@
 										</div>
 										<div class="test_content_nr_main">
 											<ul th:each="option : ${exam.options}">
-												<li class="option"><input type="radio"
-													class="radioOrCheck"
-													th:name="'answer'+${examStat.index}"
-													th:id="${exam.id}+'_'+${optionStat.index+1}" /> <label
-													th:for="${exam.id}+'_'+${optionStat.index+1}">
-														<p class="ue" style="display: inline;" th:text="${option}"></p>
-												</label></li>
+												<li class="option">
+														<p th:text="${option}"></p>
+												</li>
 											</ul>
+											<span th:style="${answerresult[examStat.index]} ? 'color:#000000' : 'color:#ff0000'">
 											你的答案:<span th:text="${answer[examStat.index]}"></span><br>
-											正确答案:<span th:text="${exam.rightKey}"></span>
+											</span>
+											正确答案:<span th:text="${exam.rightKey}"></span><br>
+											<span th:style="${answerresult[examStat.index]} ? 'display:none' : 'display:inline'">
+											答案解析：<span th:text="${exam.analysis}">
+											</span>
 										</div>
 									</li>
 								</ul>
@@ -61,21 +67,22 @@
 									<li th:id="'qu_1_'+ ${examStat.index - xzcount}">
 										<div class="test_content_nr_tt">
 											<input type="hidden" th:value="${exam.id}" name="id[]" /> <i
-												th:text="${examStat.index - xzcount + 1}">1</i><span>(1分)</span><font
+												th:text="${examStat.index - xzcount + 1}">1</i><span>(2分)</span><font
 												th:text="${exam.question}"></font><b class="icon iconfont">&#xe881;</b>
 										</div>
 										<div class="test_content_nr_main">
 											<ul th:each="option : ${exam.options}">
-												<li class="option"><input type="radio"
-													class="radioOrCheck"
-													th:name="'answer'+${examStat.index}"
-													th:id="${exam.id}+'_'+${optionStat.index+1}" /> <label
-													th:for="${exam.id}+'_'+${optionStat.index+1}">
+												<li class="option">
 														<p class="ue" style="display: inline;" th:text="${option}"></p>
-												</label></li>
+												</li>
 											</ul>
+											<span th:style="${answerresult[examStat.index]} ? 'color:#000000' : 'color:#ff0000'">
 											你的答案:<span th:text="${answer[examStat.index]}"></span><br>
-											正确答案:<span th:text="${exam.rightKey}"></span>
+											</span>
+											正确答案:<span th:text="${exam.rightKey}"></span><br>
+											<span th:style="${answerresult[examStat.index]} ? 'display:none' : 'display:inline'">
+											答案解析：<span th:text="${exam.analysis}">
+											</span>
 										</div>
 									</li>
 								</ul>
@@ -86,75 +93,8 @@
 				</div>
 
 			</div>
-			<div class="nr_right">
-				<div class="nr_rt_main">
-					<div class="rt_nr1">
-						<div class="rt_nr1_title">
-							<h1>
-								<i class="icon iconfont">&#xe692;</i>答题卡
-							</h1>
-						</div>
-						<div th:each="exam,examStat : ${sublist}"
-							th:with="xzcount=${exam.getCount(sublist,'选择题')}">
-							<div class="rt_content"
-								th:if="(${examStat.index}>0)?(${sublist.get(examStat.index -1 ).question_type} != ${exam.question_type}) :true">
-								<div class="rt_content_tt">
-									<span th:if="${exam.question_type}=='选择题'"><h2>选择题</h2>
-										<p>
-											<span>共</span><i class="content_lit"><span
-												th:text="${exam.getListCount(sublist)}"></span></i><span>题</span>
-										</p> </span> <span th:if="${exam.question_type}=='判断题'"><h2>判断题</h2>
-										<p>
-											<span>共</span><i class="content_lit"><span
-												th:text="${exam.getListCount(sublist)}"></span></i><span>题</span>
-										</p> </span>
-								</div>
-								<div class="rt_content_nr answerSheet">
-									<ul th:if="${exam.question_type}=='选择题'">
-										<li th:each="examli,examliStat : ${sublist}"
-											th:if="${examli.question_type}=='选择题'"><a
-											th:href="'#qu_0_'+ ${examliStat.index}"> <span
-												th:text="${examliStat.index+1}"></span>
-										</a></li>
-									</ul>
-									<ul th:if="${exam.question_type}=='判断题'">
-										<li th:each="examli,examliStat : ${sublist}"
-											th:if="${examli.question_type}=='判断题'"><a
-											th:href="'#qu_1_'+ ${examliStat.index - xzcount}"> <span
-												th:text="${examliStat.index - xzcount+1}"></span>
-										</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
 			<!--nr end-->
 			<div class="foot"></div>
 		</div>
 </body>
-<script type="text/javascript" src="/js/jquery-1.11.3.min.js"
-	th:src="@{/js/jquery-1.11.3.min.js}"></script>
-<script type="text/javascript" src="js/jquery.easy-pie-chart.js"
-	th:src="@{/js/jquery.easy-pie-chart.js}"></script>
-<!--时间js-->
-<script type="text/javascript" src="js/jquery.countdown.js"
-	th:src="@{/js/jquery.countdown.js}"></script>
-<script type="text/javascript">
-$(function() {
-	$('li.option label').click(
-			function() {
-				var examId = $(this).closest('.test_content_nr_main')
-						.closest('li').attr('id'); // 得到题目ID
-				var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
-				// 设置已答题
-				if (!cardLi.hasClass('hasBeenAnswer')) {
-					cardLi.addClass('hasBeenAnswer');
-				}
-
-			});
-});
-</script>
 </html>

@@ -70,6 +70,7 @@ public class ExamService {
 	 */
 	public String checkExam(String[] questionId, String[] answer, String examid,String examname) {
 		String JsonResult = null;
+		int score = 0;
 		Answer answerdto = new Answer();
 		List<String> answers = new ArrayList<String>();
 		List<String> results = new ArrayList<String>();
@@ -78,6 +79,12 @@ public class ExamService {
 			answers.add(answer[i]);
 			if (answer[i].equals(subject.getRightKey())) {
 				JsonResult = JSON.toJSONString(true);
+				if(subject.getQuestion_type().equals("选择题")){
+					score ++;
+				}
+				if (subject.getQuestion_type().equals("判断题")) {
+					score += 2;
+				}
 			} else {
 				/*ArrayList<String> list = new ArrayList<String>();
 				list.add(JSON.toJSONString(false));
@@ -91,6 +98,7 @@ public class ExamService {
 		answerdto.setExam_id(examid);
 		answerdto.setExam_name(examname);
 		answerdto.setResults(results);
+		answerdto.setScore(score);
 		answerDao.save(answerdto);
 		return JsonResult;
 	}
