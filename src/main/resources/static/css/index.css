@@ -45,14 +45,12 @@
 	width: 20px;
 }
 
-.info-personal {
-	width: 855px;
-	margin-left: 285px;
-	margin-top: -345px;
+.info-personal-edit {
+	margin-left: 700px;
 }
 
-.info-contacts {
+.body_main_div {
 	width: 855px;
 	margin-left: 285px;
-	margin-top: 15px;
+	margin-top: -365px;
 }
