@@ -19,6 +19,8 @@ public class Answer {
 	
 	private String exam_id;
 	
+	private String exam_name;
+	
 	private String answer_json;
 	
 	@Transient
@@ -50,6 +52,14 @@ public class Answer {
 
 	public void setExam_id(String exam_id) {
 		this.exam_id = exam_id;
+	}
+
+	public String getExam_name() {
+		return exam_name;
+	}
+
+	public void setExam_name(String exam_name) {
+		this.exam_name = exam_name;
 	}
 
 	public String getAnswer_json() {
