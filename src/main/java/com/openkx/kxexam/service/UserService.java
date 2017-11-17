@@ -30,12 +30,12 @@ public class UserService {
 				BeanUtils.copyProperties(userDto, user, User.class);
 				userDao.save(user);
 			}
-			String sessionid = session.getId().toLowerCase();
+			/*String sessionid = session.getId().toLowerCase();
 
-			session.setAttribute("user", user.getId());
+			session.setAttribute("userid", user);
 			// user.setSessionid(session.getId());
 
-			System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
+			System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);*/
 			return user;
 		} catch (Exception e) {
 			throw e;
@@ -46,12 +46,12 @@ public class UserService {
 
 		User user = userDao.findByAccount(account);
 		if (null != user) {
-			/*if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {
+			if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {
 				throw new ServiceException("register", "account_or_password_error");
-			}*/
-			//String sessionid = session.getId().toLowerCase();
+			}
+			String sessionid = session.getId().toLowerCase();
 			session.setAttribute("userid", user);
-			//System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
+			System.out.println("suser：update_login_sessionuser:" + user.getNickname() + sessionid);
 			return user;
 		} else {
 			throw new ServiceException("register", "account_or_password_error");

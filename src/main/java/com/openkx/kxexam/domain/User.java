@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import com.openkx.kxexam.util.ID;
+import com.openkx.kxexam.util.PasswordUtil;
 import com.openkx.kxexam.util.Time;
 
 @Entity
@@ -19,6 +20,8 @@ public class User {
 	private String password;
 	
 	private Timestamp createtime;	//创建时间
+	
+	private String role;
 	
 	//以下为个人信息↓
 	private String headimgs;	//头像
@@ -46,7 +49,7 @@ public class User {
 	private String identifier;	//标识符-编号
 	
 	public enum ROLE{
-		VISITOR, USER;
+		VISITOR, STUDENTS, TEACHER, ADMIN, FOREVER;
 	}
 	
 	public User(){
@@ -55,6 +58,7 @@ public class User {
 		this.createtime = Time.timestamp();
 		this.headimgs = "/images/default_head.png";
 		this.nickname = identifier;
+		this.role = "STUDENTS";
 	}
 
 	public String getId() {
@@ -78,7 +82,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = PasswordUtil.createPassword(password);
 	}
 
 	public Timestamp getCreatetime() {
@@ -87,6 +91,14 @@ public class User {
 
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getHeadimgs() {

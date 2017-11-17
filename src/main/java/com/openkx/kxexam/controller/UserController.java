@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -17,13 +18,19 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/register")
-	public String register(HttpSession session, UserDto userDto) {
+	public String register(HttpSession session, UserDto userDto, BindingResult result) {
+		if (result.hasErrors()) {
+			return "register";
+		}
 		userService.register(session, userDto);
 		return "success";
 	}
 
 	@PostMapping("/login")
-	public String auth(HttpSession session,UserDto userDto) {
+	public String auth(HttpSession session,UserDto userDto, BindingResult result) {
+		if (result.hasErrors()) {
+			return "login";
+		}
 		userService.login(session, userDto.getAccount(), userDto.getPassword());
 		return "redirect:/";
 	}

@@ -11,7 +11,7 @@
 <div id="login">
     <div class="wrapper">
         <div class="login">
-            <form action="#" method="post" class="container offset1 loginform">
+            <form th:action="@{/login}" method="post" class="container offset1 loginform">
                 <div id="owl-login">
                     <div class="hand"></div>
                     <div class="hand hand-r"></div>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-actions"><a href="#" tabindex="5" class="btn pull-left btn-link text-muted">Forgot password?</a><a href="#" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                <div class="form-actions"><a href="#" tabindex="5" class="btn pull-left btn-link text-muted">Forgot password?</a><a th:href="@{/register}" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
                     <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
                 </div>
             </form>

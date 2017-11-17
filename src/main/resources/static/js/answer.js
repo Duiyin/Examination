@@ -23,9 +23,9 @@ $.fn.answerSheet = function(options) {
         }
         $(this).show();
         if (opts.mold == 'card') {
-            obj.find('ul li label').click(function() {
+            obj.find('ul li label').click(function(JsonResult) {
             	var tips = $(this).parents(".select").next(".tips");
-            	$(tips).append("正确");
+            	$(tips).append(JsonResult[0]);
                 var _idx = $(this).parents(_cont).index()
                   , _cards = obj
                   , _cardcont = $(this).parents(_cont);
