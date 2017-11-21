@@ -13,6 +13,7 @@ import com.openkx.kxexam.dao.ExamDao;
 import com.openkx.kxexam.dao.SubjectDao;
 import com.openkx.kxexam.domain.Classify;
 import com.openkx.kxexam.domain.Exam;
+import com.openkx.kxexam.domain.RandomDto;
 import com.openkx.kxexam.domain.Subject;
 import com.openkx.kxexam.domain.SubjectDto;
 
@@ -75,8 +76,8 @@ public class SubjectService {
 		subjectDao.save(subject);
 	}
 	
-	public Subject[] random(String classifyId, String[] questionType, String[] number, String papername){
-		Subject[] list=subjectDao.random(classifyId,questionType,number,papername);
+	public Subject[] random(String classifyId, String[] questionType, RandomDto randomDto){
+		Subject[] list=subjectDao.random(classifyId,questionType,randomDto);
 		Exam exam = new Exam();
 		Classify classify = subjectDao.findClassifyById(classifyId);
 		List<String> paperids = new ArrayList<String>();
@@ -86,11 +87,11 @@ public class SubjectService {
 			System.err.println("--------"+subject.getQuestion());
 			System.err.println("--------"+subject.getQuestion_type());
 		}
-		exam.setPapername(papername);
+		exam.setPapername(randomDto.getPapername());
 		exam.setPapers(paperids);
 		exam.setClassify(classify);
 		examDao.save(exam);
-		System.err.println("------"+papername);
+		System.err.println("------"+randomDto.getPapername());
 		return list;
 	}
 	

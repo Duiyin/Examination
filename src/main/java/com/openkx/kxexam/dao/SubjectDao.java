@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.openkx.kxexam.domain.Classify;
+import com.openkx.kxexam.domain.RandomDto;
 import com.openkx.kxexam.domain.Subject;
 
 
@@ -46,7 +47,7 @@ public class SubjectDao extends BaseDao<Subject>{
 		getSession().save(subject);
 	}
 	
-	public Subject[] random(String classifyId,String[] questionType,String[] number, String papername){
+	public Subject[] random(String classifyId, String[] questionType, RandomDto randomDto){
 		log.debug("rendom subject");
 		try {
 			List<Subject> list = new ArrayList<>();
@@ -56,7 +57,7 @@ public class SubjectDao extends BaseDao<Subject>{
 				Criteria criteria = getSession().createCriteria(Subject.class);
 				criteria.add(Property.forName("classify.id").eq(classifyId));
 				criteria.add(Property.forName("question_type").eq(questionType[i]));
-				criteria.setMaxResults(Integer.parseInt(number[i]));
+				criteria.setMaxResults(Integer.parseInt(randomDto.getNumber()[i]));
 				criteria.add(Restrictions.sqlRestriction("1 = 1  order by rand()"));
 				singal_list = criteria.list();
 				list.addAll(singal_list);

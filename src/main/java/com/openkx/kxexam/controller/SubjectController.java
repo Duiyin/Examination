@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.openkx.kxexam.domain.Classify;
+import com.openkx.kxexam.domain.RandomDto;
 import com.openkx.kxexam.domain.Subject;
 import com.openkx.kxexam.domain.SubjectDto;
 import com.openkx.kxexam.domain.SubjectDtoList;
@@ -93,6 +94,9 @@ public class SubjectController {
 	public String findRandom(Model model,@PathVariable String id){
 		Classify classify = classifyService.findClassifyById(id);
 		model.addAttribute("classify",classify);
+		List<Subject> list = subjectService.findAppointQuestion(id);
+		model.addAttribute("pdcount", list.get(0).getCount(list, "判断题"));
+		model.addAttribute("xzcount", list.get(0).getCount(list, "选择题"));
 		return "random";
 	}
 	
@@ -106,9 +110,9 @@ public class SubjectController {
 	 */
 	@PostMapping("/info/{id}/random/create")
 	@ResponseBody
-	public Map<String, Object> createrandom(@PathVariable String id, @RequestParam("question_type[]") String[] questionType,
-			@RequestParam("number[]") String[] number, String papername){
-		Subject[] random = subjectService.random(id,questionType,number,papername);
+	public Map<String, Object> createrandom(Model model, @PathVariable String id, @RequestParam("question_type[]") String[] questionType,
+			RandomDto randomDto){
+		Subject[] random = subjectService.random(id,questionType,randomDto);
 		return Result.success();
 	}
 
