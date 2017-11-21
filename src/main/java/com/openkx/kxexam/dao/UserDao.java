@@ -19,6 +19,11 @@ public class UserDao extends BaseDao<User>{
 		getSession().save(user);
 	}
 	
+	/**
+	 * 判断账号是否重复*
+	 * @param account
+	 * @return
+	 */
 	public User findByAccount(String account){
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(User.class);
@@ -38,5 +43,9 @@ public class UserDao extends BaseDao<User>{
 			log.error("merge failed", re);
 			throw re;
 		}
+	}
+	
+	public void update(User user){
+		getSession().update(user);
 	}
 }

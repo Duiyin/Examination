@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div id="p_form" name="p_form" th:each="info : ${pform}">
+		<form method="post" name="p_form" th:action="@{'/personal/'+ ${info.id} +'/update/'}">
+			<div>
+				<span>昵称:</span>&nbsp;&nbsp;&nbsp; <input name="nickname" th:value="${info.nickname}" />
+			</div>
+			<div>
+				<span>个性签名:</span>&nbsp;&nbsp;&nbsp; <input name="autograph" th:value="${info.autograph}" />
+			</div>
+			<div>
+				<span>性别:</span>&nbsp;&nbsp;&nbsp; <select name="sex">
+													  	<option value ="保密">保密</option>
+													  	<option value ="男">男</option>
+													  	<option value="女">女</option>
+													</select>
+			</div>
+			<div>
+				<span>生日:</span>&nbsp;&nbsp;&nbsp; <input name="birthday" th:value="${info.birthday}" />
+			</div>
+			<div>
+				<span>个人简介:</span>&nbsp;&nbsp;&nbsp;
+				<textarea rows="1" cols="20" name="introduce">[[${info.introduce}]]</textarea>
+			</div>
+			<div>
+				<span>职业:</span>&nbsp;&nbsp;&nbsp; <input name="occupation" th:value="${info.occupation}" />
+			</div>
+			<div>
+				<span>教育:</span>&nbsp;&nbsp;&nbsp; <input name="education" th:value="${info.education}" />
+			</div>
+			<button type="button" th:id="${session.userid.id}" name="pbtn" style="margin-left: 755px">修改</button>
+		</form>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$(document).on("click", "[name='pbtn']", function(){
+	var form = $(this).parents("form");
+    $.post(form.attr("action"), form.serialize(), function(json) {
+        if (json.result == "success") {
+        	window.location.href = "/personal";
+        } 
+    });
+}); 
+</script>
+</html>

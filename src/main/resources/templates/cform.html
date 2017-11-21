@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div id="c_form" name="c_form" th:each="info : ${cform}">
+		<form method="post" name="c_form" th:action="@{'/contacts/'+ ${info.id} +'/update/'}">
+			<div>
+				<span>所在地:</span>&nbsp;&nbsp;&nbsp;<input name="location" th:value="${info.location}" />
+			</div>
+			<div>
+				<span>邮箱:</span>&nbsp;&nbsp;&nbsp; <input name="email" th:value="${info.email}" />
+			</div>
+			<div>
+				<span>手机:</span>&nbsp;&nbsp;&nbsp; <input name="mobile" th:value="${info.mobile}" />
+			</div>
+			<button type="button" th:id="${session.userid.id}" name="cBtn" style="margin-left: 755px">修改</button>
+		</form>
+	</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+$(document).on("click", "[name='cBtn']", function(){
+	var form = $(this).parents("form");
+    $.post(form.attr("action"), form.serialize(), function(json) {
+        if (json.result == "success") {
+        	window.location.href = "/personal";
+        } 
+    });
+}); 
+</script>
+</html>

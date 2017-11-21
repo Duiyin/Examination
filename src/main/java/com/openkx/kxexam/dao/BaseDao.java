@@ -16,6 +16,7 @@ import com.openkx.kxexam.domain.Answer;
 import com.openkx.kxexam.domain.Classify;
 import com.openkx.kxexam.domain.Exam;
 import com.openkx.kxexam.domain.Subject;
+import com.openkx.kxexam.domain.User;
 import com.openkx.kxexam.util.MyPage;
 
 
@@ -138,6 +139,7 @@ public class BaseDao<T> {
 			throw e;
 		}
 	}
+	
 	/**
 	 * 查询一条答案记录 对象 *
 	 * @param id
@@ -147,6 +149,20 @@ public class BaseDao<T> {
 		try {
 			Answer answer = (Answer) getSession().get("com.openkx.kxexam.domain.Answer", id);
 			return answer;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * 查询一个用户对象*
+	 * @param id
+	 * @return
+	 */
+	public User findUserById(String id){
+		try {
+			User user = (User) getSession().get("com.openkx.kxexam.domain.User", id);
+			return user;
 		} catch (Exception e) {
 			throw e;
 		}

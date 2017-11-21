@@ -43,33 +43,36 @@
           <ul>
             <li ><a href="#"><i class="personal-font-color">个人资料</i></a></li>
             <li ><a href="#"><i class="personal-font-color">修改密码</i></a></li>
+            <li ><a href="#"><i class="personal-font-color">权限申请</i></a></li>
           </ul>  
         </nav>
       </div>
     </div>
     <div class="body_main_div">
 	    <div class="panel panel-info">
-		  <div class="panel-heading">基本信息<button class="info-personal-edit" name="personal_button" type="button">编辑</button></div>
+		  <div class="panel-heading">基本信息<button class="info-personal-edit" name="personal_btn" type="button">编辑</button></div>
 			  <div class="panel-body" th:if="${session.userid} != null">
-			  	<form method="post" name="personal_form" >
-				    <div><span>昵称:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.nickname}">江南</span></div>
-				    <div><span>个性签名:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.autograph}">今天天气挺好</span></div>
-				    <div><span>性别:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.sex}">男</span></div>
-				    <div><span>生日:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.birthday}">2001-01-01</span></div>
-				    <div><span>个人简介:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.introduce}">顺其自然</span></div>
-				    <div><span>职业:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.occupation}">学生</span></div>
-				    <div><span>教育:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.education}">高中</span></div>
+			  	<form method="post" name="personal_form">
+				    <div><span>昵称:</span>&nbsp;&nbsp;&nbsp;<span name="nickname" th:text="${session.userid.nickname}">江南</span></div>
+				    <div><span>个性签名:</span>&nbsp;&nbsp;&nbsp;<span name="autograph" th:text="${session.userid.autograph}">今天天气挺好</span></div>
+				    <div><span>性别:</span>&nbsp;&nbsp;&nbsp;<span name="sex" th:text="${session.userid.sex}">男</span></div>
+				    <div><span>生日:</span>&nbsp;&nbsp;&nbsp;<span name="birthday" th:text="${session.userid.birthday}">2001-01-01</span></div>
+				    <div><span>个人简介:</span>&nbsp;&nbsp;&nbsp;<span name="introduce" th:text="${session.userid.introduce}">顺其自然</span></div>
+				    <div><span>职业:</span>&nbsp;&nbsp;&nbsp;<span name="occupation" th:text="${session.userid.occupation}">学生</span></div>
+				    <div><span>教育:</span>&nbsp;&nbsp;&nbsp;<span name="education" th:text="${session.userid.education}">高中</span></div>
 			    </form>
+			    <div th:id="${session.userid.id}" name="p_form"></div>
 			  </div>
 		</div>
 		<div class="panel panel-info">
-		  <div class="panel-heading">联系方式<button class="info-personal-edit" name="contacts_button" type="button">编辑</button></div>
+		  <div class="panel-heading">联系方式<button class="info-personal-edit" name="contacts_btn" type="button">编辑</button></div>
 			  <div class="panel-body" th:if="${session.userid} != null">
 			  	<form  name="contacts_form" >
 				    <div><span>所在地:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.location}">江南</span></div>
 				    <div><span>邮箱:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.email}">l1278945971@163.com</span></div>
 				    <div><span>手机号:</span>&nbsp;&nbsp;&nbsp;<span th:text="${session.userid.mobile}">1314****582</span></div>
 			    </form>
+			    <div th:id="${session.userid.id}" name="c_form"></div>
 			  </div>
 		</div>
 	</div>
@@ -77,4 +80,18 @@
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript">
+	$(document).on("click", "[name='personal_btn']", function(){
+		$("form[name='personal_form']").css("display" ,"none");
+		$("button[name='personal_btn']").css("display" ,"none");
+		var id = $("[name='p_form']").attr("id");
+		$("[name='p_form']").load('/pform/'+id);
+	});
+	$(document).on("click", "[name='contacts_btn']", function(){
+		$("form[name='contacts_form']").css("display" ,"none");
+		$("button[name='contacts_btn']").css("display" ,"none");
+		var id = $("[name='c_form']").attr("id");
+		$("[name='c_form']").load('/cform/'+id);
+	});
+</script>
 </html>
