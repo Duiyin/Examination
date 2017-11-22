@@ -1,21 +1,37 @@
 package com.openkx.kxexam.domain;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.openkx.kxexam.util.ListStringPattern;
 
 public class SubjectDto {
 
+	@NotEmpty(message = "题目不能为空")
 	private String question;
 	
+	@NotEmpty(message = "正确答案不能为空")
 	private String rightKey;
 
 	private String question_tag;
 	
 	private String analysis;		//答案分析
 	
+	@NotNull(message="选项不能为空")  
+    @Size(min = 2, max = 4,message="选项至少填写2个")  
 	private List<String> options;
 	
 	private String determine;		//判断选项
 	
+	@NotEmpty(message = "题目类型不能为空")
 	private String question_type;
 	
 	private String question_difficulty;

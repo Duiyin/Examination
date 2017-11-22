@@ -3,6 +3,8 @@ package com.openkx.kxexam.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +38,7 @@ public class SubjectController {
 	 */
 	@PostMapping("/subject/create")
 	@ResponseBody
-	public Map<String, Object> create(SubjectDtoList subjectDtoList, String classify) {
-		
+	public Map<String, Object> create(@Valid SubjectDtoList subjectDtoList, String classify) {
 		for(SubjectDto subjectDto : subjectDtoList.getSubjectDto()){
 			subjectService.save(subjectDto,classify);
 		}

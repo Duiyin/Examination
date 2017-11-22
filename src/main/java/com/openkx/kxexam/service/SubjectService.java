@@ -3,6 +3,8 @@ package com.openkx.kxexam.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Null;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,40 +36,27 @@ public class SubjectService {
 	 */
 	public void save(SubjectDto subjectDto,String classify){
 		Subject subject = new Subject();
-		
 		List<String> list = subjectDto.getOptions();
 		List<String> newGroup = new ArrayList<String>();
 		String[] arr = {"A", "B", "C", "D"};
-		
-		for(int i = 0; i < list.size(); i++) {
-			if(! list .get(i).isEmpty()){
-			newGroup.add(arr[i] + " : " + list.get(i));
-			}else{
-				break;
+		//如果为选择题给options添加ABCD
+		if (subjectDto.getQuestion_type().equals("选择题")) {
+			for(int i = 0; i < list.size(); i++) {
+				if(! list .get(i).isEmpty()){
+				newGroup.add(arr[i] + " : " + list.get(i));
+				}else{
+					break;
+				}
 			}
-		}
-		
-		if(subjectDto.getQuestion_tag().isEmpty()){
-			subjectDto.setQuestion_tag("无标签信息!");
-		}
-		subjectDto.setOptions(newGroup);
-		
-		if (subjectDto.getOptions().isEmpty() && !subjectDto.getDetermine().isEmpty()) {
-			
-			if(subjectDto.getDetermine().equals("answerNull")){
-				subjectDto.setRightKey("暂无此题答案...");
-			}else{
-				subjectDto.setRightKey(subjectDto.getDetermine());
-			}
-			newGroup.add("正确");
-			newGroup.add("错误");
 			subjectDto.setOptions(newGroup);
-			subjectDto.setDetermine(null);
-			
-		} else {
-			if(!subjectDto.getDetermine().isEmpty()){
-				subjectDto.setDetermine(null);
-			}
+		}
+		//如果为判断题直接把list添加如options
+		if (subjectDto.getQuestion_type().equals("判断题")) {
+			subjectDto.setOptions(list);
+		}
+		//标签为空保存无标签信息
+		if(null == subjectDto.getQuestion_tag()){
+			subjectDto.setQuestion_tag("无标签信息!");
 		}
 		
 		BeanUtils.copyProperties(subjectDto, subject, Subject.class);
