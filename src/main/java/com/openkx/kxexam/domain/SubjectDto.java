@@ -1,17 +1,11 @@
 package com.openkx.kxexam.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.openkx.kxexam.util.ListStringPattern;
 
 public class SubjectDto {
 
