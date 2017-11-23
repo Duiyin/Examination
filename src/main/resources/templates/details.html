@@ -34,13 +34,11 @@
 				选项 C：<input name="subjectDto[0].options[2]" /><br/>
 				选项 D：<input name="subjectDto[0].options[3]" /><sapn data-error="subjectDto[0].options"></sapn><br/>
 				正确答案:
-				<label><input name="subjectDto[0].rightKey" type="radio" value="A" />A</label>
-				<label><input name="subjectDto[0].rightKey" type="radio" value="B" />B</label>
-				<label><input name="subjectDto[0].rightKey" type="radio" value="C" />C </label>
-				<label><input name="subjectDto[0].rightKey" type="radio" value="D" />D</label>
-				<sapn data-error="subjectDto[0].rightKey"></sapn>
-				
-				</div>
+				<label><input id="A0" name="subjectDto[0].rightKey" type="radio" value="A" disabled/>A</label>
+				<label><input id="B0" name="subjectDto[0].rightKey" type="radio" value="B" disabled/>B</label>
+				<label><input id="C0" name="subjectDto[0].rightKey" type="radio" value="C" disabled/>C </label>
+				<label><input id="D0" name="subjectDto[0].rightKey" type="radio" value="D" disabled/>D</label>
+				<sapn data-error="subjectDto[0].rightKey"></sapn></div>
 				<div id="determine0" style="display:none;">
 				判断：<select name="subjectDto[0].rightKey">
 						<option value="">-请选择--</option>
@@ -90,9 +88,42 @@ $(document).on("click", "[name='submit_add']", function() {
     }, "json");
 });
 var i = 0;
+$("[name='subjectDto[0].options[0]']").bind('input propertychange', function() {
+	document.getElementById("A0").disabled=false;
+});
+$("[name='subjectDto[0].options[1]']").bind('input propertychange', function() {
+	document.getElementById("B0").disabled=false;
+});
+$("[name='subjectDto[0].options[2]']").bind('input propertychange', function() {
+	document.getElementById("C0").disabled=false;
+});
+$("[name='subjectDto[0].options[3]']").bind('input propertychange', function() {
+	document.getElementById("D0").disabled=false;
+});
+$("[name='subjectDto[0].options[0]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("A0").disabled=true;
+    }  
+});
+$("[name='subjectDto[0].options[1]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("B0").disabled=true;
+    }  
+});
+$("[name='subjectDto[0].options[2]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("C0").disabled=true;
+    }  
+});
+$("[name='subjectDto[0].options[3]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("D0").disabled=true;
+    }  
+});
 $(document).ready(function(){
 	  $("#submit_new").click(function(){
 		 i++;
+		 var t = i;
 	    $(".all").append("<br><br><div id='topicDescription'>题目内容：<input name='subjectDto["+ i +"].question' />"+
 	    		"<sapn data-error='subjectDto["+ i +"].question'></span>"+"<br/></div>"+
 	    		"标签：<input name='subjectDto["+ i +"].question_tag' />"+
@@ -107,7 +138,11 @@ $(document).ready(function(){
 				"选项 B：<input name='subjectDto["+ i +"].options[1]' /><br/>"+
 				"选项 C：<input name='subjectDto["+ i +"].options[2]' /><br/>"+
 				"选项 D：<input name='subjectDto["+ i +"].options[3]' />"+"<sapn data-error='subjectDto["+ i +"].question_type'></span>"+"<br/>"+
-				"正确答案：<input name='subjectDto["+ i +"].rightKey' /><br/></div>"+
+				"正确答案：<label><input id='A"+ i +"' name='subjectDto["+ i +"].rightKey' type='radio' value='A' disabled/>A</label>"+
+				"<label><input id='B"+ i +"' name='subjectDto["+ i +"].rightKey' type='radio' value='B' disabled/>B</label>"+
+				"<label><input id='C"+ i +"' name='subjectDto["+ i +"].rightKey' type='radio' value='C' disabled/>C</label>"+
+				"<label><input id='D"+ i +"' name='subjectDto["+ i +"].rightKey' type='radio' value='D' disabled/>D</label>"+
+				"<sapn data-error='subjectDto["+ i +"].rightKey'></sapn></div>"+
 				"<div id='determine"+i+"' style='display:none;'>"+
 				"判断：<select name='subjectDto["+ i +"].rightKey'>"+
 						"<option value=''>-请选择--</option>"+
@@ -118,6 +153,39 @@ $(document).ready(function(){
 				"答案解析：<input name='subjectDto["+ i +"].analysis' /></div>"+
 				"<input class='check' style='display:none;' name='subjectDto["+ i +"].options[0]' type='checkbox' value='正确'></input>"+
 				"<input class='check' style='display:none;' name='subjectDto["+ i +"].options[1]' type='checkbox' value='错误'></input>");
+	    $("[name='subjectDto["+ t +"].options[0]']").bind('input propertychange', function() {
+	    	console.log(document.getElementById("A"+ t +""));
+	    	document.getElementById("A"+ t +"").disabled=false;
+	    });
+	    $("[name='subjectDto["+ t +"].options[1]']").bind('input propertychange', function() {
+	    	document.getElementById("B"+ t +"").disabled=false;
+	    });
+	    $("[name='subjectDto["+ t +"].options[2]']").bind('input propertychange', function() {
+	    	document.getElementById("C"+ t +"").disabled=false;
+	    });
+	    $("[name='subjectDto["+ t +"].options[3]']").bind('input propertychange', function() {
+	    	document.getElementById("D"+ t +"").disabled=false;
+	    });
+	    $("[name='subjectDto["+ t +"].options[0]']").blur(function () {  
+	        if($(this).val()==''){
+	        	document.getElementById("A"+ t +"").disabled=true;
+	        }  
+	    });
+	    $("[name='subjectDto["+ t +"].options[1]']").blur(function () {  
+	        if($(this).val()==''){
+	        	document.getElementById("B"+ t +"").disabled=true;
+	        }  
+	    });
+	    $("[name='subjectDto["+ t +"].options[2]']").blur(function () {  
+	        if($(this).val()==''){
+	        	document.getElementById("C"+ t +"").disabled=true;
+	        }  
+	    });
+	    $("[name='subjectDto["+ t +"].options[3]']").blur(function () {  
+	        if($(this).val()==''){
+	        	document.getElementById("D"+ t +"").disabled=true;
+	        }  
+	    });
 	  });
 });
 var map={"选择题":"choose", "判断题":"determine", "简答题":"analysis"}
@@ -139,5 +207,6 @@ $(document).on("change",".questions",function(){
         }  
     }  
 });
+
 </script>
 </html>

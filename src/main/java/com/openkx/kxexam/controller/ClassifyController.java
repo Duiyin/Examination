@@ -29,7 +29,7 @@ public class ClassifyController {
 	public String findAllClassify(Model model) {
 		List<Classify> list = classifyService.findAllClassify();
 		model.addAttribute("AllClassify", list);
-		return "onlineExam";
+		return "index";
 	}
 
 	/**
