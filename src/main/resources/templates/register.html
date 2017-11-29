@@ -61,21 +61,95 @@
                     
                 </div>
                 <div class="form-actions"><a th:href="@{/login}" tabindex="6" class="btn btn-link text-muted">Sign In</a>
-                    <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
+                    <button id="btn_register" type="submit" tabindex="4" class="btn btn-primary">确定注册</button>
                 </div>
             </form>
         </div>
     </div>
     <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
     <script>
+    var countdown=60;
     $(function() {
-
         $('#login #password').focus(function() {
             $('#owl-login').addClass('password');
         }).blur(function() {
             $('#owl-login').removeClass('password');
         });
+        $('#getVerifyBtn').click(function(){
+	    	getVerCode();
+	    });
     });
+    Check = function() {
+		$("#btn_register").attr('disabled',false);
+		$("#btn_register").html('确定注册');
+	}
+    getVerCode = function() {
+    	var email = $("#email").val();
+    	if(isEmail(email)) {
+    		$("#getVerifyBtn").html("发送中...");
+    		$ajax({
+    			type : "post",
+    			url : "/email/verify",
+    			data : "email="+email,
+    			dataType : "json",
+    			success :function(txt){
+    				$("#getVerifyBtn").html(txt);
+    				setVerifyBtnDown();
+    			},
+    			error :function(){
+    				$("#getVerifyBtn").html("发送失败");
+    			}
+    		});
+    	}else{
+    		$("$getVerifyBtn").html("邮箱格式有误");
+    		setTimeout(function(){
+    			resetSendBtn();
+    		},3000);
+    	}
+    }
+    setVerifyBtnDown = function(){
+    	if(countdown == 0){
+    		$("#getVerifyBtn").attr('disabled',false);
+    		$("#getVerifyBtn").html("点击获取激活码");
+    		countdown=60;
+    		return;
+    	}else{
+    		$("#getVerifyBtn").attr('disabled',true);
+    		$('#getVerifyBtn').html("重新发送(" + countdown + ")");
+    		countdown--;
+    	}
+    	setTimeout(function(){
+    		setVerifyBtnDown();
+    	},1000);
+    }
+    confirmRegCode = function(){
+    	var email = $("#email").val();
+    	var regCode = $("#regCode").val();
+    	$ajax({
+    		type : "post",
+    		url : "/email/verify/confirm",
+    		data : "email="+email+"&regCode="+regCode,
+    		dataType : "json",
+    		async : false,
+    		success : function(txt){
+    			console.log(txt);
+    		},
+    		error : function(){
+    			$("#getVerifyBtn").html("发送失败");
+    		}
+    	});
+    }
+    isEmail = function(mail) {
+    	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    	if(filter.test(mail)){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+    resetSendBtn = function(){
+    	$("#getVerifyBtn").html("点击获取激活码");
+    }
     </script>
 </div>
 <!-- end -->
