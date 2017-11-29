@@ -25,15 +25,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/register")
-	public String register(HttpSession session, UserDto userDto, BindingResult result) {
-		if (result.hasErrors()) {
-			return "register";
-		}
-		userService.register(session, userDto);
-		return "success";
-	}
-
 	@PostMapping("/login")
 	public String auth(HttpSession session,UserDto userDto, BindingResult result) {
 		if (result.hasErrors()) {

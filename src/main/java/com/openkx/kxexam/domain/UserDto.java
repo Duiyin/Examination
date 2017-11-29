@@ -2,6 +2,7 @@ package com.openkx.kxexam.domain;
 
 public class UserDto {
 
+	
 	private String account;
 	
 	private String password;

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.openkx.kxexam.dao.UserDao;
+import com.openkx.kxexam.domain.RegisterDto;
 import com.openkx.kxexam.domain.User;
 
 @Controller
@@ -16,7 +17,7 @@ public class IndexController {
 	private UserDao userDao;
 
 	@GetMapping("/register")
-	public String register() {
+	public String register(RegisterDto registerDto) {
 		return "register";
 	}
 

@@ -10,10 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.openkx.kxexam.dao.UserDao;
 import com.openkx.kxexam.domain.CFormDto;
 import com.openkx.kxexam.domain.PFormDto;
+import com.openkx.kxexam.domain.RegisterDto;
 import com.openkx.kxexam.domain.User;
 import com.openkx.kxexam.domain.UserDto;
 import com.openkx.kxexam.util.PasswordUtil;
 import com.openkx.kxexam.util.ServiceException;
+import com.openkx.kxexam.util.ValidTool;
 
 @Component
 @Transactional
@@ -22,17 +24,19 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public User register(HttpSession session, UserDto userDto) {
+	public User register(HttpSession session, RegisterDto registerDto) {
 		try {
-			User checkRepeat = userDao.findByAccount(userDto.getAccount());
+			User checkRepeat = userDao.findByAccount(registerDto.getAccount());
 			User user = new User();
+			user.setAccount(registerDto.getAccount());
+			user.setPassword(registerDto.getNpassword());
 			if (null != checkRepeat) { // 查账号是否有重复
 				throw new ServiceException("register", "account_exist");
 			} else {
-				BeanUtils.copyProperties(userDto, user, User.class);
-				if(userDto.getEmail().equals("") || userDto.getEmail().isEmpty()){
-					user.setEmail("保密");
+				if(ValidTool.isEmail(registerDto.getEmail())){
+					user.setEmail(registerDto.getAccount());
 				}
+				BeanUtils.copyProperties(registerDto, user, User.class);
 				userDao.save(user);
 			}
 			return user;

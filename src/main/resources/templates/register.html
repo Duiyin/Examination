@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<meta name="description" content="�˴�������Ϊ���ȵ�èͷӥ��¼����" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>register</title>
 <link rel="stylesheet" th:href="@{/css/jq22.css}">
 </head>
@@ -11,7 +11,7 @@
 <div id="login">
     <div class="wrapper">
         <div class="register">
-            <form th:action="@{/register}" method="post" class="container offset1 loginform">
+            <form th:action="@{/register}" method="post"  th:object="${registerDto}" class="container offset1 loginform">
                 <div id="owl-login">
                     <div class="hand"></div>
                     <div class="hand hand-r"></div>
@@ -24,22 +24,41 @@
                     <input type="hidden" name="_csrf" value="">
                     <div class="control-group">
                         <div class="controls">
-                            <label for="account" class="control-label fa fa-envelope"></label>
-                            <input id="account" type="account" name="account" placeholder="Account" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                            <label for="account" class="control-label fa fa-user"></label>
+                            <input id="account" type="text" th:field="*{account}" placeholder="输入用户名" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                            <span class="error" th:if="${#fields.hasErrors('account')}" th:errors="*{account}">账号已被使用</span>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <label for="password" class="control-label fa fa-lock"></label>
-                            <input id="password" type="password" name="password" placeholder="Password" tabindex="2" class="form-control input-medium">
+                            <label for="npassword" class="control-label fa fa-lock"></label>
+                            <input id="npassword" type="password" th:field="*{npassword}" placeholder="输入6至16位密码" tabindex="2" class="form-control input-medium">
+                            <span class="error" th:if="${#fields.hasErrors('npassword')}" th:errors="*{npassword}">输入正确的密码</span>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <label for="email" class="control-label fa fa-asterisk"></label>
-                            <input id="email" type="email" name="email" placeholder="Email" tabindex="3" class="form-control input-medium">
+                            <label for="cpassword" class="control-label fa fa-key"></label>
+                            <input id="cpassword" type="password" th:field="*{cpassword}" placeholder="确认密码" tabindex="3" class="form-control input-medium">
+                            <span class="error" th:if="${#fields.hasErrors('cpassword')}" th:errors="*{cpassword}">输入正确的密码</span>
                         </div>
                     </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="email" class="control-label fa fa-envelope"></label>
+                            <input id="email" type="text" th:field="*{email}" placeholder="Email" tabindex="4" class="form-control input-medium">
+                            <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email错误</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="email" class="control-label fa fa-envelope"></label>
+                            <input id="regCode" type="text" name="regCode" placeholder="输入激活码" tabindex="5" class="form-control input-medium">
+                            <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email错误</span>
+                            <button class="btn btn-primary" id="getVerifyBtn" type="button">点击获取激活码</button>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="form-actions"><a th:href="@{/login}" tabindex="6" class="btn btn-link text-muted">Sign In</a>
                     <button type="submit" tabindex="4" class="btn btn-primary">Login</button>

@@ -73,10 +73,10 @@ $(document).on("click", "[name='submit_add']", function() {
     $.post(form.attr("action"), serializeNotNull(form.serialize()), function(json) {
     	console.log( form.serialize());
         if (json.result == "success") {
-        	console.log(json);/* 
+        	console.log(json); 
         	setTimeout(function(){
              	 window.location.href = "/";
-             },1000); */
+             },1000); 
         } else {
             $.each(json, function(i, val) {
             	if (i != "result") {
