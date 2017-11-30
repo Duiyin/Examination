@@ -48,6 +48,7 @@ public class RegisterController {
 	@ResponseBody
 	@PostMapping("/email/verify")
 	public String verifyEmail(HttpSession session, String email){
+		System.err.println(email);
 		if(!isEmail(email)){
 			return "邮箱格式有误";
 		}

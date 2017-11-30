@@ -67,7 +67,7 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/jquery-3.0.0.min.js}"></script>
 <script src="../static/js/material.min.js" th:src="@{/js/material.min.js}"></script>
 <script>
     var countdown=60;
@@ -93,7 +93,7 @@
     	if(isEmail(email)) {
     		$("#getVerifyBtn").html("发送中...");
     		$.ajax({
-    			type: "post",
+    			type: "POST",
     			url: "/email/verify",
     			data: "email="+email,
     			dataType: "json",
@@ -106,10 +106,10 @@
     			}
     		});
     	}else{
-    		$("$getVerifyBtn").html("邮箱格式有误");
-    		setTimeout(function(){
-    			resetSendBtn();
-    		},3000);
+    		$("#getVerifyBtn").html("邮箱格式有误");
+			setTimeout(function() {
+				resetSendBtn();
+	    	},3000);
     	}
     }
     setVerifyBtnDown = function(){
