@@ -1,25 +1,26 @@
 package com.openkx.kxexam.domain;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.openkx.kxexam.util.FieldMatch;
 
 @FieldMatch(first = "npassword", second = "cpassword", message = "密码不一致")
 public class RegisterDto {
-	@NotNull(message = "用户名不能为空")
+	@NotEmpty(message = "用户名不能为空")
 	private String account;
 
-	@NotNull(message = "密码不能为空")
+	@NotEmpty(message = "密码不能为空")
 	@Size(min = 6, max = 16, message = "密码长度有误")
 	private String npassword;
 
-	@NotNull(message = "密码不能为空")
+	@NotEmpty(message = "密码不能为空")
 	@Size(min = 6, max = 16, message = "密码长度有误")
 	private String cpassword;
 
+	@NotEmpty(message = "邮箱不能为空")
 	@Email(message = "请正确书写Email格式")
 	private String email;
 

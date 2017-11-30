@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +25,11 @@ public class RegisterController {
 	@Autowired
 	private MailService mailService;
 	
-	@PostMapping("/register")
-	public String register(HttpSession session, RegisterDto registerDto, BindingResult result, String regCode) {
+	@PostMapping(value = "/register")
+	public String register(HttpSession session, @Valid RegisterDto registerDto, BindingResult result, String regCode) {
 		String regCode1 = (String) session.getAttribute("regCode");
 		if(!regCode.equals(regCode1)){
-			result.rejectValue("regCode", "激活码错误");
+			result.rejectValue("regCode","user.verifycode.error","激活码错误");
 			return "register";
 		}
 

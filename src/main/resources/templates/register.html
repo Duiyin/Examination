@@ -11,7 +11,7 @@
 <div id="login">
     <div class="wrapper">
         <div class="register">
-            <form th:action="@{/register}" method="post"  th:object="${registerDto}" class="container offset1 loginform">
+            <form th:action="@{/register}"  method="post" th:object="${registerDto}" class="container offset1 loginform">
                 <div id="owl-login">
                     <div class="hand"></div>
                     <div class="hand hand-r"></div>
@@ -54,7 +54,7 @@
                         <div class="controls">
                             <label for="email" class="control-label fa fa-envelope"></label>
                             <input id="regCode" type="text" name="regCode" placeholder="输入激活码" tabindex="5" class="form-control input-medium">
-                            <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email错误</span>
+                            <span class="error" th:if="${#fields.hasErrors('regCode')}" th:errors="*{regCode}">激活码错误</span>
                             <button class="btn btn-primary" id="getVerifyBtn" type="button">点击获取激活码</button>
                         </div>
                     </div>
@@ -66,8 +66,10 @@
             </form>
         </div>
     </div>
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script>
+</div>
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script src="../static/js/material.min.js" th:src="@{/js/material.min.js}"></script>
+<script>
     var countdown=60;
     $(function() {
         $('#login #password').focus(function() {
@@ -79,6 +81,9 @@
 	    	getVerCode();
 	    });
     });
+    unCheck = function() {
+		$("#btn_register").attr('disabled',true);
+	};
     Check = function() {
 		$("#btn_register").attr('disabled',false);
 		$("#btn_register").html('确定注册');
@@ -87,16 +92,16 @@
     	var email = $("#email").val();
     	if(isEmail(email)) {
     		$("#getVerifyBtn").html("发送中...");
-    		$ajax({
-    			type : "post",
-    			url : "/email/verify",
-    			data : "email="+email,
-    			dataType : "json",
-    			success :function(txt){
+    		$.ajax({
+    			type: "post",
+    			url: "/email/verify",
+    			data: "email="+email,
+    			dataType: "json",
+    			success: function(txt){
     				$("#getVerifyBtn").html(txt);
     				setVerifyBtnDown();
     			},
-    			error :function(){
+    			error: function(){
     				$("#getVerifyBtn").html("发送失败");
     			}
     		});
@@ -125,16 +130,16 @@
     confirmRegCode = function(){
     	var email = $("#email").val();
     	var regCode = $("#regCode").val();
-    	$ajax({
-    		type : "post",
-    		url : "/email/verify/confirm",
-    		data : "email="+email+"&regCode="+regCode,
-    		dataType : "json",
-    		async : false,
-    		success : function(txt){
+    	$.ajax({
+    		type: "post",
+    		url: "/email/verify/confirm",
+    		data: "email="+email+"&regCode="+regCode,
+    		dataType: "json",
+    		async: false,
+    		success: function(txt){
     			console.log(txt);
     		},
-    		error : function(){
+    		error: function(){
     			$("#getVerifyBtn").html("发送失败");
     		}
     	});
@@ -151,7 +156,5 @@
     	$("#getVerifyBtn").html("点击获取激活码");
     }
     </script>
-</div>
-<!-- end -->
 </body>
 </html>
