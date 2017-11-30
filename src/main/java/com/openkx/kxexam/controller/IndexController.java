@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.openkx.kxexam.dao.UserDao;
 import com.openkx.kxexam.domain.RegisterDto;
 import com.openkx.kxexam.domain.User;
+import com.openkx.kxexam.domain.UserDto;
 
 @Controller
 public class IndexController {
@@ -22,7 +23,7 @@ public class IndexController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(UserDto userDto) {
 		return "login";
 	}
 	

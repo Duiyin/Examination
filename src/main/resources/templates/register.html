@@ -52,7 +52,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <label for="email" class="control-label fa fa-envelope"></label>
+                            <label for="email" class="control-label fa fa-asterisk"></label>
                             <input id="regCode" type="text" name="regCode" placeholder="输入激活码" tabindex="5" class="form-control input-medium">
                             <span class="error" th:if="${#fields.hasErrors('regCode')}" th:errors="*{regCode}">激活码错误</span>
                             <button class="btn btn-primary" id="getVerifyBtn" type="button">点击获取激活码</button>

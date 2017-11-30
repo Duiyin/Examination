@@ -1,14 +1,20 @@
 package com.openkx.kxexam.domain;
 
-public class UserDto {
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class UserDto {
 	
+	@NotEmpty(message = "账号不能为空")
 	private String account;
 	
+	@NotEmpty(message = "密码不能为空")
+	@Size(min = 6, max = 16, message = "密码长度有误")
 	private String password;
 	
-	private String email;
-
+	private String vcode;
+	
 	public String getAccount() {
 		return account;
 	}
@@ -25,11 +31,12 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getVcode() {
+		return vcode;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setVcode(String vcode) {
+		this.vcode = vcode;
 	}
+	
 }

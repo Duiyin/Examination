@@ -2,6 +2,7 @@ package com.openkx.kxexam.service;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,8 +46,14 @@ public class UserService {
 		}
 	}
 	
-	public User login(HttpSession session, String account, String password){
-
+	public User login(HttpSession session, String account, String password, String vcode){
+		String verifycode = (String) session.getAttribute("VerifyCode");
+		Integer login_count = (Integer) session.getAttribute("login_count");
+		if(null != login_count && login_count >6){
+			if(StringUtils.isNotBlank(verifycode) && StringUtils.equals(verifycode, vcode)){
+			}else{
+			}
+		}
 		User user = userDao.findByAccount(account);
 		if (null != user) {
 			if (!PasswordUtil.authenticatePassword(user.getPassword(), password)) {

@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<meta name="description" content="此代码内容为超萌的猫头鹰登录界面" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>login</title>
 <link rel="stylesheet" th:href="@{/css/jq22.css}">
 </head>
@@ -11,7 +11,7 @@
 <div id="login">
     <div class="wrapper">
         <div class="login">
-            <form th:action="@{/login}" method="post" class="container offset1 loginform">
+            <form th:action="@{/login}" method="post" th:object="${userDto}" class="container offset1 loginform">
                 <div id="owl-login">
                     <div class="hand"></div>
                     <div class="hand hand-r"></div>
@@ -21,17 +21,26 @@
                     </div>
                 </div>
                 <div class="pad">
-                    <input type="hidden" name="_csrf" value="">
                     <div class="control-group">
                         <div class="controls">
-                            <label for="account" class="control-label fa fa-envelope"></label>
-                            <input id="account" type="account" name="account" placeholder="Account" tabindex="1" autofocus="autofocus" class="form-control input-medium">
+                            <label for="account" class="control-label fa fa-user"></label>
+                        	<input id="account" type="text" th:field="*{account}" placeholder="Account" tabindex="1" class="form-control input-medium">
+                        	<span class="error" th:if="${#fields.hasErrors('account')}" th:errors="*{account}">璐﹀彿涓嶅瓨鍦�</span>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <label for="password" class="control-label fa fa-asterisk"></label>
-                            <input id="password" type="password" name="password" placeholder="Password" tabindex="2" class="form-control input-medium">
+                            <label for="password" class="control-label fa fa-lock"></label>
+                            <input id="password" type="password" th:field="*{password}" placeholder="Password" tabindex="2" class="form-control input-medium">
+                        	<span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">瀵嗙爜閿欒</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="password" class="control-label fa fa-lock"></label>
+                            <input id="password" type="text" th:field="*{vcode}" placeholder="Vcode" tabindex="3" class="form-control input-medium">
+                        	<p class="error" th:if="${#fields.hasErrors('vcode')}" th:errors="*{vcode}">楠岃瘉鐮侀敊璇�</p>
+                       		<img src="../static/img/vericode.jpg" th:src="@{/vericode.jpg}" />
                         </div>
                     </div>
                 </div>
