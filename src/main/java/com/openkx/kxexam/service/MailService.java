@@ -14,9 +14,9 @@ public class MailService {
 	@Autowired
     private JavaMailSender javaMailSender;
 	
-	String smtp_server = "smtp.qq.com";
-	String smtp_account = "865079657@qq.com";
-	String smtp_password = "vticpklerwadbdhe";
+	String smtp_server = "smtp.163.com";
+	String smtp_account = "15220061238@163.com";
+	String smtp_password = "hjf0419";
 
 	public void send(String toEmail, String toName, String fromName, String subject, String htmlbody) {
 
