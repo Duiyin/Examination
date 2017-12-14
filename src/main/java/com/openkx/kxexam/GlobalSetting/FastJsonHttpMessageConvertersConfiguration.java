@@ -1,4 +1,4 @@
-package com.openkx.kxexam;
+package com.openkx.kxexam.GlobalSetting;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

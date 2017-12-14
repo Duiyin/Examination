@@ -124,8 +124,6 @@ public class ExamController {
 		model.addAttribute("answerresult", answerresult.getResults());
 		return "answerdatail";
 	}
-	
-	
 
 	/**
 	 * 试卷答案判断
@@ -141,8 +139,6 @@ public class ExamController {
 		String JsonResult = examService.checkExam(id, answer, examid,examname);
 		return Result.success();
 	}
-
-	
 	
 	/**
 	 * 试卷删除 *

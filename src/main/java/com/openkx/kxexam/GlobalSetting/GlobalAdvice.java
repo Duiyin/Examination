@@ -1,4 +1,4 @@
-package com.openkx.kxexam;
+package com.openkx.kxexam.GlobalSetting;
 
 import java.util.HashMap;
 import java.util.List;

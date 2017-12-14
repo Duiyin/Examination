@@ -49,7 +49,7 @@ public class User {
 	private String identifier;	//标识符-编号
 	
 	public enum ROLE{
-		VISITOR, STUDENTS, TEACHER, ADMIN, FOREVER;
+		STUDENTS, TEACHER, ADMIN, FOREVER;
 	}
 	
 	public User(){

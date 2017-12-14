@@ -89,6 +89,4 @@ public class RegisterController {
       }
         return fourRandom;
     }
-
-
 }

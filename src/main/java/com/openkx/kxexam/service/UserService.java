@@ -13,8 +13,8 @@ import com.openkx.kxexam.domain.CFormDto;
 import com.openkx.kxexam.domain.PFormDto;
 import com.openkx.kxexam.domain.RegisterDto;
 import com.openkx.kxexam.domain.User;
-import com.openkx.kxexam.domain.UserDto;
 import com.openkx.kxexam.util.PasswordUtil;
+import com.openkx.kxexam.util.Result;
 import com.openkx.kxexam.util.ServiceException;
 import com.openkx.kxexam.util.ValidTool;
 
@@ -27,13 +27,14 @@ public class UserService {
 
 	public User register(HttpSession session, RegisterDto registerDto) {
 		try {
-			User checkRepeat = userDao.findByAccount(registerDto.getAccount());
 			User user = new User();
-			user.setAccount(registerDto.getAccount());
-			user.setPassword(registerDto.getNpassword());
+			User checkRepeat = userDao.findByAccount(registerDto.getAccount());
 			if (null != checkRepeat) { // 查账号是否有重复
-				throw new ServiceException("register", "account_exist");
+				//throw new ServiceException("register", "account_exist");
+				return (User) Result.failed();
 			} else {
+				user.setAccount(registerDto.getAccount());
+				user.setPassword(registerDto.getNpassword());
 				if(ValidTool.isEmail(registerDto.getEmail())){
 					user.setEmail(registerDto.getAccount());
 				}
