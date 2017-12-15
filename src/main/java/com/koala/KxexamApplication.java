@@ -15,6 +15,7 @@ public class KxexamApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KxexamApplication.class, args);
 	}
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver slr = new SessionLocaleResolver();

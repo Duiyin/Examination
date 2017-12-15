@@ -69,6 +69,17 @@ public class User {
 		this.occupation = "保密";
 		this.introduce = "保密";
 	}
+		
+	//初始化账户
+	public void init(){
+		this.setId("4oBGXsU9b@%zlxbUK1y5MsTtXpYq6H9g");
+		this.setAccount("l1278945971@163.com");
+		this.setPassword("koala123456");
+		this.setRole("FOREVER");
+		this.setHeadimgs("/images/default_koala.jpg");
+		this.setNickname("大鱼");
+		this.setIdentifier("4oBGXsU9bz");
+	}
 
 	public String getId() {
 		return id;
