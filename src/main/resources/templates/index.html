@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8"> 
-	<title>Bootstrap 实例 - 悬停表格</title>
+	<title>考拉</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
@@ -12,20 +12,21 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" th:href="@{/}">Brand</a>
+      <a class="navbar-brand" th:href="@{/}">Koala</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} ==null">未登录 <span class="caret"></span></a>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} !=null"><img class="img_head" th:src="@{${session.userid.headimgs}}"><text name="username" th:if="${session.userid} != null" th:text="${session.userid.nickname}"></text></img></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session?.userid} ==null">未登录 <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session?.userid} !=null"><img class="img_head" th:src="@{${session?.userid?.headimgs}}"><text name="username" th:if="${session?.userid} != null" th:text="${session?.userid?.nickname}"></text></img></a>
           <ul class="dropdown-menu">
-            <li><a th:if="${session.userid} == null" th:href="@{/login}">点我登陆</a></li>
-            <li><a th:if="${session.userid} == null" th:href="@{/register}">没有账号</a></li>
-            <li th:if="${session.userid} != null"><a th:href="@{/personal}">个人资料</a></li>
-            <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
-            <li><a th:href="@{/info/answer}">已做試卷</a></li>
+            <li><a th:if="${session?.userid} == null" th:href="@{/login}">点我登陆</a></li>
+            <li><a th:if="${session?.userid} == null" th:href="@{/register}">没有账号</a></li>
+            <li th:if="${session?.userid} != null"><a th:href="@{/personal}">个人资料</a></li>
+            <li th:if="${session?.userid} != null"><a th:href="@{/logout}">登出</a></li>
+            <li th:if="${session?.userid} != null"><a th:href="@{/info/answer}">已做試卷</a></li>
+            <li th:unless="${session?.userid?.role} == 'STUDENTS'"><a th:href="@{/backstage}">后台管理</a></li>
           </ul>
         </li>
       </ul>
