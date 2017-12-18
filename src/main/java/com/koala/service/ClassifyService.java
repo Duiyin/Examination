@@ -67,4 +67,17 @@ public class ClassifyService {
 			throw e;
 		}
 	}
+	
+	/**
+	 * 分类信息修改
+	 * @param classifyId
+	 * @param classifyDto
+	 * @return
+	 */
+	public Classify ContactDataUpdate(String classifyId, ClassifyDto classifyDto){
+		Classify classify = classifyDao.findClassifyById(classifyId);
+		BeanUtils.copyProperties(classifyDto, classify, Classify.class);
+		classifyDao.update(classify);
+		return classify;
+	}
 }

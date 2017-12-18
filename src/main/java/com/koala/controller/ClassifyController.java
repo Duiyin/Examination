@@ -16,12 +16,13 @@ import com.koala.service.ClassifyService;
 
 @Controller
 public class ClassifyController {
-	
+
 	@Autowired
 	private ClassifyService classifyService;
 
 	/**
 	 * 查询分类信息及对应子分类，首页分类信息显示*
+	 * 
 	 * @param model
 	 * @return
 	 */
@@ -34,6 +35,7 @@ public class ClassifyController {
 
 	/**
 	 * 查询分类详情
+	 * 
 	 * @param model
 	 * @param id
 	 * @return
@@ -44,22 +46,29 @@ public class ClassifyController {
 		model.addAttribute("clist", clist);
 		return "details";
 	}
-	
+
 	@GetMapping("/classify/{id}/findClassifySub")
 	@ResponseBody
 	public List<Classify> findClassifySub(Model model, @PathVariable String id) {
 		List<Classify> clist = classifyService.findClassifyDetails(id);
 		return clist;
 	}
-	
+
 	/**
 	 * 分类创建 *
+	 * 
 	 * @param classifyDto
 	 * @return
 	 */
 	@PostMapping("/classify/create")
-	public String createMain(ClassifyDto classifyDto){
+	public String createMain(ClassifyDto classifyDto) {
 		classifyService.create(classifyDto);
 		return "redirect:/";
+	}
+
+	@PostMapping("/contacts/{userid}/update")
+	@ResponseBody
+	public void update(@PathVariable String classifyId, ClassifyDto classifyDto) {
+		classifyService.ContactDataUpdate(classifyId, classifyDto);
 	}
 }
