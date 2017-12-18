@@ -2,6 +2,7 @@ package com.koala;
 
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,13 +28,21 @@ public class KxexamApplication {
 		return slr;
 	}
 
+	/**
+	 * 初始化 账号数据插入
+	 * 
+	 * @param userDao
+	 * @return
+	 */
 	@Bean
-	public CommandLineRunner initialAdmin(UserDao userDao) {
+	public CommandLineRunner initialAdmin(@Autowired UserDao userDao) {
 		return args -> {
 			User user = new User();
+			user.init();
 			if (userDao.findByAccount(user.getAccount()) == null) {
-				user.init();
 				userDao.save(user);
+			} else {
+				System.err.println("初始账号以存在");
 			}
 		};
 	}
