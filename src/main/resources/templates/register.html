@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>register</title>
+<title>考拉—注册</title>
 <link rel="stylesheet" th:href="@{/css/jq22.css}">
 </head>
 <body>
 <!-- begin -->
 <div id="login">
     <div class="wrapper">
+    	<div style="float:right;margin-right:20px;"><a th:href="@{/}">返回首页</a></div>
         <div class="register">
             <form th:action="@{/register}"  method="post" th:object="${registerDto}" class="container offset1 loginform">
                 <div id="owl-login">

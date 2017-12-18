@@ -105,7 +105,7 @@ public class BaseDao<T> {
 	 */
 	public Classify findClassifyById(String id){
 		try {
-			Classify classify = (Classify) getSession().get("com.openkx.kxexam.domain.Classify", id);
+			Classify classify = (Classify) getSession().get("com.koala.domain.Classify", id);
 			return classify;
 		} catch (Exception e) {
 			throw e;
@@ -119,7 +119,7 @@ public class BaseDao<T> {
 	 */
 	public Subject findQuestionById(String id){
 		try {
-			Subject subject = (Subject) getSession().get("com.openkx.kxexam.domain.Subject", id);
+			Subject subject = (Subject) getSession().get("com.koala.domain.Subject", id);
 			return subject;
 		} catch (Exception e) {
 			throw e;
@@ -133,7 +133,7 @@ public class BaseDao<T> {
 	 */
 	public Exam findExamById(String id){
 		try {
-			Exam exam = (Exam) getSession().get("com.openkx.kxexam.domain.Exam", id);
+			Exam exam = (Exam) getSession().get("com.koala.domain.Exam", id);
 			return exam;
 		} catch (Exception e) {
 			throw e;
@@ -147,7 +147,7 @@ public class BaseDao<T> {
 	 */
 	public Answer findAnswerById(String id){
 		try {
-			Answer answer = (Answer) getSession().get("com.openkx.kxexam.domain.Answer", id);
+			Answer answer = (Answer) getSession().get("com.koala.domain.Answer", id);
 			return answer;
 		} catch (Exception e) {
 			throw e;
@@ -161,7 +161,7 @@ public class BaseDao<T> {
 	 */
 	public User findUserById(String id){
 		try {
-			User user = (User) getSession().get("com.openkx.kxexam.domain.User", id);
+			User user = (User) getSession().get("com.koala.domain.User", id);
 			return user;
 		} catch (Exception e) {
 			throw e;

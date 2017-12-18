@@ -49,7 +49,7 @@ public class User {
 	private String identifier;	//标识符-编号
 	
 	public enum ROLE{
-		VISITOR, STUDENTS, TEACHER, ADMIN, FOREVER;
+		STUDENTS, TEACHER, ADMIN, FOREVER;
 	}
 	
 	public User(){
@@ -68,6 +68,17 @@ public class User {
 		this.location = "保密";
 		this.occupation = "保密";
 		this.introduce = "保密";
+	}
+		
+	//初始化账户
+	public void init(){
+		this.setId("4oBGXsU9b@%zlxbUK1y5MsTtXpYq6H9g");
+		this.setAccount("Koala");
+		this.setPassword("koala123456");
+		this.setRole("FOREVER");
+		this.setHeadimgs("/images/default_koala.jpg");
+		this.setNickname("考拉");
+		this.setIdentifier("4oBGXsU9bz");
 	}
 
 	public String getId() {

@@ -28,6 +28,7 @@ public class SubjectController {
 
 	@Autowired
 	private SubjectService subjectService;
+	
 	@Autowired
 	private ClassifyService classifyService;
 

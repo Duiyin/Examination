@@ -17,34 +17,45 @@ public class ClassifyDao extends BaseDao<Classify> {
 
 	/**
 	 * 查询最顶级分类，主分类*
+	 * 
 	 * @return
 	 */
-	public List<Classify> findTopClassify(){
+	public List<Classify> findTopClassify() {
 		DetachedCriteria dc = DetachedCriteria.forClass(Classify.class);
-		dc.add(Restrictions.or(Restrictions.isNull("parentid"),Restrictions.eq("parentid", "")));
+		dc.add(Restrictions.or(Restrictions.isNull("parentid"), Restrictions.eq("parentid", "")));
 		dc.addOrder(Order.asc("ctime"));
 		Criteria criteria = dc.getExecutableCriteria(getSession());
 		return criteria.list();
 	}
-	
+
 	/**
 	 * 查询子级分类*
+	 * 
 	 * @param classifyId
 	 * @return
 	 */
-	public List<Classify> findSubClassify(String classifyId){
+	public List<Classify> findSubClassify(String classifyId) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Classify.class);
 		dc.add(Restrictions.eq("parentid", classifyId));
 		dc.addOrder(Order.asc("ctime"));
 		Criteria criteria = dc.getExecutableCriteria(getSession());
 		return criteria.list();
 	}
-	
+
 	/**
 	 * 分类创建 *
+	 * 
 	 * @param classify
 	 */
 	public void save(Classify classify) {
 		getSession().save(classify);
+	}
+
+	public void update(Classify classify) {
+		getSession().update(classify);
+	}
+
+	public void detele(Classify classify) {
+		getSession().delete(classify);
 	}
 }

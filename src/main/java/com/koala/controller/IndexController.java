@@ -45,4 +45,9 @@ public class IndexController {
 		model.addAttribute("cform", user);
 		return "cform";
 	}
+	
+	@GetMapping("/backstage")
+	public String backstage(){
+		return "backstage";
+	}
 }
