@@ -73,7 +73,7 @@ public class User {
 	//初始化账户
 	public void init(){
 		this.setId("4oBGXsU9b@%zlxbUK1y5MsTtXpYq6H9g");
-		this.setAccount("l1278945971@163.com");
+		this.setAccount("admin");
 		this.setPassword("koala123456");
 		this.setRole("FOREVER");
 		this.setHeadimgs("/images/default_koala.jpg");

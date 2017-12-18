@@ -54,4 +54,8 @@ public class ClassifyDao extends BaseDao<Classify> {
 	public void update(Classify classify) {
 		getSession().update(classify);
 	}
+
+	public void detele(Classify classify) {
+		getSession().delete(classify);
+	}
 }

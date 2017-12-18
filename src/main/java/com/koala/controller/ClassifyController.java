@@ -66,9 +66,24 @@ public class ClassifyController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/contacts/{userid}/update")
-	@ResponseBody
+	/**
+	 * 分类修改 *
+	 * 
+	 * @param classifyId
+	 * @param classifyDto
+	 */
+	@PostMapping("/classify/{classifyId}/update")
 	public void update(@PathVariable String classifyId, ClassifyDto classifyDto) {
 		classifyService.ContactDataUpdate(classifyId, classifyDto);
+	}
+
+	/**
+	 * 分类删除*
+	 * 
+	 * @param classifyId
+	 */
+	@PostMapping("/classify/{classifyId}/detele")
+	public void delete(@PathVariable String classifyId) {
+		classifyService.detele(classifyId);
 	}
 }
