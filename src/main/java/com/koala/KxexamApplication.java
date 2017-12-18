@@ -31,8 +31,8 @@ public class KxexamApplication {
 	public CommandLineRunner initialAdmin(UserDao userDao) {
 		return args -> {
 			User user = new User();
-			user.init();
 			if (userDao.findByAccount(user.getAccount()) == null) {
+				user.init();
 				userDao.save(user);
 			}
 		};

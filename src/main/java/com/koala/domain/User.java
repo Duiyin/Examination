@@ -73,11 +73,11 @@ public class User {
 	//初始化账户
 	public void init(){
 		this.setId("4oBGXsU9b@%zlxbUK1y5MsTtXpYq6H9g");
-		this.setAccount("admin");
+		this.setAccount("Koala");
 		this.setPassword("koala123456");
 		this.setRole("FOREVER");
 		this.setHeadimgs("/images/default_koala.jpg");
-		this.setNickname("大鱼");
+		this.setNickname("考拉");
 		this.setIdentifier("4oBGXsU9bz");
 	}
 
