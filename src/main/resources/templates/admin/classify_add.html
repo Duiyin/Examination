@@ -1,0 +1,70 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
+<title>添加分类</title>
+</head>
+<body>
+<article class="page-container">
+	<form th:action="@{/classify/create}" class="form form-horizontal">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">分类名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="name" th:name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">所选分类：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select class="select" size="1" th:name="classify">
+					<option value="">请选择分类</option>
+					<span th:each="classify : ${classify}">
+					<option th:value="${classify.id}" th:text="${classify.name}" ></option>
+					</span>
+				</select>
+				</span> </div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button class="btn btn-primary radius" name="submit_add" type="button"> 提交</button>
+			</div>
+		</div>
+	</form>
+</article>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
+<script type="text/javascript">
+$(document).on("click", "[name='submit_add']", function() {
+    var form = $(this).parents("form");
+    $.post(form.attr("action"),  form.serialize(), function(json) {
+    	console.log(json.result); 
+        if (json.result == "success") {
+        	console.log(json); 
+        	setTimeout(function(){
+        		layer_close();
+            },1000);
+        } else {
+            $.each(json, function(i, val) {
+            	if (i != "result") {
+                    if ($("[data-error='" + i + "']").length)
+                        $("[data-error='" + i + "']").html(val);
+                }
+            });
+        }
+    }, "json");
+});
+</script>
+</body>
+</html>
