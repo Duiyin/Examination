@@ -86,7 +86,9 @@ public class ClassifyController {
 	 * @param classifyId
 	 */
 	@PostMapping("/classify/{classifyId}/detele")
-	public void delete(@PathVariable String classifyId) {
+	@ResponseBody
+	public Map<String, Object> delete(@PathVariable String classifyId) {
 		classifyService.detele(classifyId);
+		return Result.success();
 	}
 }
