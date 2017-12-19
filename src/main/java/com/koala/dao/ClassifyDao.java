@@ -27,7 +27,7 @@ public class ClassifyDao extends BaseDao<Classify> {
 		Criteria criteria = dc.getExecutableCriteria(getSession());
 		return criteria.list();
 	}
-	
+
 	/**
 	 * 查询子级分类*
 	 * 
@@ -38,6 +38,17 @@ public class ClassifyDao extends BaseDao<Classify> {
 		DetachedCriteria dc = DetachedCriteria.forClass(Classify.class);
 		dc.add(Restrictions.eq("parentid", classifyId));
 		dc.addOrder(Order.asc("ctime"));
+		Criteria criteria = dc.getExecutableCriteria(getSession());
+		return criteria.list();
+	}
+
+	/**
+	 * 查询整表数据 *
+	 * 
+	 * @return
+	 */
+	public List<Classify> findAll() {
+		DetachedCriteria dc = DetachedCriteria.forClass(Classify.class);
 		Criteria criteria = dc.getExecutableCriteria(getSession());
 		return criteria.list();
 	}

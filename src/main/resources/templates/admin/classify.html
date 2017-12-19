@@ -18,7 +18,7 @@
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<a class="btn btn-primary radius" onclick="classify_add('添加分类','/classify/add/','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a></span>
-		<span class="r">共有数据：<strong>54</strong> 条</span> 
+		<span class="r">共有数据：<strong>[[${count}]]</strong> 条</span> 
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -74,6 +74,7 @@ function classify_del(obj,id){
 			success: function(data){
 				$(obj).parents("tr").remove();
 				layer.msg('已删除!',{icon:1,time:1000});
+				window.location.reload(); //刷新
 			},
 			error:function(data) {
 				console.log(data.msg);

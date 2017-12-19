@@ -2,6 +2,7 @@ package com.koala.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class ClassifyService {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 查询最顶级分类，主分类*
 	 * 
@@ -88,14 +89,34 @@ public class ClassifyService {
 	}
 
 	/**
-	 * 删除
+	 * 删除 *
+	 * 判断删除的是否为主分类
+	 * 如果是 同时查询所属子分类 全部删除
+	 * 如果否 不影响
 	 * 
 	 * @param classifyId
 	 * @return
 	 */
 	public Classify detele(String classifyId) {
 		Classify classify = classifyDao.findClassifyById(classifyId);
-		classifyDao.detele(classify);
+		if(StringUtils.isNotEmpty(classify.getParentid())){
+			classifyDao.detele(classify);
+		}else {
+			List<Classify> list = classifyDao.findSubClassify(classify.getId());
+			for(int i=0;i<list.size(); i++){
+				classifyDao.detele(list.get(i));
+			}
+			classifyDao.detele(classify);
+		}
 		return classify;
+	}
+
+	/**
+	 * 总数
+	 * 
+	 * @return
+	 */
+	public int count() {
+		return classifyDao.findAll().size();
 	}
 }

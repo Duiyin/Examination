@@ -25,7 +25,9 @@ public class AdminController {
 	@GetMapping("/classify")
 	public String classify(Model model) {
 		List<Classify> classify = classifyService.findAllClassify();
+		int count = classifyService.count();
 		model.addAttribute("classify", classify);
+		model.addAttribute("count", count);		//总数
 		return "admin/classify";
 	}
 	

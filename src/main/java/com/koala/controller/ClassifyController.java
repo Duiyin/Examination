@@ -64,7 +64,7 @@ public class ClassifyController {
 	 */
 	@PostMapping("/classify/create")
 	@ResponseBody
-	public Map<String, Object> createMain(ClassifyDto classifyDto){
+	public Map<String, Object> createMain(ClassifyDto classifyDto) {
 		classifyService.create(classifyDto);
 		return Result.success();
 	}
@@ -83,7 +83,9 @@ public class ClassifyController {
 	}
 
 	/**
-	 * 分类删除*
+	 * 分类删除 * 
+	 * 删除主分类 同时所属子分类同时删除 
+	 * 删除子分类 不影响其他
 	 * 
 	 * @param classifyId
 	 */
