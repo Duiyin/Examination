@@ -25,8 +25,7 @@ public class Exam {
 	@Transient
 	private List<String> papers;
 	
-	@ManyToOne
-	private Classify classify;
+	private String classifyId;
 	
 	private Timestamp ctime;
 	
@@ -68,6 +67,14 @@ public class Exam {
 		this.paper_json = JSON.toJSONString(papers);
 	}
 
+	public String getClassifyId() {
+		return classifyId;
+	}
+
+	public void setClassifyId(String classifyId) {
+		this.classifyId = classifyId;
+	}
+
 	public Timestamp getCtime() {
 		return ctime;
 	}
@@ -75,14 +82,4 @@ public class Exam {
 	public void setCtime(Timestamp ctime) {
 		this.ctime = ctime;
 	}
-
-	public Classify getClassify() {
-		return classify;
-	}
-
-	public void setClassify(Classify classify) {
-		this.classify = classify;
-	}
-	
-	
 }

@@ -67,12 +67,11 @@ public class ExamController {
 	 * @return
 	 */
 	@GetMapping("/finish/{userid}/answer/")
-	public String findAllAnswer(@PathVariable String id, Model model,
+	public String findAllAnswer(@PathVariable String userid, Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
 			@RequestParam(value = "pagesize", defaultValue = "10", required = false) int pagesize,
 			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
-
-		MyPage<Answer> answer = examService.findUserAnswer(id, page, pagesize, keyword);
+		MyPage<Answer> answer = examService.findUserAnswer(userid, page, pagesize, keyword);
 		model.addAttribute("answer", answer);
 		return "answer";
 	}
@@ -154,5 +153,4 @@ public class ExamController {
 		examService.delete(id);
 		return Result.success();
 	}
-
 }

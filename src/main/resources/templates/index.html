@@ -23,10 +23,10 @@
           <ul class="dropdown-menu">
             <li><a th:if="${session?.userid} == null" th:href="@{/login}">点我登陆</a></li>
             <li><a th:if="${session?.userid} == null" th:href="@{/register}">没有账号</a></li>
-            <li th:if="${session?.userid} != null"><a th:href="@{/personal}">个人资料</a></li>
+            <li th:if="${session?.userid} != null"><a th:href="@{/personal}">个人信息</a></li>
+            <li th:if="${session?.userid} != null" th:unless="${session?.userid?.role} == 'STUDENTS'"><a th:href="@{/backstage}">后台管理</a></li>
+            <li th:if="${session?.userid} != null" th:unless="${session?.userid?.role} != 'STUDENTS'"><a th:href="@{'/finish/'+ ${session?.userid?.id} +'/answer/'}">已做試卷</a></li>
             <li th:if="${session?.userid} != null"><a th:href="@{/logout}">登出</a></li>
-            <li th:if="${session?.userid} != null"><a th:href="@{'/finish/'+ ${session?.userid?.id} +'/answer/'}">已做試卷</a></li>
-            <li th:unless="${session?.userid?.role} == 'STUDENTS'"><a th:href="@{/backstage}">后台管理</a></li>
           </ul>
         </li>
       </ul>

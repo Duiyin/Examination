@@ -92,11 +92,11 @@ public class SubjectController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/info/{id}/random")
-	public String findRandom(Model model,@PathVariable String id){
-		Classify classify = classifyService.findClassifyById(id);
+	@GetMapping("/info/{classifyId}/random")
+	public String findRandom(Model model,@PathVariable String classifyId){
+		Classify classify = classifyService.findClassifyById(classifyId);
 		model.addAttribute("classify",classify);
-		List<Subject> list = subjectService.findAppointQuestion(id);
+		List<Subject> list = subjectService.findAppointQuestion(classifyId);
 		model.addAttribute("pdcount", list.get(0).getCount(list, "判断题"));
 		model.addAttribute("xzcount", list.get(0).getCount(list, "选择题"));
 		return "random";

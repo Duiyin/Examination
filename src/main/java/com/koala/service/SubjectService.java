@@ -77,7 +77,7 @@ public class SubjectService {
 		}
 		exam.setPapername(randomDto.getPapername());
 		exam.setPapers(paperids);
-		exam.setClassify(classify);
+		//exam.setClassify(classify);
 		examDao.save(exam);
 		System.err.println("------" + randomDto.getPapername());
 		return list;

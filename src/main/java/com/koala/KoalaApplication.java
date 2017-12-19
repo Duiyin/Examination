@@ -15,10 +15,10 @@ import com.koala.dao.UserDao;
 import com.koala.domain.User;
 
 @SpringBootApplication
-public class KxexamApplication {
+public class KoalaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KxexamApplication.class, args);
+		SpringApplication.run(KoalaApplication.class, args);
 	}
 
 	@Bean

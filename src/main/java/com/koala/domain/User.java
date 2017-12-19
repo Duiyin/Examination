@@ -23,6 +23,8 @@ public class User {
 	
 	private String role;
 	
+	private String rolename;
+	
 	//以下为个人信息↓
 	private String headimgs;	//头像
 	
@@ -57,6 +59,7 @@ public class User {
 		this.identifier = ID.Intercept();
 		this.createtime = Time.timestamp();
 		this.role = "STUDENTS";
+		this.rolename = "普通用户";
 		this.headimgs = "/images/default_head.png";
 		this.nickname = identifier;
 		this.autograph = "此人较懒，暂无信息";
@@ -76,6 +79,7 @@ public class User {
 		this.setAccount("Koala");
 		this.setPassword("koala123456");
 		this.setRole("FOREVER");
+		this.setRolename("超级管理员");
 		this.setHeadimgs("/images/default_koala.jpg");
 		this.setNickname("考拉");
 		this.setIdentifier("4oBGXsU9bz");
@@ -119,6 +123,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
 	}
 
 	public String getHeadimgs() {

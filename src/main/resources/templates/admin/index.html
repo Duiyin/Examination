@@ -13,21 +13,21 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
-<title>后台管理</title>
+<title>Koala管理</title>
 </head>
 <body>
 	<header class="navbar-wrapper">
 		<div class="navbar navbar-fixed-top">
 			<div class="container-fluid cl">
-				<a class="logo navbar-logo f-l mr-10 hidden-xs">admin</a>
+				<a class="logo navbar-logo f-l mr-10 hidden-xs" th:href="@{/}">Koala</a>
 				<nav id="Hui-userbar"
 					class="nav navbar-nav navbar-userbar hidden-xs">
 					<ul class="cl">
-						<li>超级管理员</li>
+						<li>[[${session?.userid?.rolename}]]</li>
 						<li class="dropDown dropDown_hover"><a href="#"
-							class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+							class="dropDown_A">[[${session?.userid?.account}]] <i class="Hui-iconfont">&#xe6d5;</i></a>
 							<ul class="dropDown-menu menu radius box-shadow">
-								<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
+								<li><a th:href="@{/personal}">个人信息</a></li>
 								<li><a th:href="@{/logout}">退出</a></li>
 							</ul></li>
 					</ul>
@@ -38,8 +38,8 @@
 	<aside class="Hui-aside">
 		<div class="menu_dropdown bk_2">
 			<dl id="menu-article">
-				<dt>
-					<i class="Hui-iconfont">&#xe616;</i> 分类管理<i
+				<dt><!--  -->
+					<i class="Hui-iconfont">&#xe681;</i> 分类管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -50,35 +50,31 @@
 			</dl>
 			<dl id="menu-picture">
 				<dt>
-					<i class="Hui-iconfont">&#xe613;</i> 试题管理<i
+					<i class="Hui-iconfont">&#xe627;</i> 试题管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
 					<ul>
-						<li><a data-href="picture-list.html" data-title="图片管理"
+						<li><a th:data-href="@{/subject}" data-title="试题管理"
 							href="javascript:void(0)">试题管理</a></li>
 					</ul>
 				</dd>
 			</dl>
 			<dl id="menu-product">
 				<dt>
-					<i class="Hui-iconfont">&#xe620;</i> 试卷管理<i
+					<i class="Hui-iconfont">&#xe616;</i> 试卷管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
 					<ul>
-						<li><a data-href="product-brand.html" data-title="品牌管理"
-							href="javascript:void(0)">品牌管理</a></li>
-						<li><a data-href="product-category.html" data-title="分类管理"
-							href="javascript:void(0)">分类管理</a></li>
-						<li><a data-href="product-list.html" data-title="产品管理"
-							href="javascript:void(0)">产品管理</a></li>
+						<li><a data-href="product-brand.html" data-title="试卷管理"
+							href="javascript:void(0)">试卷管理</a></li>
 					</ul>
 				</dd>
 			</dl>
 			<dl id="menu-admin">
 				<dt>
-					<i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i
+					<i class="Hui-iconfont">&#xe60d;</i> 管理员管理<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>

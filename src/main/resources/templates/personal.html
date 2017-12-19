@@ -21,10 +21,8 @@
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} ==null">未登录 <span class="caret"></span></a>
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:if="*{session.userid} !=null"><img class="img_head" th:src="@{${session.userid.headimgs}}"><text name="username" th:if="${session.userid} != null" th:text="${session.userid.nickname}"></text></img></a>
 	          <ul class="dropdown-menu">
-	            <li><a th:if="${session.userid} == null" th:href="@{/login}">点我登陆</a></li>
-	            <li><a th:if="${session.userid} == null" th:href="@{/register}">没有账号</a></li>
-	            <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
 	            <li th:unless="${session?.userid?.role} == 'STUDENTS'"><a th:href="@{/backstage}">后台管理</a></li>
+	            <li th:if="${session.userid} != null"><a th:href="@{/logout}">登出</a></li>
 	          </ul>
 	        </li>
 	      </ul>
@@ -42,7 +40,7 @@
         </header>
         <nav>          
           <ul>
-            <li ><a href="#"><i class="personal-font-color">个人资料</i></a></li>
+            <li ><a href="#"><i class="personal-font-color">个人信息</i></a></li>
             <li ><a href="#"><i class="personal-font-color">修改密码</i></a></li>
             <li ><a href="#"><i class="personal-font-color">权限申请</i></a></li>
           </ul>  
