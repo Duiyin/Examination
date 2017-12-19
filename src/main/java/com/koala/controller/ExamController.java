@@ -56,7 +56,7 @@ public class ExamController {
 		model.addAttribute("exam", exam);
 		return "exam";
 	}
-	
+
 	/**
 	 * 答案列表 *
 	 * 
@@ -66,12 +66,13 @@ public class ExamController {
 	 * @param keyword
 	 * @return
 	 */
-	@GetMapping("/info/answer")
-	public String findAllAnswer(Model model, 
+	@GetMapping("/finish/{userid}/answer/")
+	public String findAllAnswer(@PathVariable String id, Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
 			@RequestParam(value = "pagesize", defaultValue = "10", required = false) int pagesize,
 			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
-		MyPage<Answer> answer = examService.findAllAnswer(page, pagesize, keyword);
+
+		MyPage<Answer> answer = examService.findUserAnswer(id, page, pagesize, keyword);
 		model.addAttribute("answer", answer);
 		return "answer";
 	}
@@ -99,7 +100,7 @@ public class ExamController {
 		model.addAttribute("exam", exam);
 		return "paper";
 	}
-	
+
 	/**
 	 * 读取选中答案的内容 *
 	 * 
@@ -107,7 +108,7 @@ public class ExamController {
 	 * @return
 	 */
 	@GetMapping("/info/{examid}/answer/{id}")
-	public String getanswer(Model model,  @PathVariable String examid, @PathVariable String id) {
+	public String getanswer(Model model, @PathVariable String examid, @PathVariable String id) {
 		Exam exam = examService.findExamById(examid);
 		Answer answer = examService.findAnswerById(id);
 		Answer answerall = examService.findAnswerById(id);
@@ -136,10 +137,10 @@ public class ExamController {
 	@ResponseBody
 	public Map<String, Object> checkexam(@RequestParam("id[]") String[] id, @RequestParam("answer[]") String[] answer,
 			String examid, String examname) {
-		String JsonResult = examService.checkExam(id, answer, examid,examname);
+		String JsonResult = examService.checkExam(id, answer, examid, examname);
 		return Result.success();
 	}
-	
+
 	/**
 	 * 试卷删除 *
 	 * 

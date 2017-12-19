@@ -1,37 +1,30 @@
 package com.koala.dao;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koala.domain.Answer;
-import com.koala.domain.Exam;
 import com.koala.util.MyPage;
 
 @Component
 @Transactional
-public class AnswerDao extends BaseDao<Answer>{
-	
-	
+public class AnswerDao extends BaseDao<Answer> {
+
 	/**
-	 * 查询所有 答案列表 *
-	 * @param page
-	 * @param pagesize
-	 * @param keyword
+	 * 查询用户做过的试卷记录 *
+	 * 
 	 * @return
 	 */
-	public MyPage<Answer> findAllAnswer(int page, int pagesize, String keyword){
+	public MyPage<Answer> findUserAnswer(String userid, int page, int pagesize, String keyword) {
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(Answer.class);
+			dc.add(Restrictions.eq("userid", userid));
 			dc.addOrder(Order.desc("ctime"));
 			try {
-				if(pagesize <=0){
+				if (pagesize <= 0) {
 					pagesize = 20;
 				}
 			} catch (Exception e) {
@@ -41,12 +34,13 @@ public class AnswerDao extends BaseDao<Answer>{
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 答案保存
+	 * 
 	 * @param answer
 	 */
-	public void save(Answer answer){
+	public void save(Answer answer) {
 		getSession().save(answer);
 	}
 

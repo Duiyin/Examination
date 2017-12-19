@@ -17,6 +17,8 @@ public class Answer {
 	@Id
 	private String id;
 	
+	private String userid;
+	
 	private String exam_id;
 	
 	private String exam_name;
@@ -46,6 +48,14 @@ public class Answer {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public String getExam_id() {

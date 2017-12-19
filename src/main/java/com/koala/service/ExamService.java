@@ -44,18 +44,18 @@ public class ExamService {
 			throw e;
 		}
 	}
-	
+
 	/**
-	 * 答案列表 *
+	 * 用戶完成試卷答案列表 *
 	 * 
 	 * @param page
 	 * @param pagesize
 	 * @param keyword
 	 * @return
 	 */
-	public MyPage<Answer> findAllAnswer(int page, int pagesize, String keyword) {
+	public MyPage<Answer> findUserAnswer(String userid, int page, int pagesize, String keyword) {
 		try {
-			return answerDao.findAllAnswer(page, pagesize, keyword);
+			return answerDao.findUserAnswer(userid, page, pagesize, keyword);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -68,7 +68,7 @@ public class ExamService {
 	 * @param answer
 	 * @return
 	 */
-	public String checkExam(String[] questionId, String[] answer, String examid,String examname) {
+	public String checkExam(String[] questionId, String[] answer, String examid, String examname) {
 		String JsonResult = null;
 		int score = 0;
 		Answer answerdto = new Answer();
@@ -79,17 +79,13 @@ public class ExamService {
 			answers.add(answer[i]);
 			if (answer[i].equals(subject.getRightKey())) {
 				JsonResult = JSON.toJSONString(true);
-				if(subject.getQuestion_type().equals("选择题")){
-					score ++;
+				if (subject.getQuestion_type().equals("选择题")) {
+					score++;
 				}
 				if (subject.getQuestion_type().equals("判断题")) {
 					score += 2;
 				}
 			} else {
-				/*ArrayList<String> list = new ArrayList<String>();
-				list.add(JSON.toJSONString(false));
-				list.add(subject.getRightKey());
-				list.add(subject.getAnalysis());*/
 				JsonResult = JSON.toJSONString(false);
 			}
 			results.add(JsonResult);
@@ -130,7 +126,7 @@ public class ExamService {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 查询试卷id
 	 * 
