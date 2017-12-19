@@ -31,7 +31,7 @@ public class ClassifyService {
 		}
 		return list;
 	}
-
+	
 	/**
 	 * 查询最顶级分类，主分类*
 	 * 
@@ -82,6 +82,7 @@ public class ClassifyService {
 	public Classify ContactDataUpdate(String classifyId, ClassifyDto classifyDto) {
 		Classify classify = classifyDao.findClassifyById(classifyId);
 		BeanUtils.copyProperties(classifyDto, classify, Classify.class);
+		classify.setParentid(classifyDto.getClassify());
 		classifyDao.update(classify);
 		return classify;
 	}

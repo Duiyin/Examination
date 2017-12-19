@@ -16,11 +16,11 @@
 </head>
 <body>
 <article class="page-container">
-	<form th:action="@{/classify/create}" class="form form-horizontal">
+	<form th:action="@{'/classify/'+${classify?.id}+'/update'}" class="form form-horizontal">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">分类名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" th:name="name">
+				<input type="text" class="input-text" th:value="${classify.name}" placeholder="" id="name" th:name="name">
 			</div>
 		</div>
 		<div class="row cl">
@@ -28,15 +28,16 @@
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" th:name="classify">
 					<option value="">主分类</option>
-					<span th:each="classify : ${classify}">
-					<option th:value="${classify.id}" th:text="${classify.name}" ></option>
+					<span th:each="allclassify : ${allclassify}">
+					<span th:if="${allclassify.id}==${classify.parentid}"><option th:value="${allclassify.id}" th:text="${allclassify.name}" th:selected="selected"></option></span>
+					<span th:if="${allclassify.id}!=${classify.parentid}"><option th:value="${allclassify.id}" th:text="${allclassify.name}"></option></span>
 					</span>
 				</select>
 				</span> </div>
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button class="btn btn-primary radius" name="submit_add" type="button"> 提交</button>
+				<button class="btn btn-primary radius" name="submit_update" type="button"> 提交</button>
 			</div>
 		</div>
 	</form>
@@ -46,7 +47,7 @@
 <script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
 <script type="text/javascript">
-$(document).on("click", "[name='submit_add']", function() {
+$(document).on("click", "[name='submit_update']", function() {
     var form = $(this).parents("form");
     $.post(form.attr("action"),  form.serialize(), function(json) {
     	console.log(json.result); 

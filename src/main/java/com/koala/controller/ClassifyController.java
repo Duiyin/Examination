@@ -76,8 +76,10 @@ public class ClassifyController {
 	 * @param classifyDto
 	 */
 	@PostMapping("/classify/{classifyId}/update")
-	public void update(@PathVariable String classifyId, ClassifyDto classifyDto) {
+	@ResponseBody
+	public Map<String, Object> update(@PathVariable String classifyId, ClassifyDto classifyDto) {
 		classifyService.ContactDataUpdate(classifyId, classifyDto);
+		return Result.success();
 	}
 
 	/**
