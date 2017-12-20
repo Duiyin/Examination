@@ -67,19 +67,15 @@ public class SubjectService {
 	public Subject[] random(String classifyId, String[] questionType, RandomDto randomDto) {
 		Subject[] list = subjectDao.random(classifyId, questionType, randomDto);
 		Exam exam = new Exam();
-		Classify classify = subjectDao.findClassifyById(classifyId);
 		List<String> paperids = new ArrayList<String>();
 		for (Subject subject : list) {
 			String paperid = subject.getId();
 			paperids.add(paperid);
-			System.err.println("--------" + subject.getQuestion());
-			System.err.println("--------" + subject.getQuestion_type());
 		}
 		exam.setPapername(randomDto.getPapername());
 		exam.setPapers(paperids);
-		//exam.setClassify(classify);
+		exam.setClassifyId(classifyId);
 		examDao.save(exam);
-		System.err.println("------" + randomDto.getPapername());
 		return list;
 	}
 
