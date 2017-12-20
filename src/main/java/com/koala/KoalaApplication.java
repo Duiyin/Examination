@@ -41,8 +41,9 @@ public class KoalaApplication {
 			user.init();
 			if (userDao.findByAccount(user.getAccount()) == null) {
 				userDao.save(user);
+				System.err.println("初始账号成功创建");
 			} else {
-				System.err.println("初始账号以存在");
+				System.err.println("初始账号已经存在");
 			}
 		};
 	}
