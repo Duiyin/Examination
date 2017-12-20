@@ -16,6 +16,7 @@ import com.koala.domain.Exam;
 import com.koala.domain.RandomDto;
 import com.koala.domain.Subject;
 import com.koala.domain.SubjectDto;
+import com.koala.util.MyPage;
 
 @Component
 @Transactional
@@ -27,6 +28,14 @@ public class SubjectService {
 	@Autowired
 	private ExamDao examDao;
 
+	public MyPage<Subject> findAll( int page, int pagesize, String keyword) {
+		try {
+			return subjectDao.findAll(page, pagesize, keyword);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 	/**
 	 * 题目添加*
 	 * 

@@ -123,10 +123,11 @@ public class SubjectController {
 	 * @param id
 	 * @return
 	 */
-	@PostMapping("/onlineExam/subject/{id}/detele")
-	public String deteleQuestion(@PathVariable String id){
+	@PostMapping("/subject/{id}/detele")
+	@ResponseBody
+	public Map<String, Object> deteleQuestion(@PathVariable String id){
 		subjectService.detele(id);
-		return "start";
+		return Result.success();
 	}
 	
 	@PostMapping("/onlineExam/subject/{id}/update")

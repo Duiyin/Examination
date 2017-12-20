@@ -42,10 +42,8 @@ public class ClassifyController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/classify/{id}/findDetails")
-	public String findClassifyDetails(Model model, @PathVariable String id) {
-		List<Classify> clist = classifyService.findClassifyDetails(id);
-		model.addAttribute("clist", clist);
+	@GetMapping("/classify/findDetails")
+	public String findClassifyDetails(Model model) {
 		return "details";
 	}
 

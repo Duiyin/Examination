@@ -38,7 +38,8 @@
 				<label><input id="B0" name="subjectDto[0].rightKey" type="radio" value="B" disabled/>B</label>
 				<label><input id="C0" name="subjectDto[0].rightKey" type="radio" value="C" disabled/>C </label>
 				<label><input id="D0" name="subjectDto[0].rightKey" type="radio" value="D" disabled/>D</label>
-				<sapn data-error="subjectDto[0].rightKey"></sapn></div>
+				<sapn data-error="subjectDto[0].rightKey"></sapn>
+				</div>
 				<div id="determine0" style="display:none;">
 				判断：<select name="subjectDto[0].rightKey">
 						<option value="">-请选择--</option>
@@ -65,6 +66,9 @@
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
 <script> 
+
+
+var i = 0;
 function serializeNotNull(serStr){
     return serStr.split("&").filter(function(str){return !str.endsWith("=")}).join("&");
 }
@@ -87,7 +91,6 @@ $(document).on("click", "[name='submit_add']", function() {
         }
     }, "json");
 });
-var i = 0;
 $("[name='subjectDto[0].options[0]']").bind('input propertychange', function() {
 	document.getElementById("A0").disabled=false;
 });
@@ -118,6 +121,26 @@ $("[name='subjectDto[0].options[2]']").blur(function () {
 $("[name='subjectDto[0].options[3]']").blur(function () {  
     if($(this).val()==''){
     	document.getElementById("D0").disabled=true;
+    }  
+});
+
+var map={"选择题":"choose", "判断题":"determine", "简答题":"analysis"}
+
+$(document).on("change",".questions",function(){
+	if($(this).val() == "判断题"){
+		$("input[name='subjectDto["+ i +"].options[0]']").prop("checked", true);
+		$("input[name='subjectDto["+ i +"].options[1]']").prop("checked", true);
+	}
+	  
+	var index = $(this).data("index");
+	for(var item in map){  
+		var jValue=map[item];
+        if(item==this.value){  //item 表示Json串中的属性，如'name'  
+            //key所对应的value  
+            $("#" + jValue + index).show();
+        }else{
+            $("#" + jValue + index).hide();
+        }  
     }  
 });
 $(document).ready(function(){
@@ -187,25 +210,6 @@ $(document).ready(function(){
 	        }  
 	    });
 	  });
-});
-var map={"选择题":"choose", "判断题":"determine", "简答题":"analysis"}
-
-$(document).on("change",".questions",function(){
-	if($(this).val() == "判断题"){
-		$("input[name='subjectDto["+ i +"].options[0]']").prop("checked", true);
-		$("input[name='subjectDto["+ i +"].options[1]']").prop("checked", true);
-	}
-	  
-	var index = $(this).data("index");
-	for(var item in map){  
-		var jValue=map[item];
-        if(item==this.value){  //item 表示Json串中的属性，如'name'  
-            //key所对应的value  
-            $("#" + jValue + index).show();
-        }else{
-            $("#" + jValue + index).hide();
-        }  
-    }  
 });
 
 </script>

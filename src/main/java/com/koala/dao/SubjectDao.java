@@ -4,8 +4,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
@@ -14,13 +16,32 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koala.domain.Classify;
+import com.koala.domain.Exam;
 import com.koala.domain.RandomDto;
 import com.koala.domain.Subject;
+import com.koala.util.MyPage;
 
 
 @Component
 @Transactional
 public class SubjectDao extends BaseDao<Subject>{
+	
+	public MyPage<Subject> findAll(int page, int pagesize, String keyword){
+		try {
+			DetachedCriteria dc = DetachedCriteria.forClass(Subject.class);
+			dc.addOrder(Order.desc("newstime"));
+			try {
+				if(pagesize <=0){
+					pagesize = 20;
+				}
+			} catch (Exception e) {
+			}
+			return findPageByCriteria(dc, pagesize, page);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
 
 	/**
 	 * 查一条分类表里的记录  对象 *
