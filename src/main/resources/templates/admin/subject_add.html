@@ -12,92 +12,95 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
 <title>添加试题</title>
 </head>
 <body>
 <article class="page-container">
 	<form th:action="@{/subject/create}" class="form form-horizontal">
 		<div class="all">
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">题目内容：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].question">
-				<sapn class="c-red" data-error="subjectDto[0].question"></span>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">标签：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].question_tag">
-			</div>
-		</div>
-		<div class="row cl" id="questionTypes">
-			<label class="form-label col-xs-4 col-sm-3">题目类型：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-			<span class="select-box">
-				<select class="select questions" name="subjectDto[0].question_type" data-index="0">
-					<option value="">请选择题目类型</option>
-					<option value="选择题">选择题</option>
-        			<option value="判断题">判断题</option>
-				</select>
-				<sapn data-error="subjectDto[0].question_type"></span>
-			</span> 
-			</div>
-		</div>
-		<div class="row cl" id="choose0" style="display:none;">
-			<label class="form-label col-xs-4 col-sm-3">选项 A：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].options[0]">
-			</div>
-			<label class="form-label col-xs-4 col-sm-3">选项 B：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].options[1]">
-			</div>
-			<label class="form-label col-xs-4 col-sm-3">选项 C：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].options[2]">
-			</div>
-			<label class="form-label col-xs-4 col-sm-3">选项 D：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" name="subjectDto[0].options[3]">
-			</div>
-			<sapn data-error="subjectDto[0].options"></sapn>
-			<label class="form-label col-xs-4 col-sm-3">正确答案：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="subjectDto[0].rightKey" type="radio" id="A0" value="A" disabled>
-					<label for="sex-1">A</label>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">题目内容：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="此处填写题目信息  注意不能为空..." name="subjectDto[0].question">
+					<span class="c-red" data-error="subjectDto[0].question"></span>
 				</div>
-				<div class="radio-box">
-					<input name="subjectDto[0].rightKey" type="radio" id="B0" value="B" disabled>
-					<label for="sex-1">B</label>
-				</div>
-				<div class="radio-box">
-					<input name="subjectDto[0].rightKey" type="radio" id="C0" value="C" disabled>
-					<label for="sex-1">C</label>
-				</div>
-				<div class="radio-box">
-					<input name="subjectDto[0].rightKey" type="radio" id="D0" value="D" disabled>
-					<label for="sex-1">D</label>
-				</div>
-				<sapn data-error="subjectDto[0].rightKey"></sapn>
 			</div>
-		</div>
-		<div class="row cl" id="determine0" style="display:none;">
-			<label class="form-label col-xs-4 col-sm-3">判断：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-			<span class="select-box" style="width:150px;">
-				<select class="select" name="subjectDto[0].rightKey">
-				<option value="">-请选择--</option>
-        		<option value="正确">正确</option>
-        		<option value="错误">错误</option>
-				</select>
-				<sapn data-error="subjectDto[0].rightKey"></sapn>
-			</span>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">标签：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="关键词请用标点符号隔开..." name="subjectDto[0].question_tag">
+				</div>
 			</div>
-		</div>
-		<input class="check" style="display:none;" name="subjectDto[0].options[0]" type="checkbox" value="正确"></input>
-		<input class="check" style="display:none;" name="subjectDto[0].options[1]" type="checkbox" value="错误"></input>
+			<div class="row cl" id="questionTypes">
+				<label class="form-label col-xs-4 col-sm-3">题目类型：</label>
+				<div class="formControls col-xs-8 col-sm-9"> 
+					<span class="select-box">
+						<select class="select questions" name="subjectDto[0].question_type" data-index="0">
+							<option value="">请选择题目类型</option>
+							<option value="选择题">选择题</option>
+		        			<option value="判断题">判断题</option>
+						</select>
+					</span> 
+					<span class="c-red" data-error="subjectDto[0].question_type"></span>
+				</div>
+			</div>
+			<div class="row cl" id="choose0" style="display:none;">
+				<label class="form-label col-xs-4 col-sm-3">选项 A：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." name="subjectDto[0].options[0]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 B：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." name="subjectDto[0].options[1]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 C：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." name="subjectDto[0].options[2]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 D：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." name="subjectDto[0].options[3]">
+				</div>
+				<span class="c-red error_red_center" data-error="subjectDto[0].options"></span>
+				<div class="margin_bottom_five">
+					<label class="form-label col-xs-4 col-sm-3">正确答案：</label>
+					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+						<div class="radio-box">
+							<input name="subjectDto[0].rightKey" type="radio" id="A0" value="A" disabled>
+							<label for="sex-1">A</label>
+						</div>
+						<div class="radio-box">
+							<input name="subjectDto[0].rightKey" type="radio" id="B0" value="B" disabled>
+							<label for="sex-1">B</label>
+						</div>
+						<div class="radio-box">
+							<input name="subjectDto[0].rightKey" type="radio" id="C0" value="C" disabled>
+							<label for="sex-1">C</label>
+						</div>
+						<div class="radio-box">
+							<input name="subjectDto[0].rightKey" type="radio" id="D0" value="D" disabled>
+							<label for="sex-1">D</label>
+						</div>
+						<span class="c-red" data-error="subjectDto[0].rightKey"></span>
+					</div>
+				</div>
+			</div>
+			<div class="row cl" id="determine0" style="display:none;">
+				<label class="form-label col-xs-4 col-sm-3">判断：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:150px;">
+					<select class="select" name="subjectDto[0].rightKey">
+					<option value="">-请选择--</option>
+	        		<option value="正确">正确</option>
+	        		<option value="错误">错误</option>
+					</select>
+				</span>
+				<span class="c-red" data-error="subjectDto[0].rightKey"></span>
+				</div>
+			</div>
+			<input class="check" style="display:none;" name="subjectDto[0].options[0]" type="checkbox" value="正确"></input>
+			<input class="check" style="display:none;" name="subjectDto[0].options[1]" type="checkbox" value="错误"></input>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">选择分类：</label>
@@ -113,8 +116,8 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button class="btn btn-primary radius" name="submit_new" type="button">添加试题</button>
-				<button class="btn btn-primary radius" name="submit_add" type="button"> 提交</button>
+				<button class="btn btn-primary radius" name="submit_new" type="button">增加下一道</button>
+				<button class="btn btn-primary radius" name="submit_add" type="button">提交</button>
 			</div>
 		</div>
 	</form>
@@ -138,18 +141,21 @@ function serializeNotNull(serStr){
 $(document).on("click", "[name='submit_add']", function() {
     var form = $(this).parents("form");
     $.post(form.attr("action"), serializeNotNull(form.serialize()), function(json) {
-    	console.log( form.serialize());
+    	//console.log( form.serialize());
         if (json.result == "success") {
-        	console.log(json); 
+        	//console.log(json); 
         	setTimeout(function(){
         		window.parent.location.reload();
              	layer_close();
              },1000); 
         } else {
+        	$("[data-error^='subjectDto']").html("");
             $.each(json, function(i, val) {
             	if (i != "result") {
                     if ($("[data-error='" + i + "']").length)
                         $("[data-error='" + i + "']").html(val);
+                    else 
+                    	$("[data-error^='" + i + "']").html(val);
                 }
             });
         }
@@ -213,14 +219,14 @@ $(document).ready(function(){
 		$(".all").append("<br><div class='row cl'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>题目内容：</label>"+
 			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+ i +"].question'>"+
-				"<sapn data-error='subjectDto["+ i +"].question'></span>"+
+				"<input type='text' class='input-text' placeholder='此处填写题目信息  注意不能为空...' name='subjectDto["+ i +"].question'>"+
+				"<span class='c-red' data-error='subjectDto["+ i +"].question'></span>"+
 			"</div>"+
 		"</div>"+
 		"<div class='row cl'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>标签：</label>"+
 			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+ i +"].question_tag'>"+
+				"<input type='text' class='input-text' placeholder='关键词请用标点符号隔开...' name='subjectDto["+ i +"].question_tag'>"+
 			"</div>"+
 		"</div>"+
 		"<div class='row cl' id='questionTypes'>"+
@@ -232,28 +238,29 @@ $(document).ready(function(){
 					"<option value='选择题'>选择题</option>"+
         			"<option value='判断题'>判断题</option>"+
 				"</select>"+
-				"<sapn data-error='subjectDto["+ i +"].question_type'></span>"+
 			"</span>"+
+			"<span class='c-red' data-error='subjectDto["+ i +"].question_type'></span>"+
 			"</div>"+
 		"</div>"+
 		"<div class='row cl' id='choose"+i+"' style='display:none;'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>选项 A：</label>"+
-			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+i+"].options[0]'>"+
+			"<div class='formControls col-xs-8 col-sm-9 margin_bottom_five'>"+
+				"<input type='text' class='input-text' placeholder='必须填写 最少填写两个选项...' name='subjectDto["+i+"].options[0]'>"+
 			"</div>"+
 			"<label class='form-label col-xs-4 col-sm-3'>选项 B：</label>"+
-			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+i+"].options[1]'>"+
+			"<div class='formControls col-xs-8 col-sm-9 margin_bottom_five'>"+
+				"<input type='text' class='input-text' placeholder='必须填写 最少填写两个选项...' name='subjectDto["+i+"].options[1]'>"+
 			"</div>"+
 			"<label class='form-label col-xs-4 col-sm-3'>选项 C：</label>"+
-			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+i+"].options[2]'>"+
+			"<div class='formControls col-xs-8 col-sm-9 margin_bottom_five'>"+
+				"<input type='text' class='input-text' placeholder='必须填写 最少填写两个选项...' name='subjectDto["+i+"].options[2]'>"+
 			"</div>"+
 			"<label class='form-label col-xs-4 col-sm-3'>选项 D：</label>"+
-			"<div class='formControls col-xs-8 col-sm-9'>"+
-				"<input type='text' class='input-text' name='subjectDto["+i+"].options[3]'>"+
+			"<div class='formControls col-xs-8 col-sm-9 margin_bottom_five'>"+
+				"<input type='text' class='input-text' placeholder='必须填写 最少填写两个选项...' name='subjectDto["+i+"].options[3]'>"+
 			"</div>"+
-			"<sapn data-error='subjectDto["+i+"].options'></sapn>"+
+			"<span class='c-red error_red_center' data-error='subjectDto["+i+"].options'></span>"+
+			"<div class='margin_bottom_five'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>正确答案：</label>"+
 			"<div class='formControls col-xs-8 col-sm-9 skin-minimal'>"+
 				"<div class='radio-box'>"+
@@ -272,8 +279,8 @@ $(document).ready(function(){
 					"<input name='subjectDto["+i+"].rightKey' type='radio' id='D"+i+"' value='D' disabled>"+
 					"<label for='sex-1'>D</label>"+
 				"</div>"+
-				"<sapn data-error='subjectDto["+i+"].rightKey'></sapn>"+
-			"</div>"+
+				"<span class='c-red' data-error='subjectDto["+i+"].rightKey'></span>"+
+			"</div>"+"</div>"+
 		"</div>"+
 		"<div class='row cl' id='determine"+i+"' style='display:none;'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>判断：</label>"+
@@ -284,14 +291,14 @@ $(document).ready(function(){
         		"<option value='正确'>正确</option>"+
         		"<option value='错误'>错误</option>"+
 				"</select>"+
-				"<sapn data-error='subjectDto[0].rightKey'></sapn>"+
 			"</span>"+
+			"<span class='c-red' data-error='subjectDto[0].rightKey'></span>"+
 			"</div>"+
 		"</div>"+
 		"<input class='check' style='display:none;' name='subjectDto["+i+"].options[0]' type='checkbox' value='正确'></input>"+
 		"<input class='check' style='display:none;' name='subjectDto["+i+"].options[1]' type='checkbox' value='错误'></input>");
 		$("[name='subjectDto["+ t +"].options[0]']").bind('input propertychange', function() {
-	    	console.log(document.getElementById("A"+ t +""));
+	    	//console.log(document.getElementById("A"+ t +""));
 	    	document.getElementById("A"+ t +"").disabled=false;
 	    });
 	    $("[name='subjectDto["+ t +"].options[1]']").bind('input propertychange', function() {
@@ -323,6 +330,11 @@ $(document).ready(function(){
 	        	document.getElementById("D"+ t +"").disabled=true;
 	        }  
 	    });
+	    $('.skin-minimal input').iCheck({
+			checkboxClass: 'icheckbox-blue',
+			radioClass: 'iradio-blue',
+			increaseArea: '20%'
+		});	    
 	});
 });
 </script>

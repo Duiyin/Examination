@@ -82,10 +82,13 @@ $(document).on("click", "[name='submit_add']", function() {
              	 window.location.href = "/";
              },1000); 
         } else {
+        	$("[data-error^='subjectDto']").html("");
             $.each(json, function(i, val) {
             	if (i != "result") {
                     if ($("[data-error='" + i + "']").length)
                         $("[data-error='" + i + "']").html(val);
+                    else 
+                    	$("[data-error^='" + i + "']").html(val);
                 }
             });
         }

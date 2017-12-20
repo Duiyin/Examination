@@ -120,7 +120,7 @@ public class Subject {
 
 	public void setQuestion_tag(String question_tag) {
 		this.question_tag = question_tag;
-		String[] tag_list = question_tag.split(",| |，");
+		String[] tag_list = question_tag.split(",| |，|.|。");
 		this.tag_json = JSON.toJSONString(tag_list);
 	}
 
