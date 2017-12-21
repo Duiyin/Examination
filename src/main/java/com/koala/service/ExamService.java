@@ -44,6 +44,13 @@ public class ExamService {
 			throw e;
 		}
 	}
+	public MyPage<Exam> findExam(int page, int pagesize, String keyword) {
+		try {
+			return examDao.findExam(page, pagesize, keyword);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 
 	/**
 	 * 用戶完成試卷答案列表 *

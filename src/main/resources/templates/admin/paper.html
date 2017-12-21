@@ -1,1 +1,91 @@
-�������Ծ�����
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/amazeui.min.css}" />
+<title>试卷列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 试卷管理 <span class="c-gray en">&gt;</span> 试卷列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<a class="btn btn-primary radius" onclick="exam_add('随机抽取试题','/paper/add/','','510')"><i class="Hui-iconfont">&#xe600;</i> 随机抽取试题</a></span>
+		<span class="r">共有数据：<strong>[[${exam.totalcount}]]</strong> 条</span> 
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+			<thead>
+				<tr class="text-c">
+					<th width="120">试卷名字</th>
+					<th width="120">所属分类</th>
+					<th width="120">更新时间</th>
+					<th width="80">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<div th:each="exam,row: ${exam.items}">
+				<tr class="text-c">
+					<td th:text="${exam.papername}"></td>
+					<td th:text="${#dates.format(exam.ctime, 'yyyy-MM-dd')}"></td>
+					<td class="f-14 td-manage">
+					<!-- <a style="text-decoration:none" class="ml-5" th:onClick="'javascript:classify_edit(\'' +编辑分类+ '\',\'' +'/classify/'+${classify?.id}+'/edit/'+ '\',\''+0+'\',\''+510+'\')'" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>  -->
+					<a style="text-decoration:none" class="ml-5" th:onClick="'javascript:exam_del(this,\'' +${exam?.id}+ '\')'" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
+				</tr>
+				</div>
+			</tbody>
+		</table>
+		 <div class="am-margin am-cf">
+        <hr/>
+        <ol class="am-pagination am-fr">
+          <li th:class="${exam?.getPage() le 1} ? am-disabled">
+          <a th:href="|?page=${exam?.getPre()}|" href="?page=1">&laquo;</a>
+          </li>
+          <li th:each="page:${exam?.getPages()}" th:class="${exam?.getPage() == page} ? am-active">
+          <a th:href="|?page=${page}|" href="?page=1">[[${page}]]</a>
+          </li>
+          <li th:class="${exam?.getPage() ge exam?.getPagecount()} ? am-disabled">
+          <a th:href="|?page=${exam?.getNext()}|" href="?page=2">&raquo;</a>
+          </li>
+        </ol>
+      </div>
+	</div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
+
+<script type="text/javascript">
+function exam_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+function exam_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: '/exam/'+id+'/detele',
+			dataType: 'json',
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+				window.location.reload(); //刷新
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script> 
+</body>
+</html>

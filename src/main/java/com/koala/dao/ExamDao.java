@@ -47,6 +47,21 @@ public class ExamDao extends BaseDao<Exam> {
 			throw e;
 		}
 	}
+	public MyPage<Exam> findExam(int page, int pagesize, String keyword){
+		try {
+			DetachedCriteria dc = DetachedCriteria.forClass(Exam.class);
+			dc.addOrder(Order.desc("ctime"));
+			try {
+				if(pagesize <=0){
+					pagesize = 20;
+				}
+			} catch (Exception e) {
+			}
+			return findPageByCriteria(dc, pagesize, page);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	
 	/**
 	 * 保存exam

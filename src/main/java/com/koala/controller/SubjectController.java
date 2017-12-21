@@ -106,6 +106,14 @@ public class SubjectController {
 		model.addAttribute("xzcount", list.get(0).getCount(list, "选择题"));
 		return "random";
 	}
+	@PostMapping("/info/{classifyId}")
+	@ResponseBody
+	public List<Subject> findRandomSubject(@PathVariable String classifyId) {
+		System.err.println(classifyId);
+		List<Subject> list = subjectService.findAppointQuestion(classifyId);
+		System.err.println(list.get(0).getCount(list, "选择题"));
+		return list;
+	}
 
 	/**
 	 * 提交一个 自主选择题目 的表单 *
