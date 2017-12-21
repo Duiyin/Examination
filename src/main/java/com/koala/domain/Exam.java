@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSON;
@@ -26,6 +25,8 @@ public class Exam {
 	private List<String> papers;
 	
 	private String classifyId;
+	
+	private String userid;
 	
 	private Timestamp ctime;
 	
@@ -73,6 +74,14 @@ public class Exam {
 
 	public void setClassifyId(String classifyId) {
 		this.classifyId = classifyId;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public Timestamp getCtime() {

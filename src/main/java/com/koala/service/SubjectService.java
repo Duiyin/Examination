@@ -73,7 +73,7 @@ public class SubjectService {
 		subjectDao.save(subject);
 	}
 
-	public Subject[] random(String classifyId, String[] questionType, RandomDto randomDto) {
+	public Subject[] random(String userid, String classifyId, String[] questionType, RandomDto randomDto) {
 		Subject[] list = subjectDao.random(classifyId, questionType, randomDto);
 		Exam exam = new Exam();
 		List<String> paperids = new ArrayList<String>();
@@ -83,6 +83,7 @@ public class SubjectService {
 		}
 		exam.setPapername(randomDto.getPapername());
 		exam.setPapers(paperids);
+		exam.setUserid(userid);
 		exam.setClassifyId(classifyId);
 		examDao.save(exam);
 		return list;

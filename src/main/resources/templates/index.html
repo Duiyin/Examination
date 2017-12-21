@@ -46,7 +46,7 @@
 <div class="alertbox">
 	<a name="sItem" href="#" class="btn btn-primary">单题测验</a>
 	<a name="sButton" href="#" class="btn btn-primary">试卷测试</a>
-	<a name="pButton" href="#" class="btn btn-primary">随机抽取试题</a>
+	<a name="pButton" href="#" class="btn btn-primary" th:if="${session?.userid} != null">随机抽取试题</a>
 	<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
 </body>

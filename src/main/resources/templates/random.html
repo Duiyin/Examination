@@ -11,7 +11,7 @@
 }
 </style>
 选择你要出的题目类型<br/>
-<form  id="commentForm" action="#" th:name="${classify.id}" th:action="@{'/info/'+ ${classify.id} +'/random/create'}">
+<form  id="commentForm" action="#" th:name="${classify.id}" th:action="@{'/info/'+ ${session?.userid?.id}  + '/' + ${classify.id} +'/random/create'}">
 <div class="abc">
 试卷标题:<input name="papername">
 </div>

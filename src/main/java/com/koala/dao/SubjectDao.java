@@ -4,10 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koala.domain.Classify;
-import com.koala.domain.Exam;
 import com.koala.domain.RandomDto;
 import com.koala.domain.Subject;
 import com.koala.util.MyPage;
@@ -73,15 +70,14 @@ public class SubjectDao extends BaseDao<Subject>{
 		try {
 			List<Subject> list = new ArrayList<>();
 		
-			for(int i=0; i < questionType.length; i++){
-				List<Subject> singal_list = new ArrayList<>();
-				Criteria criteria = getSession().createCriteria(Subject.class);
-				criteria.add(Property.forName("classify.id").eq(classifyId));
-				criteria.add(Property.forName("question_type").eq(questionType[i]));
+			for(int i=0; i < questionType.length; i++){				
+				DetachedCriteria dc = DetachedCriteria.forClass(Subject.class);
+				dc.add(Restrictions.eq("classify.id", classifyId));
+				dc.add(Restrictions.eq("question_type", questionType[i]));
+				Criteria criteria = dc.getExecutableCriteria(getSession());
 				criteria.setMaxResults(Integer.parseInt(randomDto.getNumber()[i]));
 				criteria.add(Restrictions.sqlRestriction("1 = 1  order by rand()"));
-				singal_list = criteria.list();
-				list.addAll(singal_list);
+				list.addAll(criteria.list());
 			}
 			Subject[] personArray = list.toArray((Subject[])Array.newInstance(Subject.class, list .size()));
 			return personArray;

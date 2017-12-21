@@ -116,11 +116,11 @@ public class SubjectController {
 	 * @param papername
 	 * @return
 	 */
-	@PostMapping("/info/{id}/random/create")
+	@PostMapping("/info/{userid}/{classifyId}/random/create")
 	@ResponseBody
-	public Map<String, Object> createrandom(Model model, @PathVariable String id,
+	public Map<String, Object> createrandom(Model model, @PathVariable String userid, @PathVariable String classifyId,
 			@RequestParam("question_type[]") String[] questionType, RandomDto randomDto) {
-		subjectService.random(id, questionType, randomDto);
+		subjectService.random(userid, classifyId, questionType, randomDto);
 		return Result.success();
 	}
 

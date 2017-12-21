@@ -54,15 +54,15 @@
                     <div class="control-group">
                         <div class="controls">
                             <label for="email" class="control-label fa fa-asterisk"></label>
-                            <input id="regCode" type="text" name="regCode" placeholder="输入激活码" tabindex="5" class="form-control input-medium">
+                            <input id="regCode" type="text" name="regCode" placeholder="输入激活码" tabindex="6" class="form-control input-medium">
                             <span class="error" th:if="${#fields.hasErrors('regCode')}" th:errors="*{regCode}">激活码错误</span>
-                            <button class="btn btn-primary" id="getVerifyBtn" type="button">点击获取激活码</button>
+                            <button class="btn btn-primary" id="getVerifyBtn" tabindex="5" type="button">点击获取激活码</button>
                         </div>
                     </div>
                     
                 </div>
-                <div class="form-actions"><a th:href="@{/login}" tabindex="6" class="btn btn-link text-muted">Sign In</a>
-                    <button id="btn_register" type="submit" tabindex="4" class="btn btn-primary">确定注册</button>
+                <div class="form-actions"><a th:href="@{/login}" tabindex="8" class="btn btn-link text-muted">Sign In</a>
+                    <button id="btn_register" type="submit" tabindex="7" class="btn btn-primary">确定注册</button>
                 </div>
             </form>
         </div>
