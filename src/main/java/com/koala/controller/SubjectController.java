@@ -1,5 +1,6 @@
 package com.koala.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -108,11 +109,18 @@ public class SubjectController {
 	}
 	@PostMapping("/info/{classifyId}")
 	@ResponseBody
-	public List<Subject> findRandomSubject(@PathVariable String classifyId) {
+	public int[] findRandomSubject(@PathVariable String classifyId) {
 		System.err.println(classifyId);
 		List<Subject> list = subjectService.findAppointQuestion(classifyId);
+		int xzcount = list.get(0).getCount(list, "选择题");
+		int pdcount = list.get(0).getCount(list, "判断题");
+		//ArrayList<Int> count = new ArrayList();
+		int[] b = new int[2];
+		b[0] = xzcount;
+		b[1] = pdcount;
 		System.err.println(list.get(0).getCount(list, "选择题"));
-		return list;
+		System.err.println(list.get(0).getCount(list, "判断题"));
+		return b;
 	}
 
 	/**

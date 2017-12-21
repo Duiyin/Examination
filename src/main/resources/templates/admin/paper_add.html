@@ -41,14 +41,14 @@
 					<label class=""><input class="check" type="checkbox" value="" name="user-Character-0-0" >
 					选择题</label>
 					<div class="content" style="display:none;">
-						填写此题型<input style="width:50px;" type="text" class="input-text" value="" placeholder="" th:name="name">道
+						填写此题型<input style="width:150px;" type="number"  onkeyup="checkNum(this,this.value)" class="input-text  Qtype" id="" value="" placeholder="" th:name="name">道
 					</div>
 				</div>
 				<div class="box">	
 					<label class=""><input class="check" type="checkbox" value="" name="user-Character-0-0" id="user-Character-0-0">
 					判断题</label>
 					<div class="content" style="display:none;">
-						填写此题型<input style="width:50px;" type="text" class="input-text" value="" placeholder="" th:name="name">道
+						填写此题型<input style="width:150px;" type="number"  onkeyup="checkNum2(this,this.value)" class="input-text Qtype" value="" placeholder="" th:name="name">道
 					</div>
 				</div>
 			</div>
@@ -96,6 +96,24 @@ $(document).on("click", ".check", function() {
 		$(".content").eq(indexs).hide();    //与复选框索引值相同的content隐藏
 	}
 });
+
+function checkNum(n,val) {	
+	if (~~val > $('.Qtype:eq(0)').attr("max")) {
+		$(n).val($('.Qtype:eq(0)').attr("max"));
+	} else if (val < 0) {
+		$(n).val($('.Qtype:eq(0)').attr("max"));
+	}
+}
+
+function checkNum2(n,val) {	
+	if (~~val > $('.Qtype:eq(1)').attr("max")) {
+		$(n).val($('.Qtype:eq(1)').attr("max"));
+	} else if (val < 0) {
+		$(n).val($('.Qtype:eq(1)').attr("max"));
+	} 
+}
+
+
 $(".select").change(function(){
 	//alert($(".select option:selected").attr("value"));
 	$.ajax({
@@ -103,6 +121,11 @@ $(".select").change(function(){
 		url: '/info/'+$(".select option:selected").attr("value"),
 		dataType: 'json',
 		success: function(data){
+			$('.Qtype:eq(0)').attr("placeholder","最多填写"+data[0]+"道");
+			$('.Qtype:eq(1)').attr("placeholder","最多填写"+data[1]+"道");
+			$('.Qtype:eq(0)').attr("max",data[0]);
+			$('.Qtype:eq(1)').attr("max",data[1]);
+			console.log(data);
 		},
 		error:function(data) {
 			console.log(data.msg);
