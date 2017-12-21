@@ -13,6 +13,7 @@ import com.koala.domain.Classify;
 import com.koala.domain.Exam;
 import com.koala.domain.Subject;
 import com.koala.service.ClassifyService;
+import com.koala.service.ExamService;
 import com.koala.service.SubjectService;
 import com.koala.util.MyPage;
 
@@ -23,6 +24,8 @@ public class AdminController {
 	private ClassifyService classifyService;
 	@Autowired
 	private SubjectService subjectService;
+	@Autowired
+	private ExamService examService;
 	
 	@GetMapping("/backstage")
 	public String admin(Model model) {
@@ -72,7 +75,23 @@ public class AdminController {
 	}
 	
 	@GetMapping("/paper")
-	public String paper() {
+	public String paper(Model model,
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(value = "pagesize", defaultValue = "5", required = false) int pagesize,
+			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+		MyPage<Exam> exam = examService.findExam(page, pagesize, keyword);
+		model.addAttribute("exam", exam);
 		return "admin/paper";
+	}
+	
+	@GetMapping("/paper/add")
+	public String paper_add(Model model) {
+		List<Classify> classify = classifyService.findAllClassify();
+		model.addAttribute("classify", classify);
+		return "admin/paper_add";
+	}
+	@GetMapping("/abc")
+	public String abc(Model model) {
+		return "random";
 	}
 }
