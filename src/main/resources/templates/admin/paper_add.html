@@ -16,17 +16,17 @@
 </head>
 <body>
 <article class="page-container">
-	<form th:action="@{/classify/create}" class="form form-horizontal">
+	<form id="commentForm" class="form form-horizontal">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">试卷名：</label>
+			<label class="form-label col-xs-4 col-sm-3" >试卷名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" th:name="name">
+				<input type="text" class="input-text" id="name" name="papername">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">所选分类：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" th:name="classify">
+				<select class="select" name="classify">
 					<option value="">选择分类</option>
 					<span th:each="classify : ${classify}">
 	        		<option th:each="son : ${classify?.classifys}" th:value="${son.id}" th:text="${son.name}"></option>
@@ -34,25 +34,28 @@
 				</select>
 				</span> </div>
 		</div>
-		<div class="row cl show">
+		<div class="row cl show" style="display:none;">
 			<label class="form-label col-xs-4 col-sm-3">选择题目类型：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="box">	
-					<label class=""><input class="check" type="checkbox" value="" name="user-Character-0-0" >
+					<label class=""><input class="check" type="checkbox" value="选择题" name="question_type[]" >
 					选择题</label>
 					<div class="content" style="display:none;">
-						填写此题型<input style="width:150px;" type="number"  onkeyup="checkNum(this,this.value)" class="input-text  Qtype" id="" value="" placeholder="" th:name="name">道
+						填写此题型<input style="width:150px;" type="number" onkeyup="checkNum(this,this.value)" class="input-text Qtype" name="number[]">道
+						<div data-error="number[]"></div>
 					</div>
 				</div>
 				<div class="box">	
-					<label class=""><input class="check" type="checkbox" value="" name="user-Character-0-0" id="user-Character-0-0">
+					<label class=""><input class="check" type="checkbox" value="判断题" name="question_type[]" >
 					判断题</label>
 					<div class="content" style="display:none;">
-						填写此题型<input style="width:150px;" type="number"  onkeyup="checkNum2(this,this.value)" class="input-text Qtype" value="" placeholder="" th:name="name">道
+						填写此题型<input style="width:150px;" type="number"  onkeyup="checkNum2(this,this.value)" class="input-text Qtype" name="number[]">道
+						<div data-error="number[]"></div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<p id="userid" th:title="${session?.userid?.id}" style="display:none;"></p>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<button class="btn btn-primary radius" name="submit_add" type="button"> 提交</button>
@@ -64,10 +67,20 @@
 <script type="text/javascript" th:src="@{/js/layer.js}"></script>
 <script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/messages_zh.js}"></script>
 <script type="text/javascript">
 $(document).on("click", "[name='submit_add']", function() {
-    var form = $(this).parents("form");
-    $.post(form.attr("action"),  form.serialize(), function(json) {
+	var flag = $("#commentForm").valid();
+	   if(!flag){
+	       //没有通过验证
+	       return;
+	   }
+	var userid = document.getElementById("userid").title;
+	var classify =  $(".select option:selected").attr("value");
+	var form = $(this).parents("form");
+	var url = "/info/"+userid+"/"+classify+"/random/create";
+    $.post(url, form.serialize(), function(json) {
     	console.log(json.result); 
         if (json.result == "success") {
         	console.log(json);
@@ -83,8 +96,22 @@ $(document).on("click", "[name='submit_add']", function() {
                 }
             });
         }
-    }, "json");
+    }, "json");  
 });
+$(function() {
+   $("#commentForm").validate({
+   	rules:{
+   		papername : "required",
+   		classify : "required",
+   		"question_type[]" : "required"
+   	},
+   	messages : {
+   		papername : "请输入您的试卷名字", 
+   		classify : "请选择您的分类",
+   	    "question_type[]" : "最少选择一项"
+   	}
+   });
+}); 
 var indexs=0;
 $(document).on("click", ".check", function() {
 	if($(this).prop("checked")){    //如果当前的复选框是选中状态
@@ -115,22 +142,25 @@ function checkNum2(n,val) {
 
 
 $(".select").change(function(){
-	//alert($(".select option:selected").attr("value"));
-	$.ajax({
-		type: 'POST',
-		url: '/info/'+$(".select option:selected").attr("value"),
-		dataType: 'json',
-		success: function(data){
-			$('.Qtype:eq(0)').attr("placeholder","最多填写"+data[0]+"道");
-			$('.Qtype:eq(1)').attr("placeholder","最多填写"+data[1]+"道");
-			$('.Qtype:eq(0)').attr("max",data[0]);
-			$('.Qtype:eq(1)').attr("max",data[1]);
-			console.log(data);
-		},
-		error:function(data) {
-			console.log(data.msg);
-		},
-	});		
+	if(0 != $(".select option:selected").attr("value")){
+		 $(".show").show();
+		 $.ajax({
+			type: 'POST',
+			url: '/info/'+$(".select option:selected").attr("value"),
+			dataType: 'json',
+			success: function(data){
+				$('.Qtype:eq(0)').attr("placeholder","最多填写"+data[0]+"道");
+				$('.Qtype:eq(1)').attr("placeholder","最多填写"+data[1]+"道");
+				$('.Qtype:eq(0)').attr("max",data[0]);
+				$('.Qtype:eq(1)').attr("max",data[1]);
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});	
+	}else if(0 == $(".select option:selected").attr("value")){
+		$(".show").hide();
+	}
 });
 </script>
 </body>

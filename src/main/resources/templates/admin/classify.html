@@ -68,7 +68,7 @@ function classify_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/classify/'+id+'/detele',
+			url: '/classify/'+id+'/delete',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

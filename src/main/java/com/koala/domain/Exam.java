@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSON;
@@ -24,7 +25,8 @@ public class Exam {
 	@Transient
 	private List<String> papers;
 	
-	private String classifyId;
+	@ManyToOne
+	private Classify classify;
 	
 	private String userid;
 	
@@ -67,15 +69,15 @@ public class Exam {
 		this.papers = papers;
 		this.paper_json = JSON.toJSONString(papers);
 	}
-
-	public String getClassifyId() {
-		return classifyId;
+	
+	public Classify getClassify() {
+		return classify;
 	}
 
-	public void setClassifyId(String classifyId) {
-		this.classifyId = classifyId;
+	public void setClassify(Classify classify) {
+		this.classify = classify;
 	}
-
+	
 	public String getUserid() {
 		return userid;
 	}

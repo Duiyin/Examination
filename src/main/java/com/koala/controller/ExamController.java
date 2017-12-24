@@ -146,10 +146,9 @@ public class ExamController {
 	 * @param id
 	 * @return
 	 */
-	@PostMapping("/info/{classifyid}/exam/delete")
+	@PostMapping("/exam/{id}/delete")
 	@ResponseBody
 	public Map<String, Object> delete(@PathVariable String id) {
-		// Map<String, Object> map = new HashMap<String, Object>();
 		examService.delete(id);
 		return Result.success();
 	}
