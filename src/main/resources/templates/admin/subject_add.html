@@ -116,7 +116,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<button class="btn btn-primary radius" name="submit_new" type="button" style="display:none;">删除上一道</button>
+				<button class="btn btn-primary radius" name="submit_del" type="button" style="display:none;">删除上一道</button>
 				<button class="btn btn-primary radius" name="submit_new" type="button">增加下一道</button>
 				<button class="btn btn-primary radius" name="submit_add" type="button">提交</button>
 			</div>
@@ -214,10 +214,19 @@ $(document).on("change",".questions",function(){
     }  
 });
 $(document).ready(function(){
+	
+	$("[name='submit_del']").click(function(){
+		$(".all"+i+"").remove();
+		i--;
+		if(i==0){
+			$("[name='submit_del']").hide();
+		}
+	});
 	$("[name='submit_new']").click(function(){
 		i++;
 		var t = i;
-		$(".all").append("<br><div class='row cl'>"+
+		$("[name='submit_del']").show();
+		$(".all").append("<div class='all"+i+"'><br><div class='row cl'>"+
 			"<label class='form-label col-xs-4 col-sm-3'>题目内容：</label>"+
 			"<div class='formControls col-xs-8 col-sm-9'>"+
 				"<input type='text' class='input-text' placeholder='此处填写题目信息  注意不能为空...' name='subjectDto["+ i +"].question'>"+
@@ -297,7 +306,7 @@ $(document).ready(function(){
 			"</div>"+
 		"</div>"+
 		"<input class='check' style='display:none;' name='subjectDto["+i+"].options[0]' type='checkbox' value='正确'></input>"+
-		"<input class='check' style='display:none;' name='subjectDto["+i+"].options[1]' type='checkbox' value='错误'></input>");
+		"<input class='check' style='display:none;' name='subjectDto["+i+"].options[1]' type='checkbox' value='错误'></input></div>");
 		$("[name='subjectDto["+ t +"].options[0]']").bind('input propertychange', function() {
 	    	//console.log(document.getElementById("A"+ t +""));
 	    	document.getElementById("A"+ t +"").disabled=false;
