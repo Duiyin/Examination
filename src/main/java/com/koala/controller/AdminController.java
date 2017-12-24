@@ -90,8 +90,16 @@ public class AdminController {
 		model.addAttribute("classify", classify);
 		return "admin/paper_add";
 	}
+	
 	@GetMapping("/abc")
 	public String abc(Model model) {
 		return "random";
+	}
+	
+	@GetMapping("/update/subject/{subjectId}")
+	public String subject_update(@PathVariable String subjectId, Model model) {
+		Subject subject = subjectService.findQuestionById(subjectId);
+		model.addAttribute("subject",subject);
+		return "admin/subject_edit";
 	}
 }
