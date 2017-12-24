@@ -153,10 +153,11 @@ public class SubjectController {
 		return Result.success();
 	}
 
-	@PostMapping("/onlineExam/subject/{id}/update")
-	public String updateBySubject(SubjectDto subjectDto, @PathVariable String id) {
-		subjectService.update(subjectDto, id);
-		return "start";
+	@PostMapping("/subject/{subjectId}/update")
+	@ResponseBody
+	public Map<String, Object> updateBySubject(SubjectDto subjectDto, @PathVariable String subjectId) {
+		subjectService.update(subjectDto, subjectId);
+		return Result.success();
 	}
 
 	/**

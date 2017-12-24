@@ -48,9 +48,9 @@ public class AdminController {
 		return "admin/classify_add";
 	}
 
-	@GetMapping("/classify/{id}/edit")
-	public String classify_edit(@PathVariable String id, Model model) {
-		Classify classify = classifyService.findClassifyById(id);
+	@GetMapping("/classify/{classifyid}/edit")
+	public String classify_edit(@PathVariable String classifyid, Model model) {
+		Classify classify = classifyService.findClassifyById(classifyid);
 		List<Classify> allclassify = classifyService.findAllClassify();
 		model.addAttribute("classify", classify);
 		model.addAttribute("allclassify", allclassify);
@@ -74,6 +74,15 @@ public class AdminController {
 		return "admin/subject_add";
 	}
 	
+	@GetMapping("/subject/{classifyId}/{subjectId}/edit")
+	public String subject_edit(@PathVariable String subjectId, @PathVariable String classifyId, Model model) {
+		Subject subject = subjectService.findQuestionById(subjectId);
+		List<Classify> classify = classifyService.findAllClassify();
+		model.addAttribute("subject",subject);
+		model.addAttribute("classify",classify);
+		return "admin/subject_edit";
+	}
+	
 	@GetMapping("/paper")
 	public String paper(Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
@@ -94,12 +103,5 @@ public class AdminController {
 	@GetMapping("/abc")
 	public String abc(Model model) {
 		return "random";
-	}
-	
-	@GetMapping("/update/subject/{subjectId}")
-	public String subject_update(@PathVariable String subjectId, Model model) {
-		Subject subject = subjectService.findQuestionById(subjectId);
-		model.addAttribute("subject",subject);
-		return "admin/subject_edit";
 	}
 }

@@ -41,7 +41,7 @@ public class ClassifyDao extends BaseDao<Classify> {
 		Criteria criteria = dc.getExecutableCriteria(getSession());
 		return criteria.list();
 	}
-
+	
 	/**
 	 * 查询整表数据 *
 	 * 

@@ -89,21 +89,18 @@ public class ClassifyService {
 	}
 
 	/**
-	 * 删除 *
-	 * 判断删除的是否为主分类
-	 * 如果是 同时查询所属子分类 全部删除
-	 * 如果否 不影响
+	 * 删除 * 判断删除的是否为主分类 如果是 同时查询所属子分类 全部删除 如果否 不影响
 	 * 
 	 * @param classifyId
 	 * @return
 	 */
 	public Classify delete(String classifyId) {
 		Classify classify = classifyDao.findClassifyById(classifyId);
-		if(StringUtils.isNotEmpty(classify.getParentid())){
+		if (StringUtils.isNotEmpty(classify.getParentid())) {
 			classifyDao.delete(classify);
-		}else {
+		} else {
 			List<Classify> list = classifyDao.findSubClassify(classify.getId());
-			for(int i=0;i<list.size(); i++){
+			for (int i = 0; i < list.size(); i++) {
 				classifyDao.delete(list.get(i));
 			}
 			classifyDao.delete(classify);

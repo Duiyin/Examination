@@ -107,9 +107,9 @@
 			<div class="formControls col-xs-8 col-sm-9">
 			<span class="select-box" style="width:150px;">
 				<select class="select" name="classify">
-				<span th:each="classify : ${classify}">
-        		<option th:each="son : ${classify?.classifys}" th:value="${son.id}" th:text="${son.name}"></option>
-				</span>
+					<span th:each="classify : ${classify}">
+	        			<option th:each="son : ${classify?.classifys}" th:value="${son.id}" th:text="${son.name}"></option>
+					</span>
 				</select>
 			</span>
 			</div>
