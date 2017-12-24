@@ -75,7 +75,7 @@ public class User {
 		
 	//初始化账户
 	public void init(){
-		this.setId("4oBGXsU9b@%zlxbUK1y5MsTtXpYq6H9g");
+		this.setId("4oBGXsU9bzlxbUK1y5MsTtXpYq6H9g");
 		this.setAccount("Koala");
 		this.setPassword("koala123456");
 		this.setRole("FOREVER");

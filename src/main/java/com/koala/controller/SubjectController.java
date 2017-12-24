@@ -134,9 +134,9 @@ public class SubjectController {
 	 */
 	@PostMapping("/info/{userid}/{classifyId}/random/create")
 	@ResponseBody
-	public Map<String, Object> createrandom(Model model, @PathVariable String userid, @PathVariable String classifyId,
-			@RequestParam("question_type[]") String[] questionType, RandomDto randomDto) {
-		subjectService.random(userid, classifyId, questionType, randomDto);
+	public Map<String, Object> createrandom(@PathVariable String userid, @PathVariable String classifyId,
+			@RequestParam("question_type[]") String[] questionType, @RequestParam("number[]") String[] number, @RequestParam("papername") String papername) {
+		subjectService.random(userid, classifyId, questionType, number, papername);
 		return Result.success();
 	}
 
@@ -146,10 +146,10 @@ public class SubjectController {
 	 * @param id
 	 * @return
 	 */
-	@PostMapping("/subject/{id}/detele")
+	@PostMapping("/subject/{id}/delete")
 	@ResponseBody
-	public Map<String, Object> deteleQuestion(@PathVariable String id){
-		subjectService.detele(id);
+	public Map<String, Object> deleteQuestion(@PathVariable String id){
+		subjectService.delete(id);
 		return Result.success();
 	}
 

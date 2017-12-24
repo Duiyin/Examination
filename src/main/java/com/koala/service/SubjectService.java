@@ -73,18 +73,19 @@ public class SubjectService {
 		subjectDao.save(subject);
 	}
 
-	public Subject[] random(String userid, String classifyId, String[] questionType, RandomDto randomDto) {
-		Subject[] list = subjectDao.random(classifyId, questionType, randomDto);
+	public Subject[] random(String userid, String classifyId, String[] questionType,String[] number,String papername) {
+		Subject[] list = subjectDao.random(classifyId, questionType, number,papername);
 		Exam exam = new Exam();
+		Classify classify = subjectDao.findClassifyById(classifyId);
 		List<String> paperids = new ArrayList<String>();
 		for (Subject subject : list) {
 			String paperid = subject.getId();
 			paperids.add(paperid);
 		}
-		exam.setPapername(randomDto.getPapername());
+		exam.setPapername(papername);
 		exam.setPapers(paperids);
 		exam.setUserid(userid);
-		exam.setClassifyId(classifyId);
+		exam.setClassify(classify);
 		examDao.save(exam);
 		return list;
 	}
@@ -114,8 +115,8 @@ public class SubjectService {
 	 * 
 	 * @param subjectId
 	 */
-	public void detele(String subjectId) {
-		subjectDao.detele(subjectId);
+	public void delete(String subjectId) {
+		subjectDao.delete(subjectId);
 	}
 
 	public void update(SubjectDto subjectDto, String id) {

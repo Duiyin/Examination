@@ -65,7 +65,7 @@ public class SubjectDao extends BaseDao<Subject>{
 		getSession().save(subject);
 	}
 	
-	public Subject[] random(String classifyId, String[] questionType, RandomDto randomDto){
+	public Subject[] random(String classifyId, String[] questionType, String[] number,String papername){
 		log.debug("rendom subject");
 		try {
 			List<Subject> list = new ArrayList<>();
@@ -75,7 +75,7 @@ public class SubjectDao extends BaseDao<Subject>{
 				dc.add(Restrictions.eq("classify.id", classifyId));
 				dc.add(Restrictions.eq("question_type", questionType[i]));
 				Criteria criteria = dc.getExecutableCriteria(getSession());
-				criteria.setMaxResults(Integer.parseInt(randomDto.getNumber()[i]));
+				criteria.setMaxResults(Integer.parseInt(number[i]));
 				criteria.add(Restrictions.sqlRestriction("1 = 1  order by rand()"));
 				list.addAll(criteria.list());
 			}
@@ -102,7 +102,7 @@ public class SubjectDao extends BaseDao<Subject>{
 	 * 题目删除 *
 	 * @param subjectId
 	 */
-	public void detele(String subjectId){
+	public void delete(String subjectId){
 		Subject subject = findQuestionById(subjectId);
 		getSession().delete(subject);
 	}

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koala.domain.Exam;
+import com.koala.domain.Subject;
 import com.koala.util.MyPage;
 
 
@@ -77,9 +78,8 @@ public class ExamDao extends BaseDao<Exam> {
 	 */
 	public void delete(String id) {
 		try {
-			String sql = "delete from exam where id:id";
-			Query<?> query = getSession().createNativeQuery(sql).setParameter("id", id);
-			query.executeUpdate();
+			Exam exam = findExamById(id);
+			getSession().delete(exam);
 		} catch (Exception e) {
 		}
 	}

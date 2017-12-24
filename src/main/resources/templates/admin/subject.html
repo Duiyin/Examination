@@ -87,7 +87,7 @@ function subject_del(obj,id){
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/subject/'+id+'/detele',
+			url: '/subject/'+id+'/delete',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

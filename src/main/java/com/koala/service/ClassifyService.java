@@ -97,16 +97,16 @@ public class ClassifyService {
 	 * @param classifyId
 	 * @return
 	 */
-	public Classify detele(String classifyId) {
+	public Classify delete(String classifyId) {
 		Classify classify = classifyDao.findClassifyById(classifyId);
 		if(StringUtils.isNotEmpty(classify.getParentid())){
-			classifyDao.detele(classify);
+			classifyDao.delete(classify);
 		}else {
 			List<Classify> list = classifyDao.findSubClassify(classify.getId());
 			for(int i=0;i<list.size(); i++){
-				classifyDao.detele(list.get(i));
+				classifyDao.delete(list.get(i));
 			}
-			classifyDao.detele(classify);
+			classifyDao.delete(classify);
 		}
 		return classify;
 	}
