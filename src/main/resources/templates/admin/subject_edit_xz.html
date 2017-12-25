@@ -59,8 +59,8 @@
 				</div>
 				<label class="form-label col-xs-4 col-sm-3">选项 D：</label>
 				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
-					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>=2" name="options[3]">
-					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>3" th:value="${D}" name="options[2]">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}==3" name="options[3]">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>3" th:value="${D}" name="options[3]">
 				</div>
 				<span class="c-red error_red_center" data-error="options"></span>
 				<div class="margin_bottom_five">

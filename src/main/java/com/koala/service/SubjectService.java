@@ -63,7 +63,6 @@ public class SubjectService {
 		}
 		// 标签为空保存无标签信息
 		if (null == subjectDto.getQuestion_tag()) {
-			System.err.println("dsa");
 			subjectDto.setQuestion_tag("无标签信息!");
 		}
 
@@ -137,7 +136,6 @@ public class SubjectService {
 		}
 		// 标签为空保存无标签信息
 		if (null == subjectDto.getQuestion_tag()) {
-			System.err.println("dsa");
 			subjectDto.setQuestion_tag("无标签信息!");
 		}
 		BeanUtils.copyProperties(subjectDto, subject, Subject.class);

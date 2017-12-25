@@ -89,7 +89,9 @@ public class AdminController {
 			model.addAttribute("B", subject.getOptions().get(1).split("\\: ")[1]);
 			if(subject.getOptions().size()>2){
 				model.addAttribute("C", subject.getOptions().get(2).split("\\: ")[1]);
-			}else if(subject.getOptions().size()>=2){
+			}
+			if(subject.getOptions().size()>3){
+				model.addAttribute("C", subject.getOptions().get(2).split("\\: ")[1]);
 				model.addAttribute("D", subject.getOptions().get(3).split("\\: ")[1]);
 			}
 			return "admin/subject_edit_xz";

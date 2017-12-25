@@ -107,6 +107,7 @@ public class SubjectController {
 		model.addAttribute("xzcount", list.get(0).getCount(list, "选择题"));
 		return "random";
 	}
+	
 	@PostMapping("/info/{classifyId}")
 	@ResponseBody
 	public int[] findRandomSubject(@PathVariable String classifyId) {
