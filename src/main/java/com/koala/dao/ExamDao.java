@@ -31,9 +31,9 @@ public class ExamDao extends BaseDao<Exam> {
 	public MyPage<Exam> findAll(String classifyId, int page, int pagesize, String keyword){
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(Exam.class);
+			dc.add(Property.forName("classify.id").eq(classifyId));
 			if(StringUtils.isNoneBlank(keyword)){
 				Disjunction dis = Restrictions.disjunction();
-				dc.add(Property.forName("classify.id").eq(classifyId));
 				dis.add(Property.forName("papername").like(keyword, MatchMode.ANYWHERE));
 			}
 			dc.addOrder(Order.desc("ctime"));
