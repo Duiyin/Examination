@@ -13,7 +13,6 @@ import com.koala.dao.ExamDao;
 import com.koala.dao.SubjectDao;
 import com.koala.domain.Classify;
 import com.koala.domain.Exam;
-import com.koala.domain.RandomDto;
 import com.koala.domain.Subject;
 import com.koala.domain.SubjectDto;
 import com.koala.util.MyPage;

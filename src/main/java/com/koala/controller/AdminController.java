@@ -48,9 +48,9 @@ public class AdminController {
 		return "admin/classify_add";
 	}
 
-	@GetMapping("/classify/{id}/edit")
-	public String classify_edit(@PathVariable String id, Model model) {
-		Classify classify = classifyService.findClassifyById(id);
+	@GetMapping("/classify/{classifyid}/edit")
+	public String classify_edit(@PathVariable String classifyid, Model model) {
+		Classify classify = classifyService.findClassifyById(classifyid);
 		List<Classify> allclassify = classifyService.findAllClassify();
 		model.addAttribute("classify", classify);
 		model.addAttribute("allclassify", allclassify);
@@ -97,6 +97,15 @@ public class AdminController {
 		return null;
 	}
 	
+	@GetMapping("/subject/{classifyId}/{subjectId}/edit")
+	public String subject_edit(@PathVariable String subjectId, @PathVariable String classifyId, Model model) {
+		Subject subject = subjectService.findQuestionById(subjectId);
+		List<Classify> classify = classifyService.findAllClassify();
+		model.addAttribute("subject",subject);
+		model.addAttribute("classify",classify);
+		return "admin/subject_edit";
+	}
+	
 	@GetMapping("/paper")
 	public String paper(Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
@@ -113,6 +122,7 @@ public class AdminController {
 		model.addAttribute("classify", classify);
 		return "admin/paper_add";
 	}
+	
 	@GetMapping("/abc")
 	public String abc(Model model) {
 		return "random";
