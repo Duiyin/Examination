@@ -19,7 +19,7 @@ public class GlobalConfiguration extends WebMvcConfigurerAdapter {
 		
 		registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/personal");
 		
-		registry.addInterceptor(new ReceptionInterceptor()).addPathPatterns("/info/{classifyId}/random","/info/{userid}/{classifyId}/random/create");
+		registry.addInterceptor(new ReceptionInterceptor()).addPathPatterns("/info/{classifyId}/random","/info/{userid}/{classifyId}/random/create","/info/{id}/exam","/finish/{userid}/answer","/info/{classifyid}/exam/{id}","/info/{examid}/answer/{id}","/exam/{userid}/answer","/exam/{id}/delete");
 		
 		registry.addInterceptor(new BackstageInterceptor()).addPathPatterns("/backstage");
 		
