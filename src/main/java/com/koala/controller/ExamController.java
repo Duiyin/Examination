@@ -91,7 +91,6 @@ public class ExamController {
 		List<Subject> sublist = new ArrayList<>();
 		for (String paper : exam.getPapers()) {
 			subject = subjectService.findQuestionById(paper);
-			System.err.println(subject.getQuestion());
 			sublist.add(subject);
 		}
 		model.addAttribute("sublist", sublist);
