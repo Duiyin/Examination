@@ -75,7 +75,7 @@ public class ExamService {
 	 * @param answer
 	 * @return
 	 */
-	public String checkExam(String[] questionId, String[] answer, String examid, String examname) {
+	public String checkExam(String userid,String[] questionId, String[] answer, String examid, String examname) {
 		String JsonResult = null;
 		int score = 0;
 		Answer answerdto = new Answer();
@@ -102,6 +102,7 @@ public class ExamService {
 		answerdto.setExam_name(examname);
 		answerdto.setResults(results);
 		answerdto.setScore(score);
+		answerdto.setUserid(userid);
 		answerDao.save(answerdto);
 		return JsonResult;
 	}

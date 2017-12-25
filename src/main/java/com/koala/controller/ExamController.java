@@ -66,7 +66,7 @@ public class ExamController {
 	 * @param keyword
 	 * @return
 	 */
-	@GetMapping("/finish/{userid}/answer/")
+	@GetMapping("/finish/{userid}/answer")
 	public String findAllAnswer(@PathVariable String userid, Model model,
 			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
 			@RequestParam(value = "pagesize", defaultValue = "10", required = false) int pagesize,
@@ -132,11 +132,11 @@ public class ExamController {
 	 * @param answer
 	 * @return
 	 */
-	@PostMapping("/info/{classifyid}/exam/{id}/answer")
+	@PostMapping("/exam/{userid}/answer")
 	@ResponseBody
-	public Map<String, Object> checkexam(@RequestParam("id[]") String[] id, @RequestParam("answer[]") String[] answer,
+	public Map<String, Object> checkexam(@PathVariable String userid, @RequestParam("id[]") String[] questions, @RequestParam("answer[]") String[] answer,
 			String examid, String examname) {
-		String JsonResult = examService.checkExam(id, answer, examid, examname);
+			examService.checkExam(userid,questions, answer, examid, examname);
 		return Result.success();
 	}
 

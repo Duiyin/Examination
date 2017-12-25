@@ -15,8 +15,8 @@
 			<div class="nr_left">
 				<div class="test">
 					<form action="#"
-						th:action="@{'/info/'+ ${classify.id} +'/exam/'+${exam.id}+'/answer/'}"
-						th:id="${exam.id}" th:name="${exam.papername}">
+						th:action="@{'/exam/'+ ${session?.userid?.id}+'/answer'}"
+						th:id="${exam.id}" th:userid="${session?.userid?.id}" th:name="${exam.papername}">
 						<div class="test_title">
 							<p class="test_time">
 								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
@@ -166,6 +166,7 @@
             var url = $(this).parents("form").attr("action");
     		var examid = $(this).parents("form").attr("id");
     		var examname = $(this).parents("form").attr("name");
+    		var userid = $(this).parents("form").attr("userid");
     		var radios = document.getElementsByClassName("radioOrCheck");
     		var formData = new FormData();
     		formData.append("examid", examid);
@@ -196,7 +197,7 @@
     			contentType : false,
     			success : function(json) {
     				setTimeout(function(){
-    	             	 window.location.href = "/info/answer";
+    	             	 window.location.href = "/finish/"+userid+"/answer";
     	             },1000);
     			}
     		});
