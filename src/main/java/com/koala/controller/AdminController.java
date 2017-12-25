@@ -73,6 +73,29 @@ public class AdminController {
 		model.addAttribute("classify", classify);
 		return "admin/subject_add";
 	}
+	@GetMapping("/subject/{id}/edit")
+	public String subject_edit(Model model, @PathVariable String id) {
+		List<Classify> classify = classifyService.findAllClassify();
+		model.addAttribute("classify", classify);
+		Subject subject = subjectService.findQuestionById(id);
+		if(subject.getQuestion_type().equals("判断题")){
+			model.addAttribute("subject", subject);
+			return "admin/subject_edit_pd";
+		}
+		if(subject.getQuestion_type().equals("选择题")){
+			model.addAttribute("subject", subject);
+			model.addAttribute("size", subject.getOptions().size());
+			model.addAttribute("A", subject.getOptions().get(0).split("\\: ")[1]);
+			model.addAttribute("B", subject.getOptions().get(1).split("\\: ")[1]);
+			if(subject.getOptions().size()>2){
+				model.addAttribute("C", subject.getOptions().get(2).split("\\: ")[1]);
+			}else if(subject.getOptions().size()>=2){
+				model.addAttribute("D", subject.getOptions().get(3).split("\\: ")[1]);
+			}
+			return "admin/subject_edit_xz";
+		}
+		return null;
+	}
 	
 	@GetMapping("/paper")
 	public String paper(Model model,

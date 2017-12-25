@@ -64,6 +64,7 @@ public class SubjectService {
 		}
 		// 标签为空保存无标签信息
 		if (null == subjectDto.getQuestion_tag()) {
+			System.err.println("dsa");
 			subjectDto.setQuestion_tag("无标签信息!");
 		}
 
@@ -119,9 +120,30 @@ public class SubjectService {
 		subjectDao.delete(subjectId);
 	}
 
-	public void update(SubjectDto subjectDto, String id) {
+	public void update(SubjectDto subjectDto, String id,String classify) {
 		Subject subject = subjectDao.findQuestionById(id);
+		List<String> list = subjectDto.getOptions();
+		List<String> newGroup = new ArrayList<String>();
+		String[] arr = { "A", "B", "C", "D" };
+		// 如果为选择题给options添加ABCD
+		if (subjectDto.getQuestion_type().equals("选择题")) {
+			for (int i = 0; i < list.size(); i++) {
+				if (!list.get(i).isEmpty()) {
+					newGroup.add(arr[i] + " : " + list.get(i));
+				} else {
+					break;
+				}
+			}
+			subjectDto.setOptions(newGroup);
+		}
+		// 标签为空保存无标签信息
+		if (null == subjectDto.getQuestion_tag()) {
+			System.err.println("dsa");
+			subjectDto.setQuestion_tag("无标签信息!");
+		}
 		BeanUtils.copyProperties(subjectDto, subject, Subject.class);
+		Classify Classify = subjectDao.findClassifyById(classify);
+		subject.setClassify(Classify);
 		subjectDao.update(subject);
 	}
 

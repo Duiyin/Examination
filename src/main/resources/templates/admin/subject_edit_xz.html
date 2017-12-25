@@ -1,0 +1,195 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}" />
+<title>添加试题</title>
+</head>
+<body>
+<article class="page-container">
+	<form th:action="@{'/subject/'+${subject?.id}+'/update'}" class="form form-horizontal">
+		<div class="all">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">题目内容：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="此处填写题目信息  注意不能为空..." th:value="${subject.question}" name="question">
+					<span class="c-red" data-error="question"></span>
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">标签：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" placeholder="关键词请用标点符号隔开..." name="question_tag">
+				</div>
+			</div>
+			<div class="row cl" id="questionTypes">
+				<label class="form-label col-xs-4 col-sm-3">题目类型：</label>
+				<div class="formControls col-xs-8 col-sm-9"> 
+					<span class="select-box">
+						<select class="select questions" name="question_type" data-index="0">
+							<option value="选择题">选择题</option>
+						</select>
+					</span> 
+					<span class="c-red" data-error="question_type"></span>
+				</div>
+			</div>
+			<div class="row cl" id="choose0">
+				<label class="form-label col-xs-4 col-sm-3">选项 A：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:value="${A}" name="options[0]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 B：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:value="${B}" name="options[1]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 C：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}==2" name="options[2]">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>2" th:value="${C}" name="options[2]">
+				</div>
+				<label class="form-label col-xs-4 col-sm-3">选项 D：</label>
+				<div class="formControls col-xs-8 col-sm-9 margin_bottom_five">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>=2" name="options[3]">
+					<input type="text" class="input-text" placeholder="必须填写 最少填写两个选项..." th:if="${size}>3" th:value="${D}" name="options[2]">
+				</div>
+				<span class="c-red error_red_center" data-error="options"></span>
+				<div class="margin_bottom_five">
+					<label class="form-label col-xs-4 col-sm-3">正确答案：</label>
+					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+						<div class="radio-box">
+							<input name="rightKey" type="radio" id="A" value="A" th:if="${subject.rightKey}=='A'" checked>
+							<input name="rightKey" type="radio" id="A" value="A" th:if="${subject.rightKey}!='A'" disabled>
+							<label for="sex-1">A</label>
+						</div>
+						<div class="radio-box">
+							<input name="rightKey" type="radio" id="B" value="B" th:if="${subject.rightKey}=='B'" checked>
+							<input name="rightKey" type="radio" id="B" value="B" th:if="${subject.rightKey}!='B'" disabled>
+							<label for="sex-1">B</label>
+						</div>
+						<div class="radio-box">
+							<input name="rightKey" type="radio" id="C" value="C" th:if="${subject.rightKey}=='C'" checked>
+							<input name="rightKey" type="radio" id="C" value="C" th:if="${subject.rightKey}!='C'" disabled>
+							<label for="sex-1">C</label>
+						</div>
+						<div class="radio-box">
+							<input name="rightKey" type="radio" id="D" value="D" th:if="${subject.rightKey}=='D'"checked>
+							<input name="rightKey" type="radio" id="D" value="D" th:if="${subject.rightKey}!='D'"disabled>
+							<label for="sex-1">D</label>
+						</div>
+						<span class="c-red" data-error="rightKey"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">选择分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<span class="select-box" style="width:150px;">
+				<select class="select" name="classify">
+				<span th:each="classify : ${classify}">
+				<span th:each="son : ${classify?.classifys}">
+				<option th:if="${subject.classify.id}==${son.id}" th:selected="selected" th:value="${son.id}" th:text="${son.name}"></option>
+				<option th:if="${subject.classify.id}!=${son.id}" th:value="${son.id}" th:text="${son.name}"></option>
+				</span>
+				</span>
+				</select>
+			</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button class="btn btn-primary radius" name="submit_update" type="button">提交</button>
+			</div>
+		</div>
+	</form>
+</article>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+});
+function serializeNotNull(serStr){
+    return serStr.split("&").filter(function(str){return !str.endsWith("=")}).join("&");
+}
+$(document).on("click", "[name='submit_update']", function() {
+    var form = $(this).parents("form");
+    $.post(form.attr("action"),  serializeNotNull(form.serialize()), function(json) {
+        if (json.result == "success") {
+         	setTimeout(function(){
+         		window.parent.location.reload();
+             	layer_close();
+            },1000);
+        } else {
+            $.each(json, function(i, val) {
+            	if (i != "result") {
+                    if ($("[data-error='" + i + "']").length)
+                        $("[data-error='" + i + "']").html(val);
+                }
+            });
+        }
+    }, "json");
+});
+if($("[name='options[0]']").val()!=''){
+	document.getElementById("A").disabled=false;
+}
+if($("[name='options[1]']").val()!=''){
+	document.getElementById("B").disabled=false;
+}
+if($("[name='options[2]']").val()!=''){
+	document.getElementById("C").disabled=false;
+}
+if($("[name='options[3]']").val()!=''){
+	document.getElementById("D").disabled=false;
+}
+$("[name='options[0]']").bind('input propertychange', function() {
+	document.getElementById("A").disabled=false;
+});
+$("[name='options[1]']").bind('input propertychange', function() {
+	document.getElementById("B").disabled=false;
+});
+$("[name='options[2]']").bind('input propertychange', function() {
+	document.getElementById("C").disabled=false;
+});
+$("[name='options[3]']").bind('input propertychange', function() {
+	document.getElementById("D").disabled=false;
+});
+$("[name='options[0]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("A").disabled=true;
+    }  
+});
+$("[name='options[1]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("B").disabled=true;
+    }  
+});
+$("[name='options[2]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("C").disabled=true;
+    }  
+});
+$("[name='options[3]']").blur(function () {  
+    if($(this).val()==''){
+    	document.getElementById("D").disabled=true;
+    }  
+});
+</script>
+</body>
+</html>
