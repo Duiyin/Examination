@@ -2,8 +2,10 @@ package com.koala.dao;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
@@ -54,9 +56,15 @@ public class UserDao extends BaseDao<User>{
 	public MyPage<User> findAllUser(int page, int pagesize, String keyword) {
 		DetachedCriteria dc = DetachedCriteria.forClass(User.class);
 		Disjunction dis = Restrictions.disjunction();
-		dis.add(Property.forName("rolename").eq("管理员"));
-		dis.add(Property.forName("rolename").eq("特级用户"));
-		dis.add(Property.forName("rolename").eq("普通用户"));
+		if(StringUtils.isNoneBlank(keyword)){
+			//对试题名字进行模糊查询
+			dis.add(Property.forName("nickname").like(keyword, MatchMode.ANYWHERE));
+			dis.add(Property.forName("rolename").like(keyword, MatchMode.ANYWHERE));
+		} else {
+			dis.add(Property.forName("rolename").eq("管理员"));
+			dis.add(Property.forName("rolename").eq("特级用户"));
+			dis.add(Property.forName("rolename").eq("普通用户"));
+		}
 		dc.add(dis);
 		dc.addOrder(Order.desc("createtime"));
 		try {

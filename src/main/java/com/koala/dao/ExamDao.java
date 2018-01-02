@@ -52,6 +52,12 @@ public class ExamDao extends BaseDao<Exam> {
 	public MyPage<Exam> findExam(int page, int pagesize, String keyword){
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(Exam.class);
+			if(StringUtils.isNoneBlank(keyword)){
+				Disjunction dis = Restrictions.disjunction();
+				//对试题名字进行模糊查询
+				dis.add(Property.forName("papername").like(keyword, MatchMode.ANYWHERE));
+				dc.add(dis);
+			}
 			dc.addOrder(Order.desc("ctime"));
 			try {
 				if(pagesize <=0){
