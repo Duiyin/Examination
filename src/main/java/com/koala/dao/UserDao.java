@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.koala.domain.User;
+import com.koala.util.MyPage;
 
 @Component
 @Transactional
@@ -47,5 +49,22 @@ public class UserDao extends BaseDao<User>{
 	
 	public void update(User user){
 		getSession().update(user);
+	}
+	
+	public MyPage<User> findAllUser(int page, int pagesize, String keyword) {
+		DetachedCriteria dc = DetachedCriteria.forClass(User.class);
+		Disjunction dis = Restrictions.disjunction();
+		dis.add(Property.forName("rolename").eq("管理员"));
+		dis.add(Property.forName("rolename").eq("特级用户"));
+		dis.add(Property.forName("rolename").eq("普通用户"));
+		dc.add(dis);
+		dc.addOrder(Order.desc("createtime"));
+		try {
+			if(pagesize <=0){
+				pagesize = 20;
+			}
+		} catch (Exception e) {
+		}
+		return findPageByCriteria(dc, pagesize, page);
 	}
 }

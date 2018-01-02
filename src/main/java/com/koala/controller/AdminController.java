@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.koala.domain.Classify;
 import com.koala.domain.Exam;
 import com.koala.domain.Subject;
+import com.koala.domain.User;
 import com.koala.service.ClassifyService;
 import com.koala.service.ExamService;
 import com.koala.service.SubjectService;
+import com.koala.service.UserService;
 import com.koala.util.MyPage;
 
 @Controller
@@ -22,10 +24,15 @@ public class AdminController {
 
 	@Autowired
 	private ClassifyService classifyService;
+	
 	@Autowired
 	private SubjectService subjectService;
+	
 	@Autowired
 	private ExamService examService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/backstage")
 	public String admin(Model model) {
@@ -125,8 +132,20 @@ public class AdminController {
 		return "admin/paper_add";
 	}
 	
-	@GetMapping("/abc")
-	public String abc(Model model) {
-		return "random";
+	@GetMapping("/permission")
+	public String permission(Model model,
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(value = "pagesize", defaultValue = "5", required = false) int pagesize,
+			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
+		MyPage<User> user = userService.findAllUser(page, pagesize, keyword);
+		model.addAttribute("list", user);
+		return "admin/permission";
+	}
+	
+	@GetMapping("/user/{userid}/edit")
+	public String userEdit(@PathVariable String userid, Model model) {
+		User user = userService.findById(userid);
+		model.addAttribute("list", user);
+		return "admin/user_edit";
 	}
 }

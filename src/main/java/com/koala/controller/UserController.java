@@ -23,6 +23,7 @@ import com.koala.domain.CFormDto;
 import com.koala.domain.PFormDto;
 import com.koala.domain.User;
 import com.koala.domain.UserDto;
+import com.koala.domain.UserUpdateDto;
 import com.koala.service.UserService;
 import com.koala.util.Result;
 import com.koala.util.ServiceException;
@@ -81,6 +82,13 @@ public class UserController extends KaptchaExtend{
 	public Map<String, Object> cUpdate(@PathVariable String userid, CFormDto cFormDto, HttpSession session){
 		User user = userService.ContactDataUpdate(userid, cFormDto);
 		session.setAttribute("userid", user);
+		return Result.success();
+	}
+	
+	@PostMapping("/user/{userid}/update")
+	@ResponseBody
+	public Map<String, Object> update(@PathVariable String userid, UserUpdateDto userdto){
+		userService.updateUser(userid, userdto);
 		return Result.success();
 	}
 }

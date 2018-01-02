@@ -1,5 +1,7 @@
 package com.koala.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +15,8 @@ import com.koala.domain.CFormDto;
 import com.koala.domain.PFormDto;
 import com.koala.domain.RegisterDto;
 import com.koala.domain.User;
-import com.koala.domain.UserDto;
+import com.koala.domain.UserUpdateDto;
+import com.koala.util.MyPage;
 import com.koala.util.PasswordUtil;
 import com.koala.util.Result;
 import com.koala.util.ServiceException;
@@ -88,4 +91,21 @@ public class UserService {
 		userDao.update(user);
 		return user;
 	} 
+	
+	public MyPage<User> findAllUser(int page, int pagesize, String keyword){
+		return userDao.findAllUser(page,pagesize,keyword);
+	}
+	
+	public User findById(String userid){
+		return userDao.findUserById(userid);
+	}
+	
+	public User updateUser(String userid, UserUpdateDto userdto){
+		User user = userDao.findUserById(userid);
+		System.err.println(userdto.getRolename());
+		user.setNickname(userdto.getNickname());
+		user.setRolename(userdto.getRolename());
+		userDao.update(user);
+		return user;
+	}
 }

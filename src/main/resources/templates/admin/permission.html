@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/iconfont.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/admin/amazeui.min.css}" />
+<title>用户列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 用户列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="r">共有数据：<strong>[[${list.totalcount}]]</strong> 条</span> 
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+			<thead>
+				<tr class="text-c">
+					<th width="120">用户名字</th>
+					<th width="120">用户身份</th>
+					<th width="80">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<div th:each="list,row: ${list.items}">
+				<tr class="text-c">
+					<td th:text="${list.nickname}"></td>
+					<td th:text="${list.rolename}"></td>
+					<td class="f-14 td-manage">
+						<a style="text-decoration:none" class="ml-5" th:onClick="'javascript:user_edit(\'' +身份设置+ '\',\'' +'/user/'+${list?.id}+'/edit/'+ '\',\''+0+'\',\''+600+'\')'" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a>
+					</td>
+				</tr>
+				</div>
+			</tbody>
+		</table>
+	</div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/H-ui.admin.js}"></script>
+
+<script type="text/javascript">
+function user_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+</script> 
+</body>
+</html>
