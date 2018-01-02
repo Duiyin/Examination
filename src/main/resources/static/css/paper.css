@@ -72,6 +72,18 @@
 	background: #5d9cec;
 	color:#fff;
 }
+.jiaojuan{
+	background: #389fc3;
+    border: none;
+    display: block;
+    width: 80px;
+    height: 45px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    float: right;
+}
 
 /*nr_right end*/
 /*nr end*/

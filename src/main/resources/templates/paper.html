@@ -17,12 +17,6 @@
 					<form action="#"
 						th:action="@{'/exam/'+ ${session?.userid?.id}+'/answer'}"
 						th:id="${exam.id}" th:userid="${session?.userid?.id}" th:name="${exam.papername}">
-						<div class="test_title">
-							<p class="test_time">
-								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
-							</p>
-							<font><input type="button" name="test_jiaojuan" value="交卷" /></font>
-						</div>
 						<div th:each="exam,examStat : ${sublist}"
 							th:with="xzcount=${exam.getCount(sublist,'选择题')}">
 							<div class="test_content"
@@ -88,7 +82,11 @@
 
 							</div>
 						</div>
+						<div class="test_content_title">
+							<font><input class="jiaojuan" type="button" name="test_jiaojuan" value="交卷" /></font>
+						</div>
 					</form>
+					
 				</div>
 
 			</div>
@@ -99,9 +97,6 @@
 							<h1>
 								<i class="icon iconfont">&#xe692;</i>答题卡
 							</h1>
-							<p class="test_time">
-								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
-							</p>
 						</div>
 						<div th:each="exam,examStat : ${sublist}"
 							th:with="xzcount=${exam.getCount(sublist,'选择题')}">
@@ -204,20 +199,6 @@
         }else{
             alert('请认真答完所有题目，在交卷！！！')   
         }
-	});
-	window.jQuery(function($) {
-		"use strict";
-
-		$('time').countDown({
-			with_separators : false
-		});
-		$('.alt-1').countDown({
-			css_class : 'countdown-alt-1'
-		});
-		$('.alt-2').countDown({
-			css_class : 'countdown-alt-2'
-		});
-
 	});
 
 	$(function() {

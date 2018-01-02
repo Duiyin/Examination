@@ -35,6 +35,7 @@ public class ExamDao extends BaseDao<Exam> {
 			if(StringUtils.isNoneBlank(keyword)){
 				Disjunction dis = Restrictions.disjunction();
 				dis.add(Property.forName("papername").like(keyword, MatchMode.ANYWHERE));
+				dc.add(dis);
 			}
 			dc.addOrder(Order.desc("ctime"));
 			try {

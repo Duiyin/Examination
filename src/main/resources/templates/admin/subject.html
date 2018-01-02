@@ -19,6 +19,9 @@
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<a class="btn btn-primary radius" onclick="subject_add('添加试题','/subject/add/','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加试题</a></span>
+		<form action="/subject" style="display:inline;">
+		<input type="text" name="keyword" id="" placeholder="试题名称" style="width:250px" class="input-text">
+		</form>
 		<span class="r">共有数据：<strong>[[${subject.totalcount}]]</strong> 条</span> 
 	</div>
 	<div class="mt-20">

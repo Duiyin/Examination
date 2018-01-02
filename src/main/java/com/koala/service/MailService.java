@@ -19,23 +19,6 @@ public class MailService {
 	String smtp_password = "hjf0419";
 
 	public void send(String toEmail, String toName, String fromName, String subject, String htmlbody) {
-
-		/*try {
-			HtmlEmail email = new HtmlEmail();
-			email.setCharset("UTF-8");
-			email.setHostName(smtp_server);
-			email.setAuthentication(smtp_account, smtp_password);
-			email.addTo(toEmail, toName);
-			email.setFrom(smtp_account, fromName);
-			email.setSubject(subject);
-			System.out.println(htmlbody);
-			email.setHtmlMsg(htmlbody);
-			String status = email.send();
-			System.out.println("=======sendmail============="+status+"=================");
-		} catch (EmailException e) {
-			e.printStackTrace();
-		}*/
-
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			public void prepare(MimeMessage mimeMessage) throws Exception {

@@ -71,7 +71,16 @@ public class SubjectService {
 		subject.setClassify(Classify);
 		subjectDao.save(subject);
 	}
-
+	
+	/**
+	 * 对随机抽取完的内容进行序列化并保存到exam表里*
+	 * @param userid
+	 * @param classifyId
+	 * @param questionType
+	 * @param number
+	 * @param papername
+	 * @return
+	 */
 	public Subject[] random(String userid, String classifyId, String[] questionType,String[] number,String papername) {
 		Subject[] list = subjectDao.random(classifyId, questionType, number,papername);
 		Exam exam = new Exam();
@@ -117,7 +126,13 @@ public class SubjectService {
 	public void delete(String subjectId) {
 		subjectDao.delete(subjectId);
 	}
-
+	
+	/**
+	 * 题目修改*
+	 * @param subjectDto
+	 * @param id
+	 * @param classify
+	 */
 	public void update(SubjectDto subjectDto, String id,String classify) {
 		Subject subject = subjectDao.findQuestionById(id);
 		List<String> list = subjectDto.getOptions();
@@ -142,17 +157,6 @@ public class SubjectService {
 		Classify Classify = subjectDao.findClassifyById(classify);
 		subject.setClassify(Classify);
 		subjectDao.update(subject);
-	}
-
-	/**
-	 * 搜索 *
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public List<Subject> keySearch(String key) {
-		List<Subject> searchList = subjectDao.search(key);
-		return searchList;
 	}
 
 	public List<Subject> findAppointQuestion(String classifyId) {

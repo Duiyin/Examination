@@ -70,9 +70,11 @@ public class ExamService {
 
 	/**
 	 * 试卷答案比对 正确返回ture 错误返回正确答案 和 解析
-	 * 
+	 * @param userid
 	 * @param questionId
 	 * @param answer
+	 * @param examid
+	 * @param examname
 	 * @return
 	 */
 	public String checkExam(String userid,String[] questionId, String[] answer, String examid, String examname) {

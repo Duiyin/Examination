@@ -19,6 +19,9 @@
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<a class="btn btn-primary radius" onclick="exam_add('随机抽取试题','/paper/add/','','510')"><i class="Hui-iconfont">&#xe600;</i> 随机抽取试题</a></span>
+		<form action="/paper" style="display:inline;">
+		<input type="text" name="keyword" id="" placeholder="试卷名称" style="width:250px" class="input-text">
+		</form>
 		<span class="r">共有数据：<strong>[[${exam.totalcount}]]</strong> 条</span> 
 	</div>
 	<div class="mt-20">

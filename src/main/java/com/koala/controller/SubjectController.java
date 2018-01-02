@@ -35,13 +35,14 @@ public class SubjectController {
 
 	/**
 	 * 新建一条题目信息 *
-	 * 
-	 * @param subjectDto
+	 * @param subjectDtoList
+	 * @param classify
 	 * @return
 	 */
 	@PostMapping("/subject/create")
 	@ResponseBody
 	public Map<String, Object> create(@Valid SubjectDtoList subjectDtoList, String classify) {
+		//传入一个subjectDtoList的集合，对集合进行序列化
 		for (SubjectDto subjectDto : subjectDtoList.getSubjectDto()) {
 			subjectService.save(subjectDto, classify);
 		}
@@ -161,17 +162,5 @@ public class SubjectController {
 		return Result.success();
 	}
 
-	/**
-	 * 搜索 *
-	 * 
-	 * @param model
-	 * @param key
-	 * @return
-	 */
-	@GetMapping("/start/search/{key}")
-	public String keySearch(Model model, @PathVariable String key) {
-		List<Subject> searchList = subjectService.keySearch(key);
-		model.addAttribute("searchList", searchList);
-		return "search";
-	}
+	
 }

@@ -4,8 +4,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
@@ -23,9 +25,22 @@ import com.koala.util.MyPage;
 @Transactional
 public class SubjectDao extends BaseDao<Subject>{
 	
+	/**
+	 * 试题列表显示 
+	 * @param page
+	 * @param pagesize
+	 * @param keyword
+	 * @return
+	 */
 	public MyPage<Subject> findAll(int page, int pagesize, String keyword){
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(Subject.class);
+			if(StringUtils.isNoneBlank(keyword)){
+				Disjunction dis = Restrictions.disjunction();
+				//对试题名字进行模糊查询
+				dis.add(Property.forName("question").like(keyword, MatchMode.ANYWHERE));
+				dc.add(dis);
+			}
 			dc.addOrder(Order.desc("newstime"));
 			try {
 				if(pagesize <=0){
@@ -65,6 +80,14 @@ public class SubjectDao extends BaseDao<Subject>{
 		getSession().save(subject);
 	}
 	
+	/**
+	 * 对提交过来的值进行随机抽取*
+	 * @param classifyId
+	 * @param questionType
+	 * @param number
+	 * @param papername
+	 * @return
+	 */
 	public Subject[] random(String classifyId, String[] questionType, String[] number,String papername){
 		log.debug("rendom subject");
 		try {
@@ -118,16 +141,5 @@ public class SubjectDao extends BaseDao<Subject>{
 		return criteria.list();
 	}
 
-	/**
-	 * 搜索 *
-	 * @param key
-	 * @return
-	 */
-	public List<Subject> search(String key){
-		DetachedCriteria dc = DetachedCriteria.forClass(Subject.class);
-		dc.add(Property.forName("subject_json").like(key,MatchMode.ANYWHERE));
-		dc.addOrder(Order.desc("newstime"));
-		Criteria criteria = dc.getExecutableCriteria(getSession());
-		return criteria.list();
-	}
+	
 }
